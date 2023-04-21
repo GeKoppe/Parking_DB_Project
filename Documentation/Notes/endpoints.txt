@@ -1,0 +1,17 @@
+/parker
+    get: Alle Parker
+    post: Neuer Parker (gibt lot_id und parker_id zurück)
+
+/parker/{parker_id}
+    get: einzelnen Parker ()
+    delete: Ausfahrt
+
+/parking-lots
+    get: alle Parkplätze
+    
+
+/parking-lots/{lot_id}
+    get: einzelner Parkplatz (belegung, parker-id)
+
+/usage
+    get: Belegte Parkplätze (Insgesamt + Anahl Dauerparker)
