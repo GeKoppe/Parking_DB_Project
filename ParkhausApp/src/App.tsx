@@ -6,6 +6,9 @@ import Navbar from './Components/NavBar';
 
 function App() {
   const [currentMenu, setCurrentMenu] = useState('MainMenu');
+  let totalUsage = 0;
+
+  const updateUsage = (usage: number) => totalUsage = usage;
 
   const clickHandler = (site: string) => {
     site === 'home' ? setCurrentMenu('MainMenu') : setCurrentMenu('Administration');
@@ -14,7 +17,7 @@ function App() {
   return (
     <>
       <Navbar clickHandler={clickHandler}/>
-      {currentMenu == 'MainMenu' ? <MainMenu/> : (currentMenu == 'Administration' ? <Administration/> : <h5>Hello World</h5>)}
+      {currentMenu == 'MainMenu' ? <MainMenu parentUsageHolder={updateUsage}/> : (currentMenu == 'Administration' ? <Administration totalUsage={totalUsage}/> : <h5>Hello World</h5>)}
     </>
   )
 }
