@@ -31,9 +31,6 @@ function MainMenu() {
 
     return (
         <>
-            <div style={{width: "50%", textAlign: "center"}}>
-                <h1>Parkhaus Osnabrück</h1>
-            </div>
             <div className="menuContainer" style={{width: "100%"}}>
                 <div className='mainSide'>
                     <DriveInCard buttonClickHandler={driveInClickHandler} licPlateClassName={licClass} changeListener={licChangeListener}/>
