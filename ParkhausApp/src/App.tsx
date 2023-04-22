@@ -1,12 +1,19 @@
 import { useState } from 'react'
 import 'bootstrap/dist/css/bootstrap.css'
 import MainMenu from './Components/MainMenu/MainMenu'
+import Administration from './Components/Administration/Administration';
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [currentMenu, setCurrentMenu] = useState('MainMenu');
+
+  const clickHandler = () => {
+    currentMenu === 'Administration' ? setCurrentMenu('MainMenu') : setCurrentMenu('Administration');
+  }
 
   return (
-    <MainMenu/>
+    <>
+      {currentMenu == 'MainMenu' ? <MainMenu/> : (currentMenu == 'Administration' ? <Administration/> : <h5>Hello World</h5>)}
+    </>
   )
 }
 

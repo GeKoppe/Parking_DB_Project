@@ -12,7 +12,7 @@ function UsageCard(tempProps?: {usedSpaces?:number, permaParkers?: number}) {
     const colorShades : string[] = ['#000000', '#000000', '#000000', '#290101c9', '#460101c9', '#680303c9', '#7c0404c9', '#940404c9', '#bb0606bb', '#ff0404bb'];
 
     let usage : number = props.usedSpaces / 180;
-    const tColor = colorShades[(Math.floor(usage*10) > 9 ? 9 : Math.floor(usage*10))];
+    const tColor : string = colorShades[(Math.floor(usage*10) > 9 ? 9 : Math.floor(usage*10))];
 
     return (
         <div className="usageCard">

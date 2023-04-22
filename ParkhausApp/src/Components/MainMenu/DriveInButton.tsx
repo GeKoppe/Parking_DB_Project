@@ -2,26 +2,16 @@ import 'bootstrap/dist/css/bootstrap.css'
 import Button from 'react-bootstrap/Button';
 import './MainMenu.css';
 
-function DriveInButton(tempProps? : { driveInClickHandler?: () => void, driveOutClickHandler?: () => void} ) {
+function DriveInButton(tempProps? : { clickHandler?: () => void, label?: string} ) {
     const props = {
-        driveInClickHandler: () => console.log("Einfahrt"),
-        driveOutClickHandler: () => console.log("Ausfahrt"),
+        clickHandler: () => console.log("Einfahrt"),
+        label: "Einfahrt",
         ...tempProps
     }
     return (
         <div className='buttonContainer'>
-            <Button variant="outline-primary" onClick={props.driveInClickHandler} >Einfahrt</Button>
-            <br/>
-            <Button variant="outline-primary" onClick={props.driveOutClickHandler}>Ausfahrt</Button>
+            <Button variant="outline-primary" onClick={props.clickHandler} >{props.label}</Button>
         </div>
     )
 }
-
-DriveInButton.defaultProps = {
-    label: "Einfahrt",
-    clickHandler: () => {
-        console.log("Einfahrt");
-    }
-}
-
 export default DriveInButton;
