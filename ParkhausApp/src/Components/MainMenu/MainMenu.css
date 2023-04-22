@@ -34,7 +34,18 @@
 
 
 .infoSide {
-    padding: 50px;
+    width: 25%;
+    padding-top: 20px;
+    padding-right: 50px;
+    padding-left: 50px;
+    height: 100%;
+}
+
+.mainSide {
+    width: 30%;
+    padding-top: 20px;
+    padding-right: 50px;
+    padding-left: 50px;
     height: 100%;
 }
 
