@@ -14,10 +14,31 @@ function App() {
     site === 'home' ? setCurrentMenu('MainMenu') : setCurrentMenu('Administration');
   }
 
+  const mockUsage = Math.ceil(Math.random() * 180);
+  let lotsInUse : number[] = [];
+  for (let i = 0; i < mockUsage; i++) {
+      let selected = Math.ceil(Math.random() * 180);
+
+      while (true) {
+          let isInUse = true;
+          for (let j = 0; j < lotsInUse.length; j++) {
+              if (selected === lotsInUse[j]) {
+                  isInUse = true;
+                  break;
+              }
+          }
+
+          if (isInUse) {
+              lotsInUse.push(i);
+              break;
+          }
+      }
+  }
+
   return (
     <>
       <Navbar clickHandler={clickHandler}/>
-      {currentMenu == 'MainMenu' ? <MainMenu parentUsageHolder={updateUsage}/> : (currentMenu == 'Administration' ? <Administration/> : <h5>Hello World</h5>)}
+      {currentMenu == 'MainMenu' ? <MainMenu parentUsageHolder={updateUsage}/> : (currentMenu == 'Administration' ? <Administration lotsInUse={lotsInUse}/> : <h5>Hello World</h5>)}
     </>
   )
 }

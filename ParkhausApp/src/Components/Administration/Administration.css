@@ -9,7 +9,11 @@
 }
 
 .InfoContainer {
-    border: 2px solid #00ff88
+    padding: 20px;
+    border: 2px solid #00ff88;
+    border-radius: 25px;
+    height: 60%;
+    text-align: center;
 }
 
 .LotCard {
