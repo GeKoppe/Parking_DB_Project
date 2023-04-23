@@ -14,7 +14,7 @@ export default function DriveInCard(tempProps?: {licPlateClassName?: string, but
     }
 
     const [licPlate, setLicPlate] = useState('');
-    const [perma, setPerma] = useState(true);
+    const [perma, setPerma] = useState(false);
 
     const changeListener = ({target} : { target: {value: string}}) => {
         let newLicPlate = target.value.toUpperCase();
@@ -29,6 +29,7 @@ export default function DriveInCard(tempProps?: {licPlateClassName?: string, but
     
     const buttonClickHandler = () => {
         if (props.buttonClickHandler()) {
+            setPerma(false);
             setLicPlate('');
         }
     }
