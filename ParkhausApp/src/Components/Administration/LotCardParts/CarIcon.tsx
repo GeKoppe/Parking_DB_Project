@@ -1,4 +1,3 @@
-import React from 'react';
 import CarLogo from './SVG/Car.svg';
 
 export default function CarIcon(tempProps?: {color?: string, style?:{height?: string}}) {
