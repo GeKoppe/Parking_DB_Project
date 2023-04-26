@@ -1,0 +1,50 @@
+.Administration {
+    display: flex;
+}
+
+.InfoPage {
+    display: block;
+    width: 30%;
+    margin-left: 50px;
+}
+
+.InfoContainer {
+    padding: 20px;
+    border: 2px solid #00ff88;
+    border-radius: 25px;
+    height: 60%;
+    text-align: center;
+}
+
+.LotCard {
+    border: 2px solid #000000;
+    border-radius: 12px;
+    height: 20%;
+    text-align: center;
+    margin-right: 10px;
+    width: 50px;
+    height: 60px;
+    display: block;
+}
+
+.LotCardSelected {
+    border: 2px solid #bd0404;
+    border-radius: 12px;
+    height: 20%;
+    text-align: center;
+    margin-right: 10px;
+    width: 50px;
+    height: 60px;
+    display: block;
+}
+
+.LotCardContainer {
+    display: block;
+    width: 60%;
+}
+
+.LotCardRow {
+    display: flex;
+    width: 100%;
+    margin-top: 5px;
+}

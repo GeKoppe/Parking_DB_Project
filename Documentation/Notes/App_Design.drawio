@@ -1,0 +1,127 @@
+<mxfile host="app.diagrams.net" modified="2023-04-21T17:21:16.620Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/112.0.0.0 Safari/537.36 Edg/112.0.1722.48" etag="kJDp0TajnlkiCv0n1UxO" version="21.1.5" type="device">
+  <diagram name="Seite-1" id="A3KtyuKc_eczXpM-YQrN">
+    <mxGraphModel dx="1449" dy="838" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="VH4WknKIyOFC4oMCrj0F-1" value="" style="whiteSpace=wrap;html=1;aspect=fixed;" vertex="1" parent="1">
+          <mxGeometry x="80" y="40" width="680" height="680" as="geometry" />
+        </mxCell>
+        <mxCell id="VH4WknKIyOFC4oMCrj0F-3" value="" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="550" y="85" width="180" height="270" as="geometry" />
+        </mxCell>
+        <mxCell id="VH4WknKIyOFC4oMCrj0F-4" value="Freie Plätze" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="595" y="130" width="90" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="VH4WknKIyOFC4oMCrj0F-5" value="Gesamtplätze" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="595" y="280" width="90" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="VH4WknKIyOFC4oMCrj0F-6" value="" style="endArrow=none;html=1;rounded=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;exitX=0;exitY=0.5;exitDx=0;exitDy=0;" edge="1" parent="1" source="VH4WknKIyOFC4oMCrj0F-3" target="VH4WknKIyOFC4oMCrj0F-3">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="390" y="430" as="sourcePoint" />
+            <mxPoint x="440" y="380" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="VH4WknKIyOFC4oMCrj0F-7" value="" style="endArrow=none;dashed=1;html=1;dashPattern=1 3;strokeWidth=2;rounded=0;entryX=0.25;entryY=0;entryDx=0;entryDy=0;exitX=0.25;exitY=1;exitDx=0;exitDy=0;" edge="1" parent="1" source="VH4WknKIyOFC4oMCrj0F-1" target="VH4WknKIyOFC4oMCrj0F-1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="390" y="430" as="sourcePoint" />
+            <mxPoint x="440" y="380" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="VH4WknKIyOFC4oMCrj0F-8" value="Administration" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="110" y="160" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="VH4WknKIyOFC4oMCrj0F-9" value="Simulation" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="110" y="250" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="VH4WknKIyOFC4oMCrj0F-10" value="Knopf um Leiste anzuzeigen" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="110" y="70" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="VH4WknKIyOFC4oMCrj0F-11" value="" style="whiteSpace=wrap;html=1;aspect=fixed;" vertex="1" parent="1">
+          <mxGeometry x="800" y="40" width="680" height="680" as="geometry" />
+        </mxCell>
+        <mxCell id="VH4WknKIyOFC4oMCrj0F-12" value="" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="827" y="70" width="53" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="VH4WknKIyOFC4oMCrj0F-13" value="" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="900" y="70" width="53" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="VH4WknKIyOFC4oMCrj0F-14" value="" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="970" y="70" width="53" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="VH4WknKIyOFC4oMCrj0F-15" value="" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="1040" y="70" width="53" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="VH4WknKIyOFC4oMCrj0F-16" value="" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="827" y="150" width="53" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="VH4WknKIyOFC4oMCrj0F-17" value="" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="827" y="230" width="53" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="VH4WknKIyOFC4oMCrj0F-18" value="" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="827" y="310" width="53" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="VH4WknKIyOFC4oMCrj0F-19" value="" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="827" y="390" width="53" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="VH4WknKIyOFC4oMCrj0F-21" value="" style="endArrow=none;dashed=1;html=1;dashPattern=1 3;strokeWidth=2;rounded=0;entryX=0.75;entryY=0;entryDx=0;entryDy=0;exitX=0.75;exitY=1;exitDx=0;exitDy=0;" edge="1" parent="1" source="VH4WknKIyOFC4oMCrj0F-11" target="VH4WknKIyOFC4oMCrj0F-11">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="1220" y="420" as="sourcePoint" />
+            <mxPoint x="1270" y="370" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="VH4WknKIyOFC4oMCrj0F-22" value="Parklatz x" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="1310" y="70" width="170" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="VH4WknKIyOFC4oMCrj0F-23" value="Kennzeichen" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="1310" y="150" width="170" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="VH4WknKIyOFC4oMCrj0F-24" value="Einfahrtszeit" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="1310" y="200" width="170" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="VH4WknKIyOFC4oMCrj0F-25" value="Bisherige Kosten" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="1310" y="260" width="170" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="VH4WknKIyOFC4oMCrj0F-26" value="Dauerparker" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="1310" y="310" width="170" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="VH4WknKIyOFC4oMCrj0F-27" value="" style="endArrow=none;dashed=1;html=1;dashPattern=1 3;strokeWidth=2;rounded=0;exitX=0;exitY=0.75;exitDx=0;exitDy=0;entryX=1;entryY=0.75;entryDx=0;entryDy=0;" edge="1" parent="1" source="VH4WknKIyOFC4oMCrj0F-11" target="VH4WknKIyOFC4oMCrj0F-11">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="1220" y="500" as="sourcePoint" />
+            <mxPoint x="1270" y="450" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="VH4WknKIyOFC4oMCrj0F-28" value="" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="820" y="570" width="53" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="VH4WknKIyOFC4oMCrj0F-29" value="Dauerparkplätze" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="980" y="585" width="170" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="VH4WknKIyOFC4oMCrj0F-30" value="" style="shape=mxgraph.signs.transportation.car_1;html=1;pointerEvents=1;fillColor=#d80073;strokeColor=#A50040;verticalLabelPosition=bottom;verticalAlign=top;align=center;fontColor=#ffffff;" vertex="1" parent="1">
+          <mxGeometry x="833" y="85" width="40" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="VH4WknKIyOFC4oMCrj0F-32" value="Einfahrt" style="ellipse;whiteSpace=wrap;html=1;aspect=fixed;" vertex="1" parent="1">
+          <mxGeometry x="290" y="210" width="80" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="VH4WknKIyOFC4oMCrj0F-33" value="Ausfahrt" style="ellipse;whiteSpace=wrap;html=1;aspect=fixed;" vertex="1" parent="1">
+          <mxGeometry x="413" y="210" width="80" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="VH4WknKIyOFC4oMCrj0F-34" value="" style="shape=mxgraph.signs.transportation.car_1;html=1;pointerEvents=1;fillColor=#008a00;strokeColor=#005700;verticalLabelPosition=bottom;verticalAlign=top;align=center;fontColor=#ffffff;" vertex="1" parent="1">
+          <mxGeometry x="280" y="479.32" width="99" height="88" as="geometry" />
+        </mxCell>
+        <mxCell id="VH4WknKIyOFC4oMCrj0F-35" value="" style="endArrow=classic;html=1;rounded=0;exitX=0.99;exitY=0.5;exitDx=0;exitDy=0;exitPerimeter=0;entryX=0.618;entryY=0.75;entryDx=0;entryDy=0;entryPerimeter=0;" edge="1" parent="1" source="VH4WknKIyOFC4oMCrj0F-34">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="910" y="384.32" as="sourcePoint" />
+            <mxPoint x="660.24" y="514.32" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="VH4WknKIyOFC4oMCrj0F-36" value="Schranke" style="shape=flexArrow;endArrow=classic;startArrow=classic;html=1;rounded=0;entryX=0.632;entryY=0.676;entryDx=0;entryDy=0;entryPerimeter=0;" edge="1" parent="1">
+          <mxGeometry width="100" height="100" relative="1" as="geometry">
+            <mxPoint x="670" y="584.32" as="sourcePoint" />
+            <mxPoint x="669.7599999999998" y="463.99999999999983" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
