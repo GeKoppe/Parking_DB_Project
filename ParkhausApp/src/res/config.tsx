@@ -3,7 +3,8 @@ export const conf = {
         host: "localhost",
         port: 13376,
         routes: {
-            usage: '/usage'
+            usage: '/usage',
+            newParker: '/parker'
         }
     }
 }
