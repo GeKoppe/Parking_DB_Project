@@ -24,7 +24,8 @@ def apply_cors_header(response):
 
 @app.route('/usage', methods=['GET'])
 def get_usage():
-    return jsonify({'usage': random.randint(0,180)})
+    usage = random.randint(0,176)
+    return jsonify({'usage': usage, 'perma': random.randint(0,176 - usage)})
 
 @app.route('/parker', methods=['GET', 'POST'])
 def parker():
