@@ -29,9 +29,9 @@ export default function DriveInCard(tempProps?: {licPlateClassName?: string, but
 
     return (
         <div className="driveInCard">
-            <FormLabel>Nummernschild:</FormLabel><br/><input value={licPlate} className={props.licPlateClassName} onChange={changeListener}/>
+            <FormLabel className="formBold"><b>Nummernschild</b></FormLabel><br/><input size={12} value={licPlate} className={props.licPlateClassName} onChange={changeListener}/>
             <br/><br/>
-            <FormLabel>Dauerparker:</FormLabel><div className="switch"><Form.Check type="switch" id="perma-parker" checked={perma} onChange={() => setPerma((prev) => !prev)}/></div>
+            <FormLabel className="formBold"><b>Dauerparker</b></FormLabel><div><Form.Check className="switch" type="switch" id="perma-parker" checked={perma} onChange={() => setPerma((prev) => !prev)}/></div>
             <br/>
             <div>
                 <DriveInButton clickHandler={buttonClickHandler}/>

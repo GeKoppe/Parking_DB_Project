@@ -9,7 +9,8 @@
     padding: 20px;
     text-align: center;
     color: #ffffff;
-    display: inline-block;
+    display: block;
+    width: 60%;
 }
 
 .btn-custom {
@@ -29,10 +30,19 @@
     padding: 5px;
     background: transparent;
     border-width: 0 0 2px;
-    border-color: white;
+    border-color: rgba(255, 255, 255, 0.425);
+    color: white;
+}
+
+.defaultInput:hover {
+    border-width: 0 0 2px;
+    background: transparent;
+    border-color: green;
+    outline-width: 0;
 }
 
 .defaultInput:focus {
+    outline: none;
     border-width: 0 0 2px;
     background: transparent;
     border-color: green;
@@ -53,7 +63,6 @@
 
 .buttonContainer {
     display: block;
-    /* color: rgb(130,247,139,177); */
 }
 
 

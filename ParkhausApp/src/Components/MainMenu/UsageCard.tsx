@@ -36,13 +36,11 @@ function UsageCard(tempProps?: {renderInfo?: boolean}) {
 
     return (
         <div className="usageCard">
-            <h2>Belegung</h2>
+            <h4>Belegung</h4>
             <br/>
             <SpaceSubCard freeSpaces={usedSpaces} textColor={tColor}/>
             <br/>
-            <h5 className='spaceCard'>von</h5>
-            <br/>
-            <SpaceSubCard freeSpaces={180} textColor={"white"}/>
+            <h4 className='spaceCard'>von 180</h4>
             <br/>
             <h5>
                 Auslastung: {parseInt("" + (usage * 100))}%

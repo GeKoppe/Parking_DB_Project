@@ -9,9 +9,9 @@ export default function SpaceSubCard(tempProps?: {freeSpaces?: number, textColor
     }
     return (
         <div className="spaceCard">
-            <h3 style={{color: props.textColor}}>
+            <h1 style={{color: props.textColor}}>
                 {props.freeSpaces}
-            </h3>
+            </h1>
         </div>
     )
 }
