@@ -2,5 +2,8 @@ namespace API.Models;
 
 public class Parker
 {
-    public Guid Id { get; set; }
+    public int Id { get; set; }
+    public string Kennzeichen { get; set; }
+    public DateTime EinfahrDatum { get; set; }
+    public DateTime? AusfahrDatum { get; set; }
 }

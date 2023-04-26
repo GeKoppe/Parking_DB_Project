@@ -1,3 +1,4 @@
+using API.Data;
 using API.Models;
 using Microsoft.AspNetCore.Mvc;
 
@@ -8,10 +9,12 @@ namespace API.Controllers;
 public class ParkerController : ControllerBase
 {
     private readonly ILogger<ParkerController> _logger;
+    private readonly DbContext _context;
 
-    public ParkerController(ILogger<ParkerController> logger)
+    public ParkerController(ILogger<ParkerController> logger, DbContext context)
     {
         _logger = logger;
+        _context = context;
     }
 
     // /parker
@@ -20,6 +23,7 @@ public class ParkerController : ControllerBase
     // /parker/{parker_id}
     //     get: einzelnen Parker ()
     //     delete: Ausfahrt
+    
     [HttpGet(Name = "GetAllParker")]
     public IEnumerable<Parker> GetAllParker()
     {

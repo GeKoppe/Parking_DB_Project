@@ -1,3 +1,4 @@
+using API.Data;
 using API.Models;
 using Microsoft.AspNetCore.Mvc;
 
@@ -8,10 +9,12 @@ namespace API.Controllers;
 public class ParkingLotController : ControllerBase
 {
     private readonly ILogger<ParkingLotController> _logger;
+    private readonly DbContext _context;
 
-    public ParkingLotController(ILogger<ParkingLotController> logger)
+    public ParkingLotController(ILogger<ParkingLotController> logger, DbContext context)
     {
         _logger = logger;
+        _context = context;
     }
     
     // /parking-lots

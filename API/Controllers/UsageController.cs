@@ -1,3 +1,4 @@
+using API.Data;
 using API.Models;
 using Microsoft.AspNetCore.Mvc;
 
@@ -8,10 +9,12 @@ namespace API.Controllers;
 public class UsageController : ControllerBase
 {
     private readonly ILogger<UsageController> _logger;
+    private readonly DbContext _context;
 
-    public UsageController(ILogger<UsageController> logger)
+    public UsageController(ILogger<UsageController> logger, DbContext context)
     {
         _logger = logger;
+        _context = context;
     }
     
     // /usage
