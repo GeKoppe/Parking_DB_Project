@@ -1,9 +1,9 @@
-
+import '../Administration.css'
 
 export default function LicensePlate(props:{plateNr: string}) {
     return (
-        <div>
-            <h5>Nummernschild: {props.plateNr}</h5>
+        <div className="licensePlate">
+            <h5>{props.plateNr}</h5>
         </div>
     )
 }

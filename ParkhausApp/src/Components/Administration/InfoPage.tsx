@@ -1,31 +1,70 @@
 import LicensePlate from "./InfoPageParts/LicensePlate"
 import DriveInTime from "./InfoPageParts/DriveInTime";
 import DriveOutButton from "./InfoPageParts/DriveOutButton";
+import { useState, useEffect } from 'react';
+import { conf } from "../../res/config";
 
-export default function InfoPage(tempProps?:{lotNr?: number, inUse?:boolean}) {
+export default function InfoPage(tempProps?:{lotNr?: number}) {
     // For now, I just generate stuff randomly, later this will be replaced by an API call with the lotNr
     const props = {
         lotNr: -1,
-        inUse: false,
         ...tempProps
     }
 
-    const generateRandomLetter = () : string => {
-        const letters = ['A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z'];
-        return letters[Math.floor(Math.random() * 26)];
+    const [lotInfo, setLotInfo] = useState({
+        inUse: false,
+        plate: '',
+        driveInTime: '',
+        permaParker: false
+    });
+
+    useEffect(() => {
+        if (props.lotNr === -1) return;
+        fetch(`http://${conf.api.host}:${conf.api.port}/${conf.api.routes.getLotInfo}/${props.lotNr}`, {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json"
+            }
+        })
+        .then(response => response.json() as Promise<{inUse: boolean, plate: string, time: string, perma: boolean}>)
+        .then(data => {
+            if (data.inUse) {
+                setLotInfo({
+                    inUse: data.inUse,
+                    plate: data.plate,
+                    driveInTime: data.time,
+                    permaParker: data.perma
+                });
+            } else {
+                setLotInfo({
+                    inUse: data.inUse,
+                    plate: '',
+                    driveInTime: '',
+                    permaParker: false
+                });
+            }
+        })
+    }, [props.lotNr])
+
+    const driveOutClickHandler = () => {
+        fetch(`http://${conf.api.host}:${conf.api.port}/${conf.api.routes.getLotInfo}/${props.lotNr}`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            }
+        })
+        .then(response => response.json() as Promise<{plate: string, time: string, perma: true}>)
+        .then(data => {
+            setLotInfo({
+                inUse: false,
+                plate: data.plate,
+                driveInTime: data.time,
+                permaParker: data.perma
+            });
+        })
     }
 
-    const getParkerInformation = (lotNr: number) : {plate: string, driveInTime: string, permaParker: boolean}=> {
-        // TODO this gotta be a REST call, for now just randomly generated
-        let plate = generateRandomLetter() + generateRandomLetter() + "-" + generateRandomLetter() + generateRandomLetter() + "-" + Math.ceil(Math.random() * 999);
-        let start = new Date();
-        start.setDate(new Date().getDate() - 5);
-        const end = new Date();
-        const driveInDate = new Date(start.getTime() + Math.random() * (end.getTime() - start.getTime()));
-        const driveInTime = "" + driveInDate.getDate() + "." + (driveInDate.getMonth() + 1) + "." + driveInDate.getFullYear() + ", " + driveInDate.getHours() + ":" + driveInDate.getMinutes() + " Uhr";
 
-        return {plate: plate, driveInTime: driveInTime, permaParker: (Math.random() > 0.5 ? true: false)};
-    }
 
     if (props.lotNr === -1) {
         return (
@@ -33,7 +72,7 @@ export default function InfoPage(tempProps?:{lotNr?: number, inUse?:boolean}) {
                 <h3>Kein Parkplatz ausgewählt</h3>
             </div>
         )
-    } else if (!props.inUse) {
+    } else if (!lotInfo.inUse) {
         return (
             <div className="InfoContainer">
                 <h3>Parkplatz {props.lotNr}</h3>
@@ -42,17 +81,17 @@ export default function InfoPage(tempProps?:{lotNr?: number, inUse?:boolean}) {
             </div>
         )
     } else {
-        const parkerInformation = getParkerInformation(props.lotNr);
-        
         return (
             <div className="InfoContainer">
-                <h3>Parkplatz {props.lotNr}</h3>
+                <h3>Parkplatz Nr. {props.lotNr}</h3>
                 <br/>
-                <LicensePlate plateNr={parkerInformation.plate}/>
+                <h3>Nummernschild:</h3>
                 <br/>
-                <DriveInTime time={parkerInformation.driveInTime}/>
+                <LicensePlate plateNr={lotInfo.plate}/>
                 <br/>
-                <h5>Dauerparker: {parkerInformation.permaParker ? "Ja": "Nein"}</h5>
+                <DriveInTime time={lotInfo.driveInTime}/>
+                <br/>
+                <h5>Dauerparker: {lotInfo.permaParker ? "Ja": "Nein"}</h5>
                 <br/>
                 <DriveOutButton/>
             </div>

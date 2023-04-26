@@ -5,11 +5,10 @@ import { useState } from 'react'
 import FormLabel from 'react-bootstrap/FormLabel';
 import Form from 'react-bootstrap/Form'
 
-export default function DriveInCard(tempProps?: {licPlateClassName?: string, buttonClickHandler: () => boolean, changeListener?: (plate: string, perma: boolean) => void}) {
+export default function DriveInCard(tempProps?: {licPlateClassName?: string, buttonClickHandler: (plate: string, perma: boolean) => boolean}) {
     const props = {
         licPlateClassName: 'defaultInput',
-        buttonClickHandler: () => {return true;},
-        changeListener: (plate: string) => console.log(`${plate}`),
+        buttonClickHandler: (plate: string, perma: boolean) => {return true;},
         ...tempProps,
     }
 
@@ -19,16 +18,10 @@ export default function DriveInCard(tempProps?: {licPlateClassName?: string, but
     const changeListener = ({target} : { target: {value: string}}) => {
         let newLicPlate = target.value.toUpperCase();
         setLicPlate(newLicPlate);
-        props.changeListener(newLicPlate, perma);
-    }
-
-    const permaChange = () => {
-        setPerma((prev) => !prev);
-        props.changeListener(licPlate, perma);
     }
     
     const buttonClickHandler = () => {
-        if (props.buttonClickHandler()) {
+        if (props.buttonClickHandler(licPlate, perma)) {
             setPerma(false);
             setLicPlate('');
         }
@@ -36,9 +29,9 @@ export default function DriveInCard(tempProps?: {licPlateClassName?: string, but
 
     return (
         <div className="driveInCard">
-            <FormLabel>Nummernschild:</FormLabel><br/><input value={licPlate} onChange={changeListener} className={props.licPlateClassName}/>
-            <br/>
-            <FormLabel>Dauerparker:</FormLabel><Form.Check type="switch" id="perma-parker" checked={perma} onChange={permaChange}/>
+            <FormLabel className="formBold"><b>Nummernschild</b></FormLabel><br/><input size={12} value={licPlate} className={props.licPlateClassName} onChange={changeListener}/>
+            <br/><br/>
+            <FormLabel className="formBold"><b>Dauerparker</b></FormLabel><div><Form.Check className="switch" type="switch" id="perma-parker" checked={perma} onChange={() => setPerma((prev) => !prev)}/></div>
             <br/>
             <div>
                 <DriveInButton clickHandler={buttonClickHandler}/>
