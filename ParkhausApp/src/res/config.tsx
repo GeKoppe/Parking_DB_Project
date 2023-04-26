@@ -4,7 +4,9 @@ export const conf = {
         port: 13376,
         routes: {
             usage: '/usage',
-            newParker: '/parker'
+            newParker: '/parker',
+            getLotInfo: '/parking-lots',
+            allLots: '/all-lots'
         }
     }
 }

@@ -14,11 +14,11 @@ function MainMenu(tempProps?: {parentUsageHolder?: (usage: number) => void}) {
 
     const driveInClickHandler = (plate: string, perma: boolean) => {
         const licChecker = /[A-ZÖÜÄ]{1,3}-[A-ZÖÜÄ]{1,2}-[1-9]{1}[0-9]{1,3}[EH]{0,1}/;
-        if (!licChecker.test(plate) || plate.length > 8) {
+        if (!licChecker.test(plate) || plate.length > 12) {
             setlicClass('error');
             return false;
         } else {
-            fetch(`http://${conf.api.host}:${conf.api.port}/${conf.api.routes.newParker}`, {
+            fetch(`http://${conf.api.host}:${conf.api.port}${conf.api.routes.newParker}`, {
                 method: 'POST',
                 headers: {
                     "Content-Type": 'application/json'
