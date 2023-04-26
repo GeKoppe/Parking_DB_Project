@@ -1,3 +1,26 @@
 .navButton {
     margin-right: 10px;
 }
+
+.navBar {
+    background-color: rgba(73, 73, 73, 0.69);
+}
+
+html {
+    background-color: rgba(73, 73, 73, 0.69);
+}
+
+.app {
+    background-color: rgba(73, 73, 73, 0.69);
+}
+
+.navbar-brand {
+    color: #ffffff;
+}
+
+.btn-custom {
+    color: #ffffff;
+    box-shadow: "5px 5px 3px rgba(0,0,0,1)";
+    border-color: #ffffff;
+    border-radius: 0%;
+}

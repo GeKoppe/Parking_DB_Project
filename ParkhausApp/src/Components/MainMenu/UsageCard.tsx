@@ -4,13 +4,12 @@ import SpaceSubCard from './SpaceSubCard';
 import { useState, useEffect } from 'react';
 import { conf } from '../../res/config';
 
-function UsageCard(tempProps?: {new?: boolean}) {
+function UsageCard(tempProps?: {renderInfo?: boolean}) {
     const props = {
-        new: false,
+        renderInfo: false,
         ...tempProps
     }
     
-    const [newInfo, setNewInfo] = useState(false);
     const [usedSpaces, setUsedSpaces] = useState(0);
     const [permaParkers, setpermaParkers] = useState(0);
 
@@ -28,10 +27,9 @@ function UsageCard(tempProps?: {new?: boolean}) {
             setUsedSpaces(data.usage);
             setpermaParkers(data.perma);
         });
-        setNewInfo(false);
-    }, []);
+    }, [props.renderInfo]);
 
-    const colorShades : string[] = ['#000000', '#000000', '#000000', '#290101c9', '#460101c9', '#680303c9', '#7c0404c9', '#940404c9', '#bb0606bb', '#ff0404bb'];
+    const colorShades : string[] = ['#ffffff', '#ffdddd', '#fcb6b6', '#fca0a0', '#ff8e8e', '#f87474', '#ff5252', '#fd4343', '#fa2828', '#ff0000'];
 
     let usage : number = usedSpaces / 180;
     const tColor : string = colorShades[(Math.floor(usage*10) > 9 ? 9 : Math.floor(usage*10))];
@@ -44,7 +42,7 @@ function UsageCard(tempProps?: {new?: boolean}) {
             <br/>
             <h5 className='spaceCard'>von</h5>
             <br/>
-            <SpaceSubCard freeSpaces={180} textColor={tColor}/>
+            <SpaceSubCard freeSpaces={180} textColor={"white"}/>
             <br/>
             <h5>
                 Auslastung: {parseInt("" + (usage * 100))}%

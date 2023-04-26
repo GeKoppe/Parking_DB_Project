@@ -4,7 +4,7 @@ import './MainMenu.css';
 export default function SpaceSubCard(tempProps?: {freeSpaces?: number, textColor?: string}) {
     const props = {
         freeSpaces: 180,
-        textColor: "black",
+        textColor: "white",
         ...tempProps
     }
     return (

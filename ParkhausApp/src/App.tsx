@@ -3,12 +3,10 @@ import 'bootstrap/dist/css/bootstrap.css'
 import MainMenu from './Components/MainMenu/MainMenu'
 import Administration from './Components/Administration/Administration';
 import Navbar from './Components/NavBar';
+import './App.css'
 
 function App() {
   const [currentMenu, setCurrentMenu] = useState('MainMenu');
-  const [totalUsage, setTotalUsage] = useState(0);
-
-  const updateUsage = (usage: number) => setTotalUsage(usage);
 
   const clickHandler = (site: string) => {
     site === 'home' ? setCurrentMenu('MainMenu') : setCurrentMenu('Administration');
@@ -36,10 +34,10 @@ function App() {
   }
 
   return (
-    <>
+    <div>
       <Navbar clickHandler={clickHandler}/>
-      {currentMenu == 'MainMenu' ? <MainMenu parentUsageHolder={updateUsage}/> : (currentMenu == 'Administration' ? <Administration lotsInUse={lotsInUse}/> : <h5>Hello World</h5>)}
-    </>
+      {currentMenu == 'MainMenu' ? <MainMenu /> : (currentMenu == 'Administration' ? <Administration/> : <h5>Hello World</h5>)}
+    </div>
   )
 }
 

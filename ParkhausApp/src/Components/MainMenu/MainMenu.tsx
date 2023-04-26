@@ -3,14 +3,9 @@ import DriveInCard from './DriveInCard';
 import { useState } from 'react';
 import { conf } from '../../res/config';
 
-function MainMenu(tempProps?: {parentUsageHolder?: (usage: number) => void}) {
-    const props = {
-        parentUsageHolder: (usage: number) => console.log(`${usage}`),
-        ...tempProps
-    }
-
+function MainMenu() {
     const [licClass, setlicClass] = useState('defaultInput');
-    const [newEntry, setNewEntry] = useState(false);
+    const [renderInfo, setRenderInfo] = useState(false);
 
     const driveInClickHandler = (plate: string, perma: boolean) => {
         const licChecker = /[A-ZÖÜÄ]{1,3}-[A-ZÖÜÄ]{1,2}-[1-9]{1}[0-9]{1,3}[EH]{0,1}/;
@@ -29,9 +24,8 @@ function MainMenu(tempProps?: {parentUsageHolder?: (usage: number) => void}) {
                 // TODO the set new entry here is hella cursed, do something about it
                 if (response.status == 200 || response.status == 202) {
                     console.log("Worked");
-                    setNewEntry(true);
+                    setRenderInfo(prev => !prev);
                 }
-                setNewEntry(false);
             })
 
             setlicClass('defaultInput');
@@ -47,7 +41,7 @@ function MainMenu(tempProps?: {parentUsageHolder?: (usage: number) => void}) {
                     <DriveInCard buttonClickHandler={driveInClickHandler} licPlateClassName={licClass}/>
                 </div>
                 <div className="infoSide">
-                    <UsageCard new={newEntry}/>
+                    <UsageCard renderInfo={renderInfo}/>
                 </div>
             </div>
         </>

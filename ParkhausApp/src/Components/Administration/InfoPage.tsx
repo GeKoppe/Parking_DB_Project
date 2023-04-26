@@ -19,6 +19,7 @@ export default function InfoPage(tempProps?:{lotNr?: number}) {
     });
 
     useEffect(() => {
+        if (props.lotNr === -1) return;
         fetch(`http://${conf.api.host}:${conf.api.port}/${conf.api.routes.getLotInfo}/${props.lotNr}`, {
             method: "GET",
             headers: {

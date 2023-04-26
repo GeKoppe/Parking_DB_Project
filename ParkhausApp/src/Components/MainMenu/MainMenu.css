@@ -1,27 +1,44 @@
 .usageCard {
-    border-radius: 25px;
-    border: 2px solid #01ffd5d5;
+    border: 2px solid #ffffff;
     padding: 20px;
     text-align: center;
 }
 
 .driveInCard {
-    border-radius: 25px;
-    border: 2px solid #01ffd5d5;
+    border: 2px solid #ffffff;
     padding: 20px;
     text-align: center;
+    color: #ffffff;
     display: inline-block;
+}
+
+.btn-custom {
+    color: #ffffff;
+    box-shadow: "5px 5px 3px rgba(0,0,0,1)";
+    border-color: #ffffff;
+    border-radius: 0%;
 }
 
 .defaultInput {
     text-align: center;
     padding: 5px;
+    background: transparent;
+    border-width: 0 0 2px;
+    border-color: black;
+}
+
+.defaultInput:focus {
+    border-width: 0 0 2px;
+    background: transparent;
+    border-color: green;
 }
 
 .error {
     text-align: center;
     padding: 5px;
+    background: transparent;
     border:1px solid red;
+    color: red;
 }
 
 .menuContainer {
@@ -39,6 +56,7 @@
     padding-right: 50px;
     padding-left: 50px;
     height: 100%;
+    color: #ffffff;
 }
 
 .mainSide {
@@ -51,4 +69,5 @@
 
 .spaceCard {
     text-align: center;
+    color: #ffffff;
 }
