@@ -1,31 +1,40 @@
 import LicensePlate from "./InfoPageParts/LicensePlate"
 import DriveInTime from "./InfoPageParts/DriveInTime";
 import DriveOutButton from "./InfoPageParts/DriveOutButton";
+import { useState, useEffect } from 'react';
+import { conf } from "../../res/config";
 
 export default function InfoPage(tempProps?:{lotNr?: number, inUse?:boolean}) {
     // For now, I just generate stuff randomly, later this will be replaced by an API call with the lotNr
     const props = {
         lotNr: -1,
-        inUse: false,
         ...tempProps
     }
 
-    const generateRandomLetter = () : string => {
-        const letters = ['A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z'];
-        return letters[Math.floor(Math.random() * 26)];
-    }
+    const [lotInfo, setLotInfo] = useState({
+        plate: '',
+        driveInTime: '',
+        permaParker: false
+    });
 
-    const getParkerInformation = (lotNr: number) : {plate: string, driveInTime: string, permaParker: boolean}=> {
-        // TODO this gotta be a REST call, for now just randomly generated
-        let plate = generateRandomLetter() + generateRandomLetter() + "-" + generateRandomLetter() + generateRandomLetter() + "-" + Math.ceil(Math.random() * 999);
-        let start = new Date();
-        start.setDate(new Date().getDate() - 5);
-        const end = new Date();
-        const driveInDate = new Date(start.getTime() + Math.random() * (end.getTime() - start.getTime()));
-        const driveInTime = "" + driveInDate.getDate() + "." + (driveInDate.getMonth() + 1) + "." + driveInDate.getFullYear() + ", " + driveInDate.getHours() + ":" + driveInDate.getMinutes() + " Uhr";
+    useEffect(() => {
+        fetch(`http://${conf.api.host}:${conf.api.port}/${conf.api.routes.getLotInfo}/${props.lotNr}`, {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json"
+            }
+        })
+        .then(response => response.json() as Promise<{plate: string, time: string, perma: true}>)
+        .then(data => {
+            setLotInfo({
+                plate: data.plate,
+                driveInTime: data.time,
+                permaParker: data.perma
+            });
+        })
+    }, [])
 
-        return {plate: plate, driveInTime: driveInTime, permaParker: (Math.random() > 0.5 ? true: false)};
-    }
+
 
     if (props.lotNr === -1) {
         return (
@@ -42,17 +51,15 @@ export default function InfoPage(tempProps?:{lotNr?: number, inUse?:boolean}) {
             </div>
         )
     } else {
-        const parkerInformation = getParkerInformation(props.lotNr);
-        
         return (
             <div className="InfoContainer">
                 <h3>Parkplatz {props.lotNr}</h3>
                 <br/>
-                <LicensePlate plateNr={parkerInformation.plate}/>
+                <LicensePlate plateNr={lotInfo.plate}/>
                 <br/>
-                <DriveInTime time={parkerInformation.driveInTime}/>
+                <DriveInTime time={lotInfo.driveInTime}/>
                 <br/>
-                <h5>Dauerparker: {parkerInformation.permaParker ? "Ja": "Nein"}</h5>
+                <h5>Dauerparker: {lotInfo.permaParker ? "Ja": "Nein"}</h5>
                 <br/>
                 <DriveOutButton/>
             </div>
