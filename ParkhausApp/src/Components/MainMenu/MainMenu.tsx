@@ -1,6 +1,7 @@
 import UsageCard from './UsageCard';
 import DriveInCard from './DriveInCard';
 import { useState } from 'react';
+import { conf } from '../../res/config';
 
 function MainMenu(tempProps?: {parentUsageHolder?: (usage: number) => void}) {
     const props = {
@@ -23,7 +24,6 @@ function MainMenu(tempProps?: {parentUsageHolder?: (usage: number) => void}) {
             props.parentUsageHolder(usage);
             permaParker ? setpermaParkers((prev) => prev + 1) : setpermaParkers((prev) => prev);
             setlicClass('defaultInput');
-            // TODO Hier muss die tatsächliche Einfahrt geschehen.
             return true;
         }
     }
