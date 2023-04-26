@@ -10,7 +10,7 @@ function DriveInButton(tempProps? : { clickHandler?: () => void, label?: string}
     }
     return (
         <div className='buttonContainer'>
-            <Button variant="custom" onClick={props.clickHandler}>{props.label}</Button>
+            <Button variant='custom' className='driveInButton' onClick={props.clickHandler}>{props.label}</Button>
         </div>
     )
 }

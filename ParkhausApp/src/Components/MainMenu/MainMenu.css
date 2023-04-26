@@ -13,10 +13,15 @@
 }
 
 .btn-custom {
-    color: #ffffff;
-    box-shadow: "5px 5px 3px rgba(0,0,0,1)";
-    border-color: #ffffff;
+    color: rgb(0,247,139,177);
+    box-shadow: "5px 5px 3px rgb(97,145,100,1.14)";
+    border-color: rgb(130,247,139,177);
     border-radius: 0%;
+}
+
+.btn-custom:hover {
+    color: rgb(130,247,139,177);
+    border-color: rgb(130,247,139,177);
 }
 
 .defaultInput {
@@ -24,13 +29,14 @@
     padding: 5px;
     background: transparent;
     border-width: 0 0 2px;
-    border-color: black;
+    border-color: white;
 }
 
 .defaultInput:focus {
     border-width: 0 0 2px;
     background: transparent;
     border-color: green;
+    outline-width: 0;
 }
 
 .error {
@@ -47,6 +53,7 @@
 
 .buttonContainer {
     display: block;
+    /* color: rgb(130,247,139,177); */
 }
 
 
@@ -70,4 +77,11 @@
 .spaceCard {
     text-align: center;
     color: #ffffff;
+}
+
+.driveInButton {
+    color: rgb(130,247,139,177);
+    box-shadow: "5px 5px 3px rgb(97,145,100,1.14)";
+    border-color: rgb(130,247,139,177);
+    border-radius: 0%;
 }
