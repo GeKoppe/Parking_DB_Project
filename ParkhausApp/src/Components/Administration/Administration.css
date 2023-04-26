@@ -9,15 +9,17 @@
 }
 
 .InfoContainer {
+    border: 2px solid #ffffff;
+    margin-top: 10px;
     padding: 20px;
-    border: 2px solid #00ff88;
-    border-radius: 25px;
-    height: 60%;
     text-align: center;
+    color: white;
+    display: blocK;
+    height: 80%;
 }
 
 .LotCard {
-    border: 2px solid #000000;
+    border: 2px solid rgb(130,247,139,177);
     border-radius: 12px;
     height: 20%;
     text-align: center;
@@ -25,6 +27,7 @@
     width: 50px;
     height: 60px;
     display: block;
+    color: rgb(130,247,139,177);
 }
 
 .LotCardSelected {
@@ -39,6 +42,7 @@
 }
 
 .LotCardContainer {
+    margin-top: 10px;
     display: block;
     width: 60%;
 }
@@ -47,4 +51,13 @@
     display: flex;
     width: 100%;
     margin-top: 5px;
+}
+
+.licensePlate {
+    border: 2px solid #ffffff;
+    margin-top: 10px;
+    padding: 20px;
+    text-align: center;
+    color: white;
+    display: blocK;
 }

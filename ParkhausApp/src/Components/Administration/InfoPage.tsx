@@ -83,7 +83,9 @@ export default function InfoPage(tempProps?:{lotNr?: number}) {
     } else {
         return (
             <div className="InfoContainer">
-                <h3>Parkplatz {props.lotNr}</h3>
+                <h3>Parkplatz Nr. {props.lotNr}</h3>
+                <br/>
+                <h3>Nummernschild:</h3>
                 <br/>
                 <LicensePlate plateNr={lotInfo.plate}/>
                 <br/>
