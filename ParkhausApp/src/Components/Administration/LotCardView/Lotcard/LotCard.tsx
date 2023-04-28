@@ -11,9 +11,6 @@ export default function LotCard(tempProps?: {inUse?: boolean, licPlate?: string,
         ...tempProps
     }
 
-    const colors : string[] = ['blueviolet', 'black', 'burlywood', 'tomato'];
-    const color = colors[Math.floor(Math.random() * colors.length)];
-
     return (
         <div className={props.selected === props.lotNr ? "LotCardSelected": (props.inUse ? "LotCardUsed": "LotCard")} onClick={() => props.clickHandler(props.lotNr)}>
             <Icon used={props.inUse}/>

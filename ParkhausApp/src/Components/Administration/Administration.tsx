@@ -1,5 +1,6 @@
 import LotCardView from "./LotCardView/LotCardView";
 import InfoPage from "./InfoPage";
+import Paging from "./Paging/Paging";
 import { useState } from 'react';
 
 export default function Administration() {
@@ -23,6 +24,7 @@ export default function Administration() {
     return (
         <div className="Administration">
             <LotCardView lotClickHandler={lotClickHandler} lotSelected={lotSelected} page={page}/>
+            <Paging clickHandler={pageChangeClickListener} currentPage={page}/>
             <div className="InfoPage">
                 <InfoPage lotNr={lotSelected}/>
             </div>

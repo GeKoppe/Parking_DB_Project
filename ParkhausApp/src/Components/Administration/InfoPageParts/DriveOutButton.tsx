@@ -7,6 +7,6 @@ export default function DriveOutButton(tempProps?:{clickHandler?: () => void}) {
         ...tempProps
     }
     return (
-        <Button variant="outline-primary" onClick={props.clickHandler}>Ausfahrt</Button>
+        <Button variant="custom" className='driveOutButton' onClick={props.clickHandler}>Ausfahrt</Button>
     )
 }

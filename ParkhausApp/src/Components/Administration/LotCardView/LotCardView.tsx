@@ -28,16 +28,16 @@ export default function LotCardView(props: {lotClickHandler: (nr: number) => voi
             if (allLots.length > 0) {
                 let pushed = false;
                 for (let j = 0; j < allLots.length; j++) {
-                    if (allLots[j].nr == ((row- 1)*15) +i) {
-                        rows.push(<LotCard inUse={allLots[j].inUse} lotNr={((row- 1)*15) +i} key={((row- 1)*15) +i} clickHandler={props.lotClickHandler} selected={props.lotSelected}/>);
+                    if (allLots[j].nr == ((row- 1)*5) +i) {
+                        rows.push(<LotCard inUse={allLots[j].inUse} lotNr={((row- 1)*5) +i} key={((row- 1)*5) +i} clickHandler={props.lotClickHandler} selected={props.lotSelected}/>);
                         pushed = true;
                     }
                 }
                 if (!pushed) {
-                    rows.push(<LotCard inUse={false} lotNr={((row- 1)*15) +i} key={((row- 1)*15) +i} clickHandler={props.lotClickHandler} selected={props.lotSelected}/>);
+                    rows.push(<LotCard inUse={false} lotNr={((row- 1)*5) +i} key={((row- 1)*5) +i} clickHandler={props.lotClickHandler} selected={props.lotSelected}/>);
                 }
             } else {
-                rows.push(<LotCard inUse={false} lotNr={((row- 1)*15) +i} key={((row- 1)*15) +i} clickHandler={props.lotClickHandler} selected={props.lotSelected}/>);
+                rows.push(<LotCard inUse={false} lotNr={((row- 1)*5) +i} key={((row- 1)*5) +i} clickHandler={props.lotClickHandler} selected={props.lotSelected}/>);
             }
         }
 

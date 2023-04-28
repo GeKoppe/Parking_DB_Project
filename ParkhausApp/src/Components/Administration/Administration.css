@@ -10,7 +10,7 @@
 
 .InfoContainer {
     border: 2px solid #ffffff;
-    margin-top: 10px;
+    margin-top: 20px;
     padding: 20px;
     text-align: center;
     color: white;
@@ -76,4 +76,31 @@
     text-align: center;
     color: white;
     display: blocK;
+}
+
+.pageButton {
+    outline: none;
+    background: transparent;
+    color: white;
+    border: none;
+
+}
+
+.paging {
+    height: 100%;
+    margin-left: -200px;
+    margin-right: 50px;
+    margin-top: 10%;
+}
+
+.pageCounter {
+    color: white;
+    margin-bottom: -50%;
+}
+
+.driveOutButton {
+    color: white;
+    box-shadow: "5px 5px 3px rgb(97,145,100,1.14)";
+    border-color: 2px solid white;
+    border-radius: 0%;
 }
