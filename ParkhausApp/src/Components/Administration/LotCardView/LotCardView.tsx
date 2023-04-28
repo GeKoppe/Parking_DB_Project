@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import LotCard from './Lotcard/LotCard';
 import { conf } from '../../../res/config';
 
-export default function LotCardView(props: {lotClickHandler: (nr: number) => void, lotSelected: number}) {
+export default function LotCardView(props: {lotClickHandler: (nr: number) => void, lotSelected: number, page: number}) {
     const [allLots, setAllLots] = useState<{nr: number, inUse: boolean}[]>([]);
     
     useEffect(() => {
@@ -24,7 +24,7 @@ export default function LotCardView(props: {lotClickHandler: (nr: number) => voi
     
     const getSingleCardRow = (row: number) => {
         let rows = [];
-        for (let i = 1; i <= 15; i++) {
+        for (let i = 1; i <= 5; i++) {
             if (allLots.length > 0) {
                 let pushed = false;
                 for (let j = 0; j < allLots.length; j++) {
@@ -46,7 +46,7 @@ export default function LotCardView(props: {lotClickHandler: (nr: number) => voi
 
     const buildLotCardView = (isUsed?: boolean) => {
         let rows = [];
-        for (let i = 1; i <= 12; i ++) {
+        for (let i = 1; i <= 4; i ++) {
             rows.push(getSingleCardRow(i));
         }
         return rows;

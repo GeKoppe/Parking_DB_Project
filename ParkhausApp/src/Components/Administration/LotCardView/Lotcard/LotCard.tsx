@@ -1,5 +1,5 @@
-import './Administration.css'
-import CarIcon from './LotCardParts/CarIcon';
+import '../../Administration.css'
+import Icon from './LotCardParts/Icon';
 
 export default function LotCard(tempProps?: {inUse?: boolean, licPlate?: string, lotNr?: number, clickHandler?: (nr: number) => void, selected?: number}) {
     const props = {
@@ -15,9 +15,10 @@ export default function LotCard(tempProps?: {inUse?: boolean, licPlate?: string,
     const color = colors[Math.floor(Math.random() * colors.length)];
 
     return (
-        <div className={props.selected === props.lotNr ? "LotCardSelected": "LotCard"} onClick={() => props.clickHandler(props.lotNr)}>
-            {props.inUse ? <CarIcon color={color}/> : <p style={{height: "20%"}}>/</p>}
-            <p>{props.lotNr}</p>
+        <div className={props.selected === props.lotNr ? "LotCardSelected": (props.inUse ? "LotCardUsed": "LotCard")} onClick={() => props.clickHandler(props.lotNr)}>
+            <Icon used={props.inUse}/>
+            <br/>
+            <h4>{props.lotNr}</h4>
         </div>
     )
 }
