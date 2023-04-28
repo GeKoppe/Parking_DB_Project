@@ -1,6 +1,5 @@
 import './Administration.css'
 import CarIcon from './LotCardParts/CarIcon';
-import CarLogo from './LotCardParts/SVG/CarLogo';
 
 export default function LotCard(tempProps?: {inUse?: boolean, licPlate?: string, lotNr?: number, clickHandler?: (nr: number) => void, selected?: number}) {
     const props = {

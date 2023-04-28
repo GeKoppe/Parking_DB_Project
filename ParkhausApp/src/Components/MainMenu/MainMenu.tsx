@@ -36,10 +36,11 @@ function MainMenu() {
 
     return (
         <>
-            <div className="menuContainer" style={{width: "100%"}}>
+            <div className="menuContainer">
                 <div className='mainSide'>
                     <DriveInCard buttonClickHandler={driveInClickHandler} licPlateClassName={licClass}/>
                 </div>
+                <div className='vLine'></div>
                 <div className="infoSide">
                     <UsageCard renderInfo={renderInfo}/>
                 </div>
