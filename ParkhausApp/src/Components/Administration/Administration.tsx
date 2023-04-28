@@ -15,9 +15,15 @@ export default function Administration() {
 
     const pageChangeClickListener = (up: boolean) : void => {
         if (up) {
-            if (page < 9) setPage((prev) => prev + 1);
+            if (page < 9) {
+                setPage((prev) => prev + 1);
+                setLotSelected(-1);
+            }
         } else {
-            if (page > 1) setPage((prev) => prev - 1);
+            if (page > 1) {
+                setPage((prev) => prev - 1);
+                setLotSelected(-1);
+            }
         }
     }
 

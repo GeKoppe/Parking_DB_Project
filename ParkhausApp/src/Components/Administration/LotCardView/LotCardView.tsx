@@ -6,7 +6,7 @@ export default function LotCardView(props: {lotClickHandler: (nr: number) => voi
     const [allLots, setAllLots] = useState<{nr: number, inUse: boolean}[]>([]);
     
     useEffect(() => {
-        fetch(`http://${conf.api.host}:${conf.api.port}${conf.api.routes.allLots}`, {
+        fetch(`http://${conf.api.host}:${conf.api.port}${conf.api.routes.allLots}?page=${props.page}`, {
             method: "GET",
             headers: {
                 "Content-Type": "application/json"
@@ -28,23 +28,23 @@ export default function LotCardView(props: {lotClickHandler: (nr: number) => voi
             if (allLots.length > 0) {
                 let pushed = false;
                 for (let j = 0; j < allLots.length; j++) {
-                    if (allLots[j].nr == ((row- 1)*5) +i) {
-                        rows.push(<LotCard inUse={allLots[j].inUse} lotNr={((row- 1)*5) +i} key={((row- 1)*5) +i} clickHandler={props.lotClickHandler} selected={props.lotSelected}/>);
+                    if (allLots[j].nr == ((row- 1)*5) +i + (20*(props.page - 1))) {
+                        rows.push(<LotCard inUse={allLots[j].inUse} lotNr={((row- 1)*5) + i + (20*(props.page - 1))} key={((row- 1)*5) +i + (20*(props.page - 1))} clickHandler={props.lotClickHandler} selected={props.lotSelected}/>);
                         pushed = true;
                     }
                 }
                 if (!pushed) {
-                    rows.push(<LotCard inUse={false} lotNr={((row- 1)*5) +i} key={((row- 1)*5) +i} clickHandler={props.lotClickHandler} selected={props.lotSelected}/>);
+                    rows.push(<LotCard inUse={false} lotNr={((row- 1)*5) +i + (20*(props.page - 1))} key={((row- 1)*5) +i + (20*(props.page - 1))} clickHandler={props.lotClickHandler} selected={props.lotSelected}/>);
                 }
             } else {
-                rows.push(<LotCard inUse={false} lotNr={((row- 1)*5) +i} key={((row- 1)*5) +i} clickHandler={props.lotClickHandler} selected={props.lotSelected}/>);
+                rows.push(<LotCard inUse={false} lotNr={((row- 1)*5) +i + (20*(props.page - 1))} key={((row- 1)*5) +i + (20*(props.page - 1))} clickHandler={props.lotClickHandler} selected={props.lotSelected}/>);
             }
         }
 
         return (<div className="LotCardRow">{rows}</div>);
     }
 
-    const buildLotCardView = (isUsed?: boolean) => {
+    const buildLotCardView = () => {
         let rows = [];
         for (let i = 1; i <= 4; i ++) {
             rows.push(getSingleCardRow(i));
@@ -54,7 +54,7 @@ export default function LotCardView(props: {lotClickHandler: (nr: number) => voi
 
     return (
         <div className="LotCardContainer">
-            {buildLotCardView(allLots.length > 0)}
+            {buildLotCardView()}
         </div>
     );
 }

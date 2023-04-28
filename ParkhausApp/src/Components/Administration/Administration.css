@@ -1,5 +1,5 @@
 .Administration {
-    display: flex;
+    display:-webkit-flex;
 }
 
 .InfoPage {
