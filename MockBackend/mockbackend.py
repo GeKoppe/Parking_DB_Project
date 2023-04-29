@@ -61,4 +61,4 @@ def all_lots():
 
 if __name__ == '__main__':
     # start Flask server
-    app.run(host='0.0.0.0', port=13376)
+    app.run(host='0.0.0.0', port=18892)
