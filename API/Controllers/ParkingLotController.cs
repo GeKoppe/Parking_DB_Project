@@ -1,6 +1,8 @@
+using System.Data.SqlClient;
 using API.Data;
 using API.Models;
 using Microsoft.AspNetCore.Mvc;
+using Swashbuckle.AspNetCore.Annotations;
 
 namespace API.Controllers;
 
@@ -22,15 +24,55 @@ public class ParkingLotController : ControllerBase
     // /parking-lots/{lot_id}
     //     get: einzelner Parkplatz (belegung, parker-id)
 
-    [HttpGet(Name = "GetParkingLots")]
-    public IEnumerable<ParkingLot> GetParkingLots()
+    [HttpGet("{id:int}", Name = "GetParkingLot")]
+    [SwaggerResponse(StatusCodes.Status200OK, Type = typeof(ParkingLot))]
+    [SwaggerResponse(StatusCodes.Status400BadRequest)]
+    public IActionResult GetParkingLot(int id)
     {
-        throw new NotImplementedException();
+        using SqlConnection connection = new SqlConnection(_context.ConnectionString);
+        var command = new SqlCommand($"SELECT ID, BelegtVon, ReserviertFürDauerparker FROM Parkhaus.dbo.ParkingLots WHERE ID = {id};", connection);
+        connection.Open();
+        var reader = command.ExecuteReader();
+        try
+        {
+            while (reader.Read())
+            {
+                return new OkObjectResult(ParkingLot.CreateFromReader(reader));
+            }
+        }
+        finally
+        {
+            reader.Close();
+        }
+
+        return BadRequest("Id not found");
     }
     
-    [HttpGet("{id:int}", Name = "GetParkingLot")]
-    public ParkingLot GetParkingLot(int id)
+    [HttpGet(Name = "GetParkingLots")]
+    public IActionResult GetParkingLots()
     {
-        throw new NotImplementedException();
+        var lots = new List<ParkingLot>();
+        
+        using SqlConnection connection = new SqlConnection(_context.ConnectionString);
+        var command = new SqlCommand("SELECT ID, BelegtVon, ReserviertFürDauerparker FROM Parkhaus.dbo.ParkingLots;", connection);
+        connection.Open();
+        var reader = command.ExecuteReader();
+        try
+        {
+            while (reader.Read())
+            {
+                lots.Add(ParkingLot.CreateFromReader(reader));
+            }
+        }
+        catch
+        {
+            return BadRequest();
+        }
+        finally
+        {
+            reader.Close();
+        }
+
+        return Ok(lots);
     }
 }
