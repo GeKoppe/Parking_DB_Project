@@ -13,18 +13,6 @@
     width: 60%;
 }
 
-.btn-custom {
-    color: rgb(0,247,139,177);
-    box-shadow: "5px 5px 3px rgb(97,145,100,1.14)";
-    border-color: rgb(130,247,139,177);
-    border-radius: 0%;
-}
-
-.btn-custom:hover {
-    color: rgb(130,247,139,177);
-    border-color: rgb(130,247,139,177);
-}
-
 .defaultInput {
     text-align: center;
     padding: 5px;
@@ -59,6 +47,7 @@
 
 .menuContainer {
     display: flex;
+    width: 100%;
 }
 
 .buttonContainer {
@@ -94,3 +83,21 @@
     border-color: rgb(130,247,139,177);
     border-radius: 0%;
 }
+
+.driveInButton:hover {
+    color: white;
+    border-color: white;
+}
+
+.vLine {
+    background: #fff;
+    height: 400px;
+    margin-top: 10px;
+    margin-right: 40px;
+    margin-left: -80px;
+    box-shadow: inset 100px 0px 100px -50px #D4D4CC, 
+              inset -100px 0px 100px -50px #D4D4CC;
+    /* margin-right: 20px;
+    margin-left: -100px; */
+}
+

@@ -93,7 +93,7 @@ export default function InfoPage(tempProps?:{lotNr?: number}) {
                 <br/>
                 <h5>Dauerparker: {lotInfo.permaParker ? "Ja": "Nein"}</h5>
                 <br/>
-                <DriveOutButton/>
+                <DriveOutButton clickHandler={driveOutClickHandler}/>
             </div>
         )
     }

@@ -27,3 +27,8 @@ html {
     border-color: #ffffff;
     border-radius: 0%;
 }
+
+.navButton:hover {
+    color: rgb(130,247,139,177);
+    border-color: rgb(130,247,139,177);
+}

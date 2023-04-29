@@ -1,4 +1,4 @@
-import 'bootstrap/dist/css/bootstrap.css'
+import '../Administration.css'
 import Button from 'react-bootstrap/Button';
 
 export default function DriveOutButton(tempProps?:{clickHandler?: () => void}) {
@@ -7,6 +7,6 @@ export default function DriveOutButton(tempProps?:{clickHandler?: () => void}) {
         ...tempProps
     }
     return (
-        <Button variant="outline-primary" onClick={props.clickHandler}>Ausfahrt</Button>
+        <Button variant="custom" className='driveOutButton' onClick={props.clickHandler}>Ausfahrt</Button>
     )
 }

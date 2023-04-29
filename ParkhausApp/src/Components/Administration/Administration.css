@@ -1,5 +1,5 @@
 .Administration {
-    display: flex;
+    display:-webkit-flex;
 }
 
 .InfoPage {
@@ -10,35 +10,63 @@
 
 .InfoContainer {
     border: 2px solid #ffffff;
-    margin-top: 10px;
+    margin-top: 20px;
     padding: 20px;
     text-align: center;
     color: white;
-    display: blocK;
+    display: block;
     height: 80%;
+    padding-right: 30px;
+    padding-left: 30px;
 }
 
 .LotCard {
-    border: 2px solid rgb(130,247,139,177);
+    border: 4px solid rgb(130,247,139,177);
     border-radius: 12px;
-    height: 20%;
+    height: 100%;
     text-align: center;
     margin-right: 10px;
-    width: 50px;
-    height: 60px;
+    width: 100px;
+    height: 120px;
     display: block;
     color: rgb(130,247,139,177);
+    margin: 10px;
 }
 
 .LotCardSelected {
-    border: 2px solid #bd0404;
+    border: 4px solid white;
     border-radius: 12px;
     height: 20%;
     text-align: center;
     margin-right: 10px;
-    width: 50px;
-    height: 60px;
+    width: 100px;
+    height: 120px;
     display: block;
+    margin: 10px;
+    color: white
+}
+
+.LotCard:hover {
+    border: 4px solid white;
+    color: white
+}
+
+.LotCardUsed {
+    border: 4px solid #bd0404;
+    border-radius: 12px;
+    height: 20%;
+    text-align: center;
+    margin-right: 10px;
+    width: 100px;
+    height: 120px;
+    display: block;
+    color: #bd0404;
+    margin: 10px;
+}
+
+.LotCardUsed:hover {
+    border: 4px solid white;
+    color: white
 }
 
 .LotCardContainer {
@@ -60,4 +88,37 @@
     text-align: center;
     color: white;
     display: blocK;
+}
+
+.pageButton {
+    outline: none;
+    background: transparent;
+    color: white;
+    border: none;
+
+}
+
+.paging {
+    height: 100%;
+    margin-left: -200px;
+    margin-right: 50px;
+    margin-top: 10%;
+}
+
+.pageCounter {
+    color: white;
+    margin-bottom: -50%;
+}
+
+.driveOutButton {
+    color: #bd0404;
+    border-color: #bd0404;
+    width: 60%;
+    height: 12%;
+    border-radius: 0%;
+}
+
+.driveOutButton:hover {
+    color: white;
+    border-color: white;
 }

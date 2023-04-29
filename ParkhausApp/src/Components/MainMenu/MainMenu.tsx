@@ -7,6 +7,10 @@ function MainMenu() {
     const [licClass, setlicClass] = useState('defaultInput');
     const [renderInfo, setRenderInfo] = useState(false);
 
+    const licChangeHandler = () => {
+        setlicClass('defaultInput');
+    }
+
     const driveInClickHandler = (plate: string, perma: boolean) => {
         const licChecker = /[A-ZÖÜÄ]{1,3}-[A-ZÖÜÄ]{1,2}-[1-9]{1}[0-9]{1,3}[EH]{0,1}/;
         if (!licChecker.test(plate) || plate.length > 12) {
@@ -36,10 +40,11 @@ function MainMenu() {
 
     return (
         <>
-            <div className="menuContainer" style={{width: "100%"}}>
+            <div className="menuContainer">
                 <div className='mainSide'>
-                    <DriveInCard buttonClickHandler={driveInClickHandler} licPlateClassName={licClass}/>
+                    <DriveInCard buttonClickHandler={driveInClickHandler} licPlateClassName={licClass} licChangeHandler={licChangeHandler}/>
                 </div>
+                <div className='vLine'></div>
                 <div className="infoSide">
                     <UsageCard renderInfo={renderInfo}/>
                 </div>

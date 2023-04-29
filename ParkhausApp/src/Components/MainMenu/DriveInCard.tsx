@@ -5,7 +5,7 @@ import { useState } from 'react'
 import FormLabel from 'react-bootstrap/FormLabel';
 import Form from 'react-bootstrap/Form'
 
-export default function DriveInCard(tempProps?: {licPlateClassName?: string, buttonClickHandler: (plate: string, perma: boolean) => boolean}) {
+export default function DriveInCard(tempProps: {licPlateClassName?: string, buttonClickHandler?: (plate: string, perma: boolean) => boolean, licChangeHandler: () => void}) {
     const props = {
         licPlateClassName: 'defaultInput',
         buttonClickHandler: (plate: string, perma: boolean) => {return true;},
@@ -17,6 +17,7 @@ export default function DriveInCard(tempProps?: {licPlateClassName?: string, but
 
     const changeListener = ({target} : { target: {value: string}}) => {
         let newLicPlate = target.value.toUpperCase();
+        props.licChangeHandler();
         setLicPlate(newLicPlate);
     }
     
