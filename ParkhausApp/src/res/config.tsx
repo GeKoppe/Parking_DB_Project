@@ -1,7 +1,7 @@
 export const conf = {
     api: {
         host: "localhost",
-        port: 13376,
+        port: 18892,
         routes: {
             usage: '/usage',
             newParker: '/parker',

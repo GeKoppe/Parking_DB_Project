@@ -4,6 +4,6 @@ export default function Icon(tempProps: {used?: boolean}) {
         ...tempProps
     }
     return (
-        <h2>{props.used ? "O" : "X"}</h2>
+        <h2>{props.used ? "X" : "O"}</h2>
     )
 }
