@@ -70,6 +70,18 @@
     padding-right: 50px;
     padding-left: 50px;
     height: 100%;
+    display: flex;
+}
+
+.priceCard {
+    color: white;
+    display: block;
+    outline: 2px solid white;
+    padding: 20px;
+    margin-right: 20px;
+    margin-top: 2px;
+    width: 100%;
+    text-align: center;
 }
 
 .spaceCard {

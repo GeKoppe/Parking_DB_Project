@@ -1,8 +1,8 @@
 import 'bootstrap/dist/css/bootstrap.css';
-import './MainMenu.css';
+import '../MainMenu.css';
 import SpaceSubCard from './SpaceSubCard';
 import { useState, useEffect } from 'react';
-import { conf } from '../../res/config';
+import { conf } from '../../../res/config';
 
 function UsageCard(tempProps?: {renderInfo?: boolean}) {
     const props = {

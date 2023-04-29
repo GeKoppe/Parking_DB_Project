@@ -1,5 +1,6 @@
-import UsageCard from './UsageCard';
-import DriveInCard from './DriveInCard';
+import UsageCard from './UsageCard/UsageCard';
+import DriveInCard from './DriveInCard/DriveInCard';
+import PriceCard from './PriceCard/PriceCard';
 import { useState } from 'react';
 import { conf } from '../../res/config';
 
@@ -42,6 +43,7 @@ function MainMenu() {
         <>
             <div className="menuContainer">
                 <div className='mainSide'>
+                    <PriceCard/>
                     <DriveInCard buttonClickHandler={driveInClickHandler} licPlateClassName={licClass} licChangeHandler={licChangeHandler}/>
                 </div>
                 <div className='vLine'></div>

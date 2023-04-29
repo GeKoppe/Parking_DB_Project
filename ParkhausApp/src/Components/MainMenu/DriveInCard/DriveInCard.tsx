@@ -1,6 +1,6 @@
 import DriveInButton from './DriveInButton'
 import 'bootstrap/dist/css/bootstrap.css'
-import './MainMenu.css'
+import '../MainMenu.css'
 import { useState } from 'react'
 import FormLabel from 'react-bootstrap/FormLabel';
 import Form from 'react-bootstrap/Form'

@@ -1,5 +1,5 @@
 import 'bootstrap/dist/css/bootstrap.css';
-import './MainMenu.css';
+import '../MainMenu.css';
 
 export default function SpaceSubCard(tempProps?: {freeSpaces?: number, textColor?: string}) {
     const props = {

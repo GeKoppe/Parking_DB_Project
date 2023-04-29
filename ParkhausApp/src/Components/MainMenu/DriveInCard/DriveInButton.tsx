@@ -1,6 +1,6 @@
 import 'bootstrap/dist/css/bootstrap.css'
 import Button from 'react-bootstrap/Button';
-import './MainMenu.css';
+import '../MainMenu.css';
 
 function DriveInButton(tempProps? : { clickHandler?: () => void, label?: string} ) {
     const props = {
