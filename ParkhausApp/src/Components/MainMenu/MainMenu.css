@@ -40,9 +40,14 @@
 .error {
     text-align: center;
     padding: 5px;
+    border-width: 0 0 2px;
     background: transparent;
-    border:1px solid red;
+    border-color: red;
     color: red;
+}
+
+.error:focus {
+    outline: none;
 }
 
 .menuContainer {

@@ -7,7 +7,7 @@ export default function PagingButton(tempProps: {up?: boolean, clickHandler: (up
     }
 
     return (
-        <button className="pageButton" onClick={() => props.clickHandler(props.up)}><h1>{props.up? "^": "v"}</h1></button>
+        <button className="pageButton" onClick={() => props.clickHandler(props.up)}><h1>{props.up? "v": "^"}</h1></button>
     )
 
 }

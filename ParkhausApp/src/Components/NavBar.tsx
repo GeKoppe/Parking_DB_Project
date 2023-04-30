@@ -20,6 +20,7 @@ function NavBar(tempProps?: {clickHandler?: (site: string) => void}) {
                     <Navbar.Collapse id="basic-navbar-nav">
                     <Nav className="me-auto">
                         <Button className='navButton' variant="custom" onClick={() => props.clickHandler('home')}>Startseite</Button>
+                        <Button className='navButton' variant="custom" onClick={() => props.clickHandler('registration')}>Registrierung</Button>
                         <Button className='navButton' variant="custom" onClick={() => props.clickHandler('admin')}>Administration</Button>
                     </Nav>
                     </Navbar.Collapse>

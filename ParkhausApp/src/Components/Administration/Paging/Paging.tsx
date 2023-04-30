@@ -9,11 +9,11 @@ export default function Paging(tempProps: {clickHandler: (up: boolean) => void, 
 
     return (
         <div className='paging'>
-            <PagingButton up={true} clickHandler={props.clickHandler}/>
+            <PagingButton up={false} clickHandler={props.clickHandler}/>
             <br/>
             <PageCounter page={props.currentPage}/>
             <br/>
-            <PagingButton up={false} clickHandler={props.clickHandler}/>
+            <PagingButton up={true} clickHandler={props.clickHandler}/>
         </div>
     )
 }

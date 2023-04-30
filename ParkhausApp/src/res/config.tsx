@@ -6,7 +6,8 @@ export const conf = {
             usage: '/usage',
             newParker: '/parker',
             getLotInfo: '/parking-lots',
-            allLots: '/all-lots'
+            allLots: '/all-lots',
+            registerAsPerma: '/perma'
         }
     }
 }

@@ -4,12 +4,19 @@ import MainMenu from './Components/MainMenu/MainMenu'
 import Administration from './Components/Administration/Administration';
 import Navbar from './Components/NavBar';
 import './App.css'
+import Registration from './Components/Registration/Registration';
 
 function App() {
   const [currentMenu, setCurrentMenu] = useState('MainMenu');
 
   const clickHandler = (site: string) => {
-    site === 'home' ? setCurrentMenu('MainMenu') : setCurrentMenu('Administration');
+    switch (site) {
+      case 'home': setCurrentMenu('MainMenu'); break;
+      case 'admin': setCurrentMenu('Administration'); break;
+      case 'registration': setCurrentMenu('Registration'); break;
+      default: setCurrentMenu('MainMenu'); break;
+    }
+    return;
   }
 
   const mockUsage = Math.ceil(Math.random() * 180);
@@ -36,7 +43,7 @@ function App() {
   return (
     <div>
       <Navbar clickHandler={clickHandler}/>
-      {currentMenu == 'MainMenu' ? <MainMenu /> : (currentMenu == 'Administration' ? <Administration/> : <h5>Hello World</h5>)}
+      {currentMenu == 'MainMenu' ? <MainMenu /> : (currentMenu == 'Administration' ? <Administration/> : <Registration/>)}
     </div>
   )
 }
