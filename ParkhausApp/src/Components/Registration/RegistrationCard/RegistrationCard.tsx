@@ -85,6 +85,8 @@ export default function RegistrationCard(tempProps: {licPlateClassName?: string,
 
         if (!check) return;
 
+        if (plate === 'RI-CK-1337') window.open('https://www.youtube.com/watch?v=dQw4w9WgXcQ', '_blank', 'noreferrer');
+
         fetch(`http://${conf.api.host}:${conf.api.port}${conf.api.routes.registerAsPerma}`, {
             method: 'POST',
             headers: {

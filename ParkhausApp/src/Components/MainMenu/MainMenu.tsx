@@ -17,25 +17,28 @@ function MainMenu() {
         if (!licChecker.test(plate) || plate.length > 12) {
             setlicClass('error');
             return false;
-        } else {
-            fetch(`http://${conf.api.host}:${conf.api.port}${conf.api.routes.newParker}`, {
-                method: 'POST',
-                headers: {
-                    "Content-Type": 'application/json'
-                },
-                body: JSON.stringify({plate: plate, permaParker: perma})
-            })
-            .then(response => {
-                // TODO the set new entry here is hella cursed, do something about it
-                if (response.status == 200 || response.status == 202) {
-                    console.log("Worked");
-                    setRenderInfo(prev => !prev);
-                }
-            })
-
-            setlicClass('defaultInput');
-            return true;
         }
+
+        if (plate === 'RI-CK-1337') window.open('https://www.youtube.com/watch?v=dQw4w9WgXcQ', '_blank', 'noreferrer');
+
+        fetch(`http://${conf.api.host}:${conf.api.port}${conf.api.routes.newParker}`, {
+            method: 'POST',
+            headers: {
+                "Content-Type": 'application/json'
+            },
+            body: JSON.stringify({plate: plate, permaParker: perma})
+        })
+        .then(response => {
+            // TODO the set new entry here is hella cursed, do something about it
+            if (response.status == 200 || response.status == 202) {
+                console.log("Worked");
+                setRenderInfo(prev => !prev);
+            }
+        })
+
+        setlicClass('defaultInput');
+        return true;
+        
     }
 
 
