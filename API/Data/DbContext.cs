@@ -14,6 +14,8 @@ public class DbContext
 
     public int MaxParkingLots => 180;
     public int ReservedLots => 40;
+    public double FreeMinutes => 30;
+    public double RatePerHour => 2.50;
     public string ConnectionString => _configuration.GetSection("DbConnectionString").Value;
 
     public ParkingLot? GetParkingLotWithParkerId(int id)
@@ -37,6 +39,28 @@ public class DbContext
         return lot;
     }
 
+    public Parker? GetParker(int id)
+    {
+        Parker parker = null;
+        using SqlConnection connection = new SqlConnection(ConnectionString);
+        var command = new SqlCommand($"SELECT * FROM Parkers WHERE Id = {id}", connection);
+        connection.Open();
+        var reader = command.ExecuteReader();
+        try
+        {
+            while (reader.Read())
+            {
+                parker = Parker.CreateFromReader(reader);
+            }
+        }
+        finally
+        {
+            reader.Close();
+        }
+
+        return parker;
+    }
+    
     public int GetRandomAvailableLotId(bool dauerparker)
     {
         var freeLots = GetFreeLots();

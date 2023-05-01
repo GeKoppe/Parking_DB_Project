@@ -34,23 +34,12 @@ public class ParkerController : ControllerBase
     [SwaggerResponse(StatusCodes.Status400BadRequest)]
     public IActionResult GetParker(int id)
     {
-        using SqlConnection connection = new SqlConnection(_context.ConnectionString);
-        var command = new SqlCommand($"SELECT * FROM Parkers WHERE Id = {id}", connection);
-        connection.Open();
-        var reader = command.ExecuteReader();
-        try
-        {
-            while (reader.Read())
-            {
-                return new OkObjectResult(Parker.CreateFromReader(reader));
-            }
-        }
-        finally
-        {
-            reader.Close();
-        }
+        var parker = _context.GetParker(id);
 
-        return BadRequest("Id not found");
+        if (parker is null)
+            return BadRequest("Id not found");
+
+        return Ok(parker);
     }
     
     [HttpGet(Name = "GetAllParker")]
@@ -86,7 +75,7 @@ public class ParkerController : ControllerBase
     [HttpPost(Name = "Einfahrt")]
     [SwaggerResponse(StatusCodes.Status200OK, Type = typeof(NewParkerOutputDto), ContentTypes = new []{"application/json"})]
     [SwaggerResponse(StatusCodes.Status400BadRequest)]
-    public IActionResult Einfahrt(string kennzeichen)
+    public IActionResult ParkerEntry(string kennzeichen)
     {
         if (_context.PlateAlreadyExists(kennzeichen))
             return BadRequest("Kennzeichen bereits im Parkhaus");
@@ -127,12 +116,34 @@ public class ParkerController : ControllerBase
     [HttpDelete("{id:int}",Name = "Delete")]
     [SwaggerResponse(StatusCodes.Status200OK)]
     [SwaggerResponse(StatusCodes.Status400BadRequest)]
-    public IActionResult DeleteParker(int id)
+    public IActionResult ParkerExit(int id)
     {
+        var parker = _context.GetParker(id);
+
+        if (parker is null)
+            return BadRequest("Id not found");
+        
+        parker.AusfahrDatum = DateTime.Now;
+
+        var cost = CalculateCost(parker);
+        
         using SqlConnection connection = new SqlConnection(_context.ConnectionString);
-        var command = new SqlCommand($"DELETE FROM Parkhaus.dbo.Parkers WHERE ID={id};", connection);
         connection.Open();
+        
+        var command = new SqlCommand($"INSERT INTO Parkhaus.dbo.ParkersHistory (Kennzeichen, Einfahrtdatum, Ausfahrtdatum) VALUES('{parker.Kennzeichen}', '{parker.EinfahrDatum.ToString("yyyy-MM-dd HH:mm:ss.fff")}', '{parker.AusfahrDatum.Value.ToString("yyyy-MM-dd HH:mm:ss.fff")}');", connection);
         var reader = command.ExecuteReader();
+        try
+        {
+            if (reader.RecordsAffected == 0)
+                return BadRequest("Writing error");
+        }
+        finally
+        {
+            reader.Close();
+        }
+        
+        command = new SqlCommand($"DELETE FROM Parkhaus.dbo.Parkers WHERE ID={id};", connection);
+        reader = command.ExecuteReader();
         try
         {
             if (reader.RecordsAffected == 0)
@@ -143,6 +154,18 @@ public class ParkerController : ControllerBase
             reader.Close();
         }
 
-        return Ok();
+        return Ok(cost);
+    }
+
+    private double CalculateCost(Parker parker)
+    {
+        double cost = 0.00;
+        
+        var totalMinutes= (parker.AusfahrDatum.Value - parker.EinfahrDatum).TotalMinutes;
+        totalMinutes = totalMinutes <= _context.FreeMinutes ? 0.00 : totalMinutes;
+        
+        cost = Math.Ceiling(totalMinutes / 60) * _context.RatePerHour;
+        
+        return cost;
     }
 }

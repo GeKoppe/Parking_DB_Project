@@ -12,21 +12,17 @@ public class Parker
 
     public static Parker CreateFromReader(SqlDataReader reader)
     {
+        var ausfahrDatum = reader["Ausfahrtdatum"];
+
         return new Parker()
         {
+            
             Id = (int)reader["Id"],
             Kennzeichen = (string)reader["Kennzeichen"],
-            Dauerparker = (bool)reader["Dauerparker"],
             EinfahrDatum = (DateTime)reader["Einfahrtdatum"],
-            AusfahrDatum = (DateTime)reader["Ausfahrtdatum"]
+            AusfahrDatum = ausfahrDatum.GetType() == typeof(DBNull) ? null : (DateTime)ausfahrDatum
         };
     }
-}
-
-public class NewParkerInputDto
-{
-    public string Kennzeichen { get; set; }
-    public bool Dauerparker { get; set; }
 }
 
 public class NewParkerOutputDto
