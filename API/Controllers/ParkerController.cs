@@ -4,6 +4,7 @@ using API.Data;
 using API.Models;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Formatters;
 using Swashbuckle.AspNetCore.Annotations;
 
 namespace API.Controllers;
@@ -82,29 +83,33 @@ public class ParkerController : ControllerBase
         return Ok(allParkers);
     }
 
-    [HttpPost(Name = "PostNewParker")]
-    [SwaggerResponse(StatusCodes.Status200OK, Type = typeof(PostParkerDto))]
+    [HttpPost(Name = "Einfahrt")]
+    [SwaggerResponse(StatusCodes.Status200OK, Type = typeof(NewParkerOutputDto), ContentTypes = new []{"application/json"})]
     [SwaggerResponse(StatusCodes.Status400BadRequest)]
-    public IActionResult PostParker(string Kennzeichen, int Dauerparker, DateTime Einfahrtdatum, DateTime Ausfahrtdatum)
+    public IActionResult Einfahrt(string kennzeichen)
     {
+        if (_context.PlateAlreadyExists(kennzeichen))
+            return BadRequest("Kennzeichen bereits im Parkhaus");
+        
+        var einfahrtdatum = DateTime.Now;
+        var dauerparker = _context.IsLongTermParker(kennzeichen);
+        var lotId = _context.GetRandomAvailableLotId(dauerparker);
+
+        if (lotId == 0)
+            return BadRequest("Parkaus voll");
+        
         using SqlConnection connection = new SqlConnection(_context.ConnectionString);
-        var command = new SqlCommand($"INSERT INTO Parkhaus.dbo.Parkers (Kennzeichen, Dauerparker, Einfahrtdatum, Ausfahrtdatum) OUTPUT Inserted.Id VALUES('{Kennzeichen}', '{Dauerparker}', '{Einfahrtdatum.ToString("yyyy-MM-dd HH:mm:ss.fff")}', '{Ausfahrtdatum.ToString("yyyy-MM-dd HH:mm:ss.fff")}');", connection);
+        var command = new SqlCommand($"INSERT INTO Parkhaus.dbo.Parkers (ID, Kennzeichen, Einfahrtdatum) OUTPUT Inserted.Id VALUES({lotId} ,'{kennzeichen}', '{einfahrtdatum.ToString("yyyy-MM-dd HH:mm:ss.fff")}');", connection);
         connection.Open();
         var reader = command.ExecuteReader();
         try
         {
             while (reader.Read())
             {
-                var parkerId = (int)reader["Id"];
-                var lot = _context.GetParkingLotWithParkerId(parkerId);
-                
-                if(lot is null)
-                    break;
-                
-                var dto = new PostParkerDto()
+                var dto = new NewParkerOutputDto()
                 {
-                    Lot_Id = lot.Id,
-                    Parker_Id = parkerId
+                    Lot_Id = lotId,
+                    Parker_Id = lotId
                 };
                 return Ok(dto);
             }
@@ -117,7 +122,8 @@ public class ParkerController : ControllerBase
         return BadRequest("Id not found");
 
     }
-
+    
+    
     [HttpDelete("{id:int}",Name = "Delete")]
     [SwaggerResponse(StatusCodes.Status200OK)]
     [SwaggerResponse(StatusCodes.Status400BadRequest)]

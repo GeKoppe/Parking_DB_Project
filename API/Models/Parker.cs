@@ -6,6 +6,7 @@ public class Parker
 {
     public int Id { get; set; }
     public string Kennzeichen { get; set; }
+    public bool Dauerparker { get; set; }
     public DateTime EinfahrDatum { get; set; }
     public DateTime? AusfahrDatum { get; set; }
 
@@ -15,13 +16,20 @@ public class Parker
         {
             Id = (int)reader["Id"],
             Kennzeichen = (string)reader["Kennzeichen"],
+            Dauerparker = (bool)reader["Dauerparker"],
             EinfahrDatum = (DateTime)reader["Einfahrtdatum"],
             AusfahrDatum = (DateTime)reader["Ausfahrtdatum"]
         };
     }
 }
 
-public class PostParkerDto
+public class NewParkerInputDto
+{
+    public string Kennzeichen { get; set; }
+    public bool Dauerparker { get; set; }
+}
+
+public class NewParkerOutputDto
 {
     public int Parker_Id { get; set; }
     public int Lot_Id { get; set; }

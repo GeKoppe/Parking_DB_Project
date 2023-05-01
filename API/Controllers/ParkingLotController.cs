@@ -49,30 +49,16 @@ public class ParkingLotController : ControllerBase
     }
     
     [HttpGet(Name = "GetParkingLots")]
-    public IActionResult GetParkingLots()
+    [SwaggerResponse(StatusCodes.Status200OK, Type = typeof(IEnumerable<ParkingLot>))]
+    [SwaggerResponse(StatusCodes.Status400BadRequest)]
+    public IActionResult GetParkingLots(bool freeOnly)
     {
-        var lots = new List<ParkingLot>();
-        
-        using SqlConnection connection = new SqlConnection(_context.ConnectionString);
-        var command = new SqlCommand("SELECT ID, BelegtVon, ReserviertFürDauerparker FROM Parkhaus.dbo.ParkingLots;", connection);
-        connection.Open();
-        var reader = command.ExecuteReader();
-        try
-        {
-            while (reader.Read())
-            {
-                lots.Add(ParkingLot.CreateFromReader(reader));
-            }
-        }
-        catch
-        {
-            return BadRequest();
-        }
-        finally
-        {
-            reader.Close();
-        }
+        var lots = freeOnly ? _context.GetFreeLots() : _context.GetLots();
 
+        if (lots is null)
+            return BadRequest();
+                
         return Ok(lots);
     }
+
 }
