@@ -12,10 +12,10 @@ public class DbContext
         _configuration = configuration;
     }
 
-    public int MaxParkingLots => 180;
-    public int ReservedLots => 40;
-    public double FreeMinutes => 30;
-    public double RatePerHour => 2.50;
+    public int MaxParkingLots => int.Parse(_configuration.GetSection("MaxParkingLots").Value);
+    public int ReservedLots => int.Parse(_configuration.GetSection("ReservedLots").Value);
+    public double FreeMinutes => double.Parse(_configuration.GetSection("FreeMinutes").Value);
+    public double RatePerHour => double.Parse(_configuration.GetSection("RatePerHour").Value);
     public string ConnectionString => _configuration.GetSection("DbConnectionString").Value;
 
     public ParkingLot? GetParkingLotWithParkerId(int id)
@@ -69,11 +69,11 @@ public class DbContext
             return 0;
         
         var rand = new Random();
-        var index = rand.Next(1, freeLots.Count());
 
         var lot = 0;
         do
         {
+            var index = rand.Next(1, freeLots.Count());
             lot = freeLots.Skip(index).Take(1).First();
         } while (dauerparker is false && lot >= MaxParkingLots - ReservedLots && lot <= MaxParkingLots);
 
@@ -159,5 +159,26 @@ public class DbContext
         }
 
         return false;
+    }
+
+    public LongTermParker? GetLongTermParkerInfo(string kennzeichen)
+    {
+        using SqlConnection connection = new SqlConnection(ConnectionString);
+        var command = new SqlCommand($"SELECT ID, Kennzeichen, Vorname, Nachname FROM Parkhaus.dbo.Dauerpaker WHERE Kennzeichen = '{kennzeichen}';", connection);
+        connection.Open();
+        var reader = command.ExecuteReader();
+        try
+        {
+            while (reader.Read())
+            {
+                return LongTermParker.CreateFromReader(reader);
+            }
+        }
+        finally
+        {
+            reader.Close();
+        }
+
+        return null;   
     }
 }

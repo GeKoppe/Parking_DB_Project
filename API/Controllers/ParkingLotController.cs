@@ -24,30 +24,6 @@ public class ParkingLotController : ControllerBase
     // /parking-lots/{lot_id}
     //     get: einzelner Parkplatz (belegung, parker-id)
 
-    [HttpGet("{id:int}", Name = "GetParkingLot")]
-    [SwaggerResponse(StatusCodes.Status200OK, Type = typeof(ParkingLot))]
-    [SwaggerResponse(StatusCodes.Status400BadRequest)]
-    public IActionResult GetParkingLot(int id)
-    {
-        using SqlConnection connection = new SqlConnection(_context.ConnectionString);
-        var command = new SqlCommand($"SELECT ID, BelegtVon, ReserviertFürDauerparker FROM Parkhaus.dbo.ParkingLots WHERE ID = {id};", connection);
-        connection.Open();
-        var reader = command.ExecuteReader();
-        try
-        {
-            while (reader.Read())
-            {
-                return new OkObjectResult(ParkingLot.CreateFromReader(reader));
-            }
-        }
-        finally
-        {
-            reader.Close();
-        }
-
-        return BadRequest("Id not found");
-    }
-    
     [HttpGet(Name = "GetParkingLots")]
     [SwaggerResponse(StatusCodes.Status200OK, Type = typeof(IEnumerable<ParkingLot>))]
     [SwaggerResponse(StatusCodes.Status400BadRequest)]

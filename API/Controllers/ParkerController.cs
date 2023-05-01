@@ -1,10 +1,7 @@
 using System.Data.SqlClient;
-using System.Runtime.InteropServices.JavaScript;
 using API.Data;
 using API.Models;
-using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Formatters;
 using Swashbuckle.AspNetCore.Annotations;
 
 namespace API.Controllers;
@@ -30,24 +27,24 @@ public class ParkerController : ControllerBase
     //     delete: Ausfahrt
     
     [HttpGet("{id:int}", Name = "GetParker")]
-    [SwaggerResponse(StatusCodes.Status200OK, Type = typeof(Parker))]
+    [SwaggerResponse(StatusCodes.Status200OK, Type = typeof(ParkerDto))]
     [SwaggerResponse(StatusCodes.Status400BadRequest)]
     public IActionResult GetParker(int id)
     {
         var parker = _context.GetParker(id);
-
+        
         if (parker is null)
             return BadRequest("Id not found");
 
-        return Ok(parker);
+        return Ok(new ParkerDto(parker));
     }
     
     [HttpGet(Name = "GetAllParker")]
-    [SwaggerResponse(StatusCodes.Status200OK, Type = typeof(IEnumerable<Parker>))]
+    [SwaggerResponse(StatusCodes.Status200OK, Type = typeof(IEnumerable<ParkerDto>), ContentTypes = new []{"application/json"})]
     [SwaggerResponse(StatusCodes.Status400BadRequest)]
     public IActionResult GetAllParker()
     {
-        var allParkers = new List<Parker>();
+        var allParkers = new List<ParkerDto>();
         
         using SqlConnection connection = new SqlConnection(_context.ConnectionString);
         var command = new SqlCommand("SELECT * FROM Parkers", connection);
@@ -57,7 +54,7 @@ public class ParkerController : ControllerBase
         {
             while (reader.Read())
             {
-                allParkers.Add(Parker.CreateFromReader(reader));
+                allParkers.Add(ParkerDto.CreateFromReader(reader));
             }
         }
         catch
@@ -84,6 +81,8 @@ public class ParkerController : ControllerBase
         var dauerparker = _context.IsLongTermParker(kennzeichen);
         var lotId = _context.GetRandomAvailableLotId(dauerparker);
 
+        var lTP = dauerparker ? _context.GetLongTermParkerInfo(kennzeichen) : null;
+        
         if (lotId == 0)
             return BadRequest("Parkaus voll");
         
@@ -97,8 +96,10 @@ public class ParkerController : ControllerBase
             {
                 var dto = new NewParkerOutputDto()
                 {
-                    Lot_Id = lotId,
-                    Parker_Id = lotId
+                    Id = lotId,
+                    Dauerparker = dauerparker,
+                    Vorname = lTP?.Vorname,
+                    Nachname = lTP?.Nachname,
                 };
                 return Ok(dto);
             }
@@ -113,16 +114,20 @@ public class ParkerController : ControllerBase
     }
     
     
-    [HttpDelete("{id:int}",Name = "Delete")]
-    [SwaggerResponse(StatusCodes.Status200OK)]
+    [HttpDelete("{id:int}",Name = "Ausfahrt")]
+    [SwaggerResponse(StatusCodes.Status200OK, Type = typeof(CostDto), ContentTypes = new []{"application/json"})]
     [SwaggerResponse(StatusCodes.Status400BadRequest)]
     public IActionResult ParkerExit(int id)
     {
+        var costDto = new CostDto() { Cost = 0 };
         var parker = _context.GetParker(id);
-
         if (parker is null)
             return BadRequest("Id not found");
-        
+
+        // TODO - Dauerparker monatlich abrechnen
+        if (_context.IsLongTermParker(parker.Kennzeichen))
+            return Ok(costDto);
+            
         parker.AusfahrDatum = DateTime.Now;
 
         var cost = CalculateCost(parker);
@@ -154,7 +159,7 @@ public class ParkerController : ControllerBase
             reader.Close();
         }
 
-        return Ok(cost);
+        return Ok(costDto);
     }
 
     private double CalculateCost(Parker parker)

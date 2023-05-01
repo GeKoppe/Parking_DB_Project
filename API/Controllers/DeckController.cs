@@ -27,7 +27,7 @@ public class DeckController : ControllerBase
         var deck = new List<List<int>>();
         var lots = _context.GetLots();
 
-        if (lots is null)
+        if (lots.Count() == 0)
             return BadRequest();
 
         if (lots.Count() <= 20)
