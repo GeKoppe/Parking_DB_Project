@@ -20,7 +20,7 @@ public class DeckController : ControllerBase
     }
 
     [HttpGet(Name = "GetParkingLotsPaged")]
-    [SwaggerResponse(StatusCodes.Status200OK, Type = typeof(IEnumerable<IEnumerable<ParkingLot>>))]
+    [SwaggerResponse(StatusCodes.Status200OK, Type = typeof(IEnumerable<IEnumerable<int>>))]
     [SwaggerResponse(StatusCodes.Status400BadRequest)]
     public IActionResult GetParkingLotsPaged()
     {
