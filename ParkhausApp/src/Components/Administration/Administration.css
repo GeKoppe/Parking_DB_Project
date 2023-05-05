@@ -95,7 +95,14 @@
     background: transparent;
     color: white;
     border: none;
+}
 
+.floor {
+    color: white;
+}
+
+.floorSelected {
+    color: #bd0404;
 }
 
 .paging {
