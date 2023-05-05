@@ -4,7 +4,7 @@ import SpaceSubCard from './SpaceSubCard';
 import { useState, useEffect } from 'react';
 import { conf } from '../../../res/config';
 
-function UsageCard(tempProps?: {renderInfo?: boolean}) {
+function UsageCard(tempProps: {renderInfo?: boolean}) {
     const props = {
         renderInfo: false,
         ...tempProps

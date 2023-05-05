@@ -34,7 +34,7 @@ def parker():
         if body.get('plate') == None or body.get('permaParker') == None:
             return Response('{\"message\": \"Name or perma wasn\'t given\"}', status=400, mimetype='application/json')
         else:
-            return jsonify(body)
+            return jsonify({'pNumber': random.randint(1,180), 'perma': random.randint(0,1) == 1, 'name': 'Gerrit', 'surname': 'Koppe'})
 
 @app.route('/parking-lots/<nr>', methods=['GET'])
 def lot_nr(nr):
