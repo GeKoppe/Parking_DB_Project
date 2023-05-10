@@ -36,7 +36,7 @@ export default function Administration() {
     return (
         <div className="Administration">
             <LotCardView lotClickHandler={lotClickHandler} lotSelected={lotSelected} page={page}/>
-            <Paging clickHandler={pageChangeClickListener} currentPage={page}/>
+            {/* <Paging clickHandler={pageChangeClickListener} currentPage={page}/> */}
             <Floors floorSelected={page} floorClickHandler={floorClickHandler}/>
             <div className="InfoPage">
                 <InfoPage lotNr={lotSelected}/>

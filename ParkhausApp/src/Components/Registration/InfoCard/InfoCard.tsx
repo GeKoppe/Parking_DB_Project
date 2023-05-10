@@ -15,7 +15,7 @@ export default function InfoCard() {
                 2. Sie bekommen Zugriff auf exklusive Parkplätze für Dauerparker.
             </p>
             <p>
-                3. Ihr Status als Dauerparker wird automatisch anhand ihres Kennzeichens erkannt.
+                3. Ihr Status als Dauerparker wird automatisch anhand Ihres Kennzeichens erkannt.
             </p>
         </div>
     )

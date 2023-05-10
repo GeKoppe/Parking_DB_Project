@@ -62,7 +62,6 @@ function MainMenu() {
             <div className="menuContainer">
                 <ToastContainer className='welcomeToast'/>
                 <div className='mainSide'>
-                    <PriceCard/>
                     <DriveInCard buttonClickHandler={driveInClickHandler} licPlateClassName={licClass} licChangeHandler={licChangeHandler}/>
                 </div>
                 <div className='vLine'></div>

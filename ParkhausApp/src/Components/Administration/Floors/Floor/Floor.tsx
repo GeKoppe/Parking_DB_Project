@@ -4,7 +4,7 @@ export default function Floor(props: {selected: boolean, floor: number, clickHan
 
     return (
         <div className={props.selected ? 'floorSelected' : 'floor'} onClick={() => props.clickHandler(props.floor)}>
-            <h3>Etage {props.floor}</h3>
+            <h5>Etage {props.floor}</h5>
         </div>
     )
 }
