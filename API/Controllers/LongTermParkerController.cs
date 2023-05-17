@@ -25,7 +25,7 @@ public class LongTermParkerController : ControllerBase
     public IActionResult GetLongTermParker(string kennzeichen)
     {
         using SqlConnection connection = new SqlConnection(_context.ConnectionString);
-        var command = new SqlCommand($"SELECT Kennzeichen, Vorname, Nachname FROM Parkhaus.dbo.Dauerpaker WHERE Kennzeichen = '{kennzeichen}';", connection);
+        var command = new SqlCommand($"SELECT Kennzeichen, Vorname, Nachname FROM Parkhaus.dbo.Dauerparker WHERE Kennzeichen = '{kennzeichen}';", connection);
         connection.Open();
         var reader = command.ExecuteReader();
         try
@@ -51,7 +51,7 @@ public class LongTermParkerController : ControllerBase
         LongTermParkerDto? dto = null;
         
         using SqlConnection connection = new SqlConnection(_context.ConnectionString);
-        var command = new SqlCommand($"INSERT INTO Parkhaus.dbo.Dauerpaker (Kennzeichen, Vorname, Nachname) VALUES('{parker.Kennzeichen}', '{parker.Vorname}', '{parker.Nachname}');SELECT Kennzeichen, Vorname, Nachname FROM Parkhaus.dbo.Dauerpaker WHERE Kennzeichen = '{parker.Kennzeichen}';", connection);
+        var command = new SqlCommand($"INSERT INTO Parkhaus.dbo.Dauerparker (Kennzeichen, Vorname, Nachname) VALUES('{parker.Kennzeichen}', '{parker.Vorname}', '{parker.Nachname}');SELECT Kennzeichen, Vorname, Nachname FROM Parkhaus.dbo.Dauerparker WHERE Kennzeichen = '{parker.Kennzeichen}';", connection);
         connection.Open();
         var reader = command.ExecuteReader();
         try

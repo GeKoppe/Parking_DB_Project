@@ -12,7 +12,7 @@ builder.Services.AddSingleton<DbContext>();
 
 builder.Services.AddCors(p => p.AddPolicy("corsapp", builder =>
 {
-    builder.WithOrigins("*").AllowAnyMethod().AllowAnyHeader();
+    builder.WithOrigins("http://localhost:8123").AllowAnyMethod().AllowAnyHeader();
 }));
 
 var app = builder.Build();
@@ -29,5 +29,7 @@ app.UseHttpsRedirection();
 app.UseAuthorization();
 
 app.MapControllers();
+
+app.UseCors();
 
 app.Run();

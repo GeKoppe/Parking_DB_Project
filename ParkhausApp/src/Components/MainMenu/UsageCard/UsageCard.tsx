@@ -20,6 +20,7 @@ function UsageCard(tempProps: { renderInfo?: boolean }) {
 				method: 'GET',
 				headers: {
 					'Content-Type': 'application/json',
+					'Access-Control-Allow-Origin': '*',
 				},
 			}
 		)

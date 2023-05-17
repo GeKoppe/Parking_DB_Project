@@ -47,7 +47,7 @@ function NavBar(tempProps?: { clickHandler?: (site: string) => void }) {
 								variant="custom"
 								onClick={() => props.clickHandler('history')}
 							>
-								Geschichte
+								Historie
 							</Button>
 						</Nav>
 					</Navbar.Collapse>
