@@ -1,0 +1,23 @@
+.historyTable {
+    margin: 20px;
+    color: white;
+}
+
+.historyTableTable {
+    color: white;
+}
+
+.tableItem {
+    border-bottom: 1px solid white;
+    padding-right: 30px;
+}
+
+.tableLine {
+    text-align: center;
+}
+
+.headerForTable {
+    color: white;
+    padding: 2px;
+    border-bottom: 2px solid white;
+}
