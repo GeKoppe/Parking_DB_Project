@@ -1,4 +1,5 @@
 using System.Data.SqlClient;
+using System.Globalization;
 using API.Models;
 
 namespace API.Data;
@@ -12,32 +13,11 @@ public class DbContext
         _configuration = configuration;
     }
 
-    public int MaxParkingLots => int.Parse(_configuration.GetSection("MaxParkingLots").Value);
-    public int ReservedLots => int.Parse(_configuration.GetSection("ReservedLots").Value);
-    public double FreeMinutes => double.Parse(_configuration.GetSection("FreeMinutes").Value);
-    public double RatePerHour => double.Parse(_configuration.GetSection("RatePerHour").Value);
+    public int MaxParkingLots => int.Parse(_configuration.GetSection("MaxParkingLots").Value, CultureInfo.InvariantCulture);
+    public int ReservedLots => int.Parse(_configuration.GetSection("ReservedLots").Value, CultureInfo.InvariantCulture);
+    public double FreeMinutes => double.Parse(_configuration.GetSection("FreeMinutes").Value, CultureInfo.InvariantCulture);
+    public double RatePerHour => double.Parse(_configuration.GetSection("RatePerHour").Value, CultureInfo.InvariantCulture);
     public string ConnectionString => _configuration.GetSection("DbConnectionString").Value;
-
-    public ParkingLot? GetParkingLotWithParkerId(int id)
-    {
-        ParkingLot lot = null;
-        
-        using SqlConnection connection = new SqlConnection(ConnectionString);
-        var command = new SqlCommand($"SELECT ID, BelegtVon, ReserviertFürDauerparker FROM Parkhaus.dbo.ParkingLots WHERE BelegtVon = {id};", connection);
-        connection.Open();
-        var reader = command.ExecuteReader();
-        try
-        {
-            while (reader.Read())
-                lot = ParkingLot.CreateFromReader(reader);
-        }
-        finally
-        {
-            reader.Close();
-        }
-
-        return lot;
-    }
 
     public Parker? GetParker(int id)
     {
