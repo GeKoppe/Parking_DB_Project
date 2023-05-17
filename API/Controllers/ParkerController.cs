@@ -31,7 +31,7 @@ public class ParkerController : ControllerBase
     [SwaggerResponse(StatusCodes.Status400BadRequest)]
     public IActionResult GetParker(int id)
     {
-        var parker = _context.GetParker(id);
+        var parker = _context.GetParker(id); 
         
         if (parker is null)
             return BadRequest("Id not found");
@@ -128,14 +128,14 @@ public class ParkerController : ControllerBase
         if (_context.IsLongTermParker(parker.Kennzeichen))
             return Ok(costDto);
             
-        parker.AusfahrDatum = DateTime.Now;
+        var ausfahrDatum = DateTime.Now;
 
-        var cost = CalculateCost(parker);
+        costDto.Cost = CalculateCost(parker, ausfahrDatum);
         
         using SqlConnection connection = new SqlConnection(_context.ConnectionString);
         connection.Open();
         
-        var command = new SqlCommand($"INSERT INTO Parkhaus.dbo.ParkersHistory (Kennzeichen, Einfahrtdatum, Ausfahrtdatum) VALUES('{parker.Kennzeichen}', '{parker.EinfahrDatum.ToString("yyyy-MM-dd HH:mm:ss.fff")}', '{parker.AusfahrDatum.Value.ToString("yyyy-MM-dd HH:mm:ss.fff")}');", connection);
+        var command = new SqlCommand($"INSERT INTO Parkhaus.dbo.ParkersHistory (Kennzeichen, Einfahrtdatum, Ausfahrtdatum) VALUES('{parker.Kennzeichen}', '{parker.EinfahrDatum.ToString("yyyy-MM-dd HH:mm:ss.fff")}', '{ausfahrDatum.ToString("yyyy-MM-dd HH:mm:ss.fff")}');", connection);
         var reader = command.ExecuteReader();
         try
         {
@@ -162,11 +162,11 @@ public class ParkerController : ControllerBase
         return Ok(costDto);
     }
 
-    private double CalculateCost(Parker parker)
+    private double CalculateCost(Parker parker, DateTime ausfahrdatum)
     {
         double cost = 0.00;
         
-        var totalMinutes= (parker.AusfahrDatum.Value - parker.EinfahrDatum).TotalMinutes;
+        var totalMinutes= (ausfahrdatum - parker.EinfahrDatum).TotalMinutes;
         totalMinutes = totalMinutes <= _context.FreeMinutes ? 0.00 : totalMinutes;
         
         cost = Math.Ceiling(totalMinutes / 60) * _context.RatePerHour;
