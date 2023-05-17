@@ -1,6 +1,5 @@
 import UsageCard from './UsageCard/UsageCard';
 import DriveInCard from './DriveInCard/DriveInCard';
-import PriceCard from './PriceCard/PriceCard';
 import { useState } from 'react';
 import { conf } from '../../res/config';
 import { ToastContainer, toast } from 'react-toastify';
