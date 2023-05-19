@@ -14,17 +14,14 @@ function UsageCard(tempProps: { renderInfo?: boolean }) {
 	const [permaParkers, setpermaParkers] = useState(0);
 
 	useEffect(() => {
-		fetch(
-			`http://${conf.api.host}:${conf.api.port}/${conf.api.routes.usage}`,
-			{
-				method: 'GET',
-				headers: {
-					'Content-Type': 'application/json',
-					'Access-Control-Allow-Origin': '*',
-				},
-			}
-		)
-			.then((data) => {
+		fetch(`http://${conf.api.host}:${conf.api.port}/${conf.api.routes.usage}`, {
+			method: 'GET',
+			headers: {
+				'Content-Type': 'application/json',
+				'Access-Control-Allow-Origin': '*',
+			},
+		})
+			.then(data => {
 				return data.json() as Promise<{
 					freeLots: number;
 					usedParkingLots: number;
@@ -32,38 +29,24 @@ function UsageCard(tempProps: { renderInfo?: boolean }) {
 					usedLongTermParkingLots: number;
 				}>;
 			})
-			.then((data) => {
-				setUsedSpaces(
-					data.usedParkingLots + data.usedLongTermParkingLots
-				);
+			.then(data => {
+				setUsedSpaces(data.usedParkingLots + data.usedLongTermParkingLots);
 				setpermaParkers(data.usedLongTermParkingLots);
 			});
 	}, [props.renderInfo]);
 
-	const colorShades: string[] = [
-		'#ffffff',
-		'#ffdddd',
-		'#fcb6b6',
-		'#fca0a0',
-		'#ff8e8e',
-		'#f87474',
-		'#ff5252',
-		'#fd4343',
-		'#fa2828',
-		'#ff0000',
-	];
+	const colorShades: string[] = ['#ffffff', '#ffdddd', '#fcb6b6', '#fca0a0', '#ff8e8e', '#f87474', '#ff5252', '#fd4343', '#fa2828', '#ff0000'];
 
 	let usage: number = usedSpaces / 180;
-	const tColor: string =
-		colorShades[Math.floor(usage * 10) > 9 ? 9 : Math.floor(usage * 10)];
+	const tColor: string = colorShades[Math.floor(usage * 10) > 9 ? 9 : Math.floor(usage * 10)];
 
 	return (
-		<div className="usageCard">
+		<div className='usageCard'>
 			<h4>Belegung</h4>
 			<br />
 			<SpaceSubCard freeSpaces={usedSpaces} textColor={tColor} />
 			<br />
-			<h4 className="spaceCard">von 180</h4>
+			<h4 className='spaceCard'>von 180</h4>
 			<br />
 			<h5>Auslastung: {parseInt('' + usage * 100)}%</h5>
 			<br />
