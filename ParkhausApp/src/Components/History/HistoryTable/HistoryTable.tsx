@@ -2,8 +2,14 @@ import { conf } from '../../../res/config';
 import { useEffect, useState } from 'react';
 import TableLine from './TableLine/TableLine';
 import '../History.css';
+import TableNav from './TableNav/TableNav';
 
-export default function HistoryTable() {
+export default function HistoryTable(tempProps: { fetchHandler?: (items: { kennzeichen: string; einfahrtdatum: string; ausfahrdatum: string; kosten: string; dauerparker: boolean }[]) => void }) {
+	const props = {
+		fetchHandler: (items: { kennzeichen: string; einfahrtdatum: string; ausfahrdatum: string; kosten: string; dauerparker: boolean }[]) => console.log('No handler'),
+		...tempProps,
+	};
+
 	const [historyItems, setHistoryItems] = useState<{ kennzeichen: string; einfahrtdatum: string; ausfahrdatum: string; kosten: string; dauerparker: boolean }[]>([]);
 	useEffect(() => {
 		fetch('http://localhost:18892/history', {
@@ -25,8 +31,11 @@ export default function HistoryTable() {
 			})
 			.then(data => {
 				setHistoryItems(data);
+				props.fetchHandler(data);
 			});
 	}, []);
+
+	const navClickHandler = (up: boolean): void => {};
 
 	return (
 		<div className='historyTable'>
@@ -42,6 +51,7 @@ export default function HistoryTable() {
 					return <TableLine licPlate={item.kennzeichen} entryDate={item.einfahrtdatum} outDate={item.ausfahrdatum} perma={item.dauerparker} cost={item.kosten} />;
 				})}
 			</table>
+			<TableNav clickHandler={navClickHandler}>1</TableNav>
 		</div>
 	);
 }

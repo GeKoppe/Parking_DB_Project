@@ -1,6 +1,44 @@
-.historyTable {
-    margin: 20px;
+.history {
+    display: flex;
+    margin-top: 20px;
+    margin-left: 40px;
+}
+
+.stats {
     color: white;
+    border: 3px solid white;
+    height: 100%;
+    padding: 20px;
+    text-align: center;
+    display: block;
+}
+
+.tableNav {
+    display: flex;
+    padding: 10px;
+    margin-top: 10px;
+    text-align: center;
+    align-items: baseline;
+}
+
+.tableNavButton {
+    outline: none;
+    background: transparent;
+    color: white;
+    border: none;
+}
+
+.tableNavButton:hover {
+    outline: none;
+    background: transparent;
+    color: white;
+    border: none;
+}
+
+.historyTable {
+    margin-right: 30px;
+    color: white;
+    display: block;
 }
 
 .historyTableTable {
