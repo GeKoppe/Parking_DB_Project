@@ -8,6 +8,7 @@ export const conf = {
 			getLotInfo: 'parking-lots',
 			allLots: 'all-lots',
 			registerAsPerma: 'perma',
+			stats: 'stats',
 		},
 	},
 };
