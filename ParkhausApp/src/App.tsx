@@ -55,15 +55,7 @@ function App() {
 	return (
 		<div>
 			<Navbar clickHandler={clickHandler} />
-			{currentMenu == 'MainMenu' ? (
-				<MainMenu />
-			) : currentMenu == 'Administration' ? (
-				<Administration />
-			) : currentMenu == 'History' ? (
-				<History />
-			) : (
-				<Registration />
-			)}
+			{currentMenu == 'MainMenu' ? <MainMenu /> : currentMenu == 'Administration' ? <Administration /> : currentMenu == 'History' ? <History /> : <Registration />}
 		</div>
 	);
 }

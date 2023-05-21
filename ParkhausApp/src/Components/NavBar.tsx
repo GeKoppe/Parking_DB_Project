@@ -12,41 +12,23 @@ function NavBar(tempProps?: { clickHandler?: (site: string) => void }) {
 	};
 
 	return (
-		<div className="navBar">
-			<Navbar expand="lg">
+		<div className='navBar'>
+			<Navbar expand='lg'>
 				<Container>
 					<Navbar.Brand>Parkhaus Verwaltung</Navbar.Brand>
-					<Navbar.Toggle aria-controls="basic-navbar-nav" />
-					<Navbar.Collapse id="basic-navbar-nav">
-						<Nav className="me-auto">
-							<Button
-								className="navButton"
-								variant="custom"
-								onClick={() => props.clickHandler('home')}
-							>
+					<Navbar.Toggle aria-controls='basic-navbar-nav' />
+					<Navbar.Collapse id='basic-navbar-nav'>
+						<Nav className='me-auto'>
+							<Button className='navButton' variant='custom' onClick={() => props.clickHandler('home')}>
 								Startseite
 							</Button>
-							<Button
-								className="navButton"
-								variant="custom"
-								onClick={() =>
-									props.clickHandler('registration')
-								}
-							>
+							<Button className='navButton' variant='custom' onClick={() => props.clickHandler('registration')}>
 								Registrierung
 							</Button>
-							<Button
-								className="navButton"
-								variant="custom"
-								onClick={() => props.clickHandler('admin')}
-							>
+							<Button className='navButton' variant='custom' onClick={() => props.clickHandler('admin')}>
 								Administration
 							</Button>
-							<Button
-								className="navButton"
-								variant="custom"
-								onClick={() => props.clickHandler('history')}
-							>
+							<Button className='navButton' variant='custom' onClick={() => props.clickHandler('history')}>
 								Historie
 							</Button>
 						</Nav>
