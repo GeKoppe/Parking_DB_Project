@@ -13,7 +13,7 @@ public class LongTermParker
     {
         return new LongTermParker()
         {
-            Id = (int)reader["Id"],
+            // Id = (int)reader["Id"],
             Kennzeichen = (string)reader["Kennzeichen"],
             Vorname = (string)reader["Vorname"],
             Nachname = (string)reader["Nachname"]
