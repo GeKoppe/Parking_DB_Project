@@ -59,6 +59,24 @@ def all_lots():
         lots.append({'nr': i+1, 'inUse': (random.randint(0,1) == 1)})
     return jsonify({'lots': lots})
 
+@app.route('/history', methods=['GET'])
+def history():
+    num_of_entries = random.randint(0,50)
+    history_list = []
+    
+    for i in range(num_of_entries):
+        history_list.append(
+            {
+                'kennzeichen': 'OS-SG-123',
+                'einfahrtdatum': '01.01.2000 13:37',
+                'ausfahrdatum': '01.01.2000 13:38',
+                'kosten': '13,37€',
+                'dauerparker': random.randint(0,1) == 1
+            }
+        )
+
+    return jsonify(history_list)
+
 if __name__ == '__main__':
     # start Flask server
     app.run(host='0.0.0.0', port=18892)
