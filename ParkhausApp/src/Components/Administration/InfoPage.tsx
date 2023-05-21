@@ -58,7 +58,7 @@ export default function InfoPage(tempProps: { lotNr?: number; clickHandler?: () 
 	}, [props.lotNr]);
 
 	const driveOutClickHandler = () => {
-		fetch(`http://${conf.api.host}:${conf.api.port}/${conf.api.routes.getLotInfo}/${props.lotNr}`, {
+		fetch(`http://${conf.api.host}:${conf.api.port}/${conf.api.routes.newParker}/${props.lotNr}`, {
 			method: 'DELETE',
 			headers: {
 				'Origin': 'http://localhost:8123',
