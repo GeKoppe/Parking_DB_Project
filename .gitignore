@@ -1,4 +1,7 @@
 # Logs
+API/bin/
+API/obj/
+
 logs
 *.log
 npm-debug.log*
