@@ -37,7 +37,7 @@ export default function LotCardView(props: { lotClickHandler: (nr: number) => vo
 
 	useEffect(() => {
 		buildLotCardView();
-	}, [allLots]);
+	}, [allLots, props.lotSelected]);
 
 	const getSingleCardRow = (row: number) => {
 		let rows = [];
