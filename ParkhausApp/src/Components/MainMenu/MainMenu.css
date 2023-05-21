@@ -1,6 +1,6 @@
 .usageCard {
     border: 2px solid #ffffff;
-    padding: 20px;
+    padding: 57px;
     text-align: center;
 }
 
@@ -11,6 +11,7 @@
     color: #ffffff;
     display: block;
     width: 60%;
+    height: 50%;
 }
 
 .defaultInput {
@@ -25,7 +26,7 @@
 .defaultInput:hover {
     border-width: 0 0 2px;
     background: transparent;
-    border-color: green;
+    border-color: white;
     outline-width: 0;
 }
 
@@ -33,16 +34,21 @@
     outline: none;
     border-width: 0 0 2px;
     background: transparent;
-    border-color: green;
+    border-color: white;
     outline-width: 0;
 }
 
 .error {
     text-align: center;
     padding: 5px;
+    border-width: 0 0 2px;
     background: transparent;
-    border:1px solid red;
+    border-color: red;
     color: red;
+}
+
+.error:focus {
+    outline: none;
 }
 
 .menuContainer {
@@ -70,6 +76,18 @@
     padding-right: 50px;
     padding-left: 50px;
     height: 100%;
+    display: block;
+}
+
+.priceCard {
+    color: white;
+    display: block;
+    outline: 2px solid white;
+    padding: 20px;
+    margin-right: 20px;
+    margin-top: 2px;
+    width: 60%;
+    text-align: center;
 }
 
 .spaceCard {
@@ -99,5 +117,9 @@
               inset -100px 0px 100px -50px #D4D4CC;
     /* margin-right: 20px;
     margin-left: -100px; */
+}
+
+.welcomeToast {
+    color: rgb(130,247,139,177);
 }
 

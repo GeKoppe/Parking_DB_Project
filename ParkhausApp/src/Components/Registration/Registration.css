@@ -1,0 +1,105 @@
+.registration {
+    margin-top: 20px;
+    text-align: center;
+    color: white;
+    width: 80%;
+    display: flex;
+}
+
+.registrationCard {
+    text-align: left;
+    display: flex;
+    color: white;
+    outline: 2px solid white;
+    padding: 20px;
+    margin-right: 20px;
+    margin-top: 2px;
+    width: 100%;
+    margin-left: 20px;
+}
+
+.labels {
+    display: block;
+    margin-right: 10px;
+    height: 50%;
+}
+
+.label {
+    margin-bottom: 15px;
+}
+
+.inputs {
+    display: block;
+    margin-right: 10px;
+}
+
+.regDefaultInput {
+    margin-bottom: 10px;
+    text-align: center;
+    background: transparent;
+    border-width: 0 0 2px;
+    border-color: rgba(255, 255, 255, 0.425);
+    color: white;
+}
+
+.regDefaultInput:focus {
+    outline: none;
+    border-width: 0 0 2px;
+    background: transparent;
+    border-color: white;
+    outline-width: 0;
+}
+
+.infoCard {
+    text-align: left;
+    display: block;
+    color: white;
+    outline: 2px solid white;
+    padding: 20px;
+    margin-right: 20px;
+    margin-top: 2px;
+    width: 50%;
+    margin-left: 20px;
+}
+
+.regButton {
+    color: rgb(130,247,139,177);
+    box-shadow: "5px 5px 3px rgb(97,145,100,1.14)";
+    border-color: rgb(130,247,139,177);
+    border-radius: 0%;
+}
+
+.regButton:hover {
+    color: white;
+    border-color: white;
+}
+
+.errorInput {
+    text-align: center;
+    padding: 5px;
+    border-width: 0 0 2px;
+    background: transparent;
+    border-color: red;
+    color: red;
+}
+
+.errorInput:focus {
+    outline: none;
+    text-align: center;
+    padding: 5px;
+    background: transparent;
+    color: red;
+}
+
+.regComps {
+    display: flex;
+    text-align: center;
+}
+
+.header {
+    color: white;
+    text-align: center;
+    width: 50%;
+    margin-bottom: 30px;
+    margin-top: 30px;
+}

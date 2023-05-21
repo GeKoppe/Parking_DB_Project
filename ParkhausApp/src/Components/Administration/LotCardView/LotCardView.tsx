@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import LotCard from './Lotcard/LotCard';
 import { conf } from '../../../res/config';
+import LotCardHeader from './LotCardHeader';
 
 export default function LotCardView(props: {lotClickHandler: (nr: number) => void, lotSelected: number, page: number}) {
     const [allLots, setAllLots] = useState<{nr: number, inUse: boolean}[]>([]);
@@ -54,6 +55,7 @@ export default function LotCardView(props: {lotClickHandler: (nr: number) => voi
 
     return (
         <div className="LotCardContainer">
+            <LotCardHeader maxNumber={(props.page * 20)}/>
             {buildLotCardView()}
         </div>
     );

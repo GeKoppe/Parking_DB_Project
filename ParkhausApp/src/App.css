@@ -1,5 +1,3 @@
-
-
 .navBar {
     background-color: rgba(47, 47, 47, 69);
 }
@@ -17,7 +15,7 @@ html {
 }
 
 .navbar-brand:hover {
-    color: rgb(130,247,139,177);
+    color: white;
 }
 
 .navButton {

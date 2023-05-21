@@ -3,6 +3,8 @@ import DriveInTime from "./InfoPageParts/DriveInTime";
 import DriveOutButton from "./InfoPageParts/DriveOutButton";
 import { useState, useEffect } from 'react';
 import { conf } from "../../res/config";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 export default function InfoPage(tempProps?:{lotNr?: number}) {
     // For now, I just generate stuff randomly, later this will be replaced by an API call with the lotNr
@@ -55,12 +57,14 @@ export default function InfoPage(tempProps?:{lotNr?: number}) {
         })
         .then(response => response.json() as Promise<{plate: string, time: string, perma: true}>)
         .then(data => {
+            
             setLotInfo({
                 inUse: false,
                 plate: data.plate,
                 driveInTime: data.time,
                 permaParker: data.perma
             });
+
         })
     }
 
@@ -83,6 +87,7 @@ export default function InfoPage(tempProps?:{lotNr?: number}) {
     } else {
         return (
             <div className="InfoContainer">
+                <ToastContainer/>
                 <h3>Parkplatz Nr. {props.lotNr}</h3>
                 <br/>
                 <h3>Nummernschild:</h3>
