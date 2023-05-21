@@ -5,7 +5,7 @@ export const conf = {
 		routes: {
 			usage: 'Usage',
 			newParker: 'Parker',
-			getLotInfo: 'parking-lots',
+			getLotInfo: 'Parker',
 			allLots: 'all-lots',
 			registerAsPerma: 'perma',
 			stats: 'stats',

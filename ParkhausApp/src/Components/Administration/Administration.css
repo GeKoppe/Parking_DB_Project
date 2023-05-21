@@ -154,3 +154,7 @@
     margin-bottom: -10px;
     opacity: 50%;
 }
+
+.welcomeToast {
+    color: rgb(130,247,139,177);
+}
