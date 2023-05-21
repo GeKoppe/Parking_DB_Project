@@ -102,7 +102,7 @@ public class DbContext
     public bool PlateAlreadyExists(string kennzeichen)
     {
         using SqlConnection connection = new SqlConnection(ConnectionString);
-        var command = new SqlCommand($"SELECT 1 FROM Parkers WHERE Kennzeichen = '{kennzeichen}';", connection);
+        var command = new SqlCommand($"SELECT TOP(1) * FROM Parkers WHERE Kennzeichen = '{kennzeichen}';", connection);
         connection.Open();
         var reader = command.ExecuteReader();
         try
@@ -123,7 +123,7 @@ public class DbContext
     public bool IsLongTermParker(string kennzeichen)
     {
         using SqlConnection connection = new SqlConnection(ConnectionString);
-        var command = new SqlCommand($"SELECT 1 FROM Parkhaus.dbo.Dauerparker WHERE Kennzeichen = '{kennzeichen}';", connection);
+        var command = new SqlCommand($"SELECT TOP(1) * FROM Parkhaus.dbo.Dauerparker WHERE Kennzeichen = '{kennzeichen}';", connection);
         connection.Open();
         var reader = command.ExecuteReader();
         try

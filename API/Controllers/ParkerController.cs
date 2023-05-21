@@ -87,7 +87,9 @@ public class ParkerController : ControllerBase
             return BadRequest("Parkaus voll");
         
         using SqlConnection connection = new SqlConnection(_context.ConnectionString);
-        var command = new SqlCommand($"INSERT INTO Parkhaus.dbo.Parkers (ID, Kennzeichen, Einfahrtdatum) OUTPUT Inserted.Id VALUES({lotId} ,'{kennzeichen}', '{einfahrtdatum.ToString("yyyy-MM-dd HH:mm:ss.fff")}');", connection);
+        string dateString = einfahrtdatum.ToString("yyyyMMdd HH:mm:ss.fff");
+        Console.WriteLine(dateString);
+        var command = new SqlCommand($"INSERT INTO Parkhaus.dbo.Parkers (ID, Kennzeichen, Einfahrtdatum) OUTPUT Inserted.Id VALUES({lotId} ,'{kennzeichen}', '{dateString}');", connection);
         connection.Open();
         var reader = command.ExecuteReader();
         try
@@ -135,7 +137,7 @@ public class ParkerController : ControllerBase
         using SqlConnection connection = new SqlConnection(_context.ConnectionString);
         connection.Open();
         
-        var command = new SqlCommand($"INSERT INTO Parkhaus.dbo.ParkersHistory (Kennzeichen, Einfahrtdatum, Ausfahrtdatum) VALUES('{parker.Kennzeichen}', '{parker.EinfahrDatum.ToString("yyyy-MM-dd HH:mm:ss.fff")}', '{ausfahrDatum.ToString("yyyy-MM-dd HH:mm:ss.fff")}');", connection);
+        var command = new SqlCommand($"INSERT INTO Parkhaus.dbo.ParkersHistory (Kennzeichen, Einfahrdatum, Ausfahrdatum) VALUES('{parker.Kennzeichen}', '{parker.EinfahrDatum.ToString("yyyyMMdd HH:mm:ss.fff")}', '{ausfahrDatum.ToString("yyyyMMdd HH:mm:ss.fff")}');", connection);
         var reader = command.ExecuteReader();
         try
         {
