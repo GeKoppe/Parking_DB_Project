@@ -8,11 +8,11 @@ export default function TableLine(tempProps: { licPlate: string; entryDate: stri
 
 	return (
 		<tr className='tableLine'>
-			<td className='tableItem'>{props.licPlate}</td>
-			<td className='tableItem'>{props.entryDate}</td>
-			<td className='tableItem'>{props.outDate}</td>
-			<td className='tableItem'>{props.cost}</td>
-			<td className='tableItem'>{props.perma ? 'Ja' : 'Nein'}</td>
+			<td className='tableItem'>{props.licPlate || '/'}</td>
+			<td className='tableItem'>{props.entryDate || '/'}</td>
+			<td className='tableItem'>{props.outDate || '/'}</td>
+			<td className='tableItem'>{props.cost || '/'}</td>
+			<td className='tableItem'>{props.licPlate ? (props.perma ? 'Ja' : 'Nein') : '/'}</td>
 		</tr>
 	);
 }
