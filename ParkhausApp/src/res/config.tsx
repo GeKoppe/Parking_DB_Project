@@ -7,7 +7,7 @@ export const conf = {
 			newParker: 'Parker',
 			getLotInfo: 'Parker',
 			allLots: 'all-lots',
-			registerAsPerma: 'perma',
+			registerAsPerma: 'LongTermParker',
 			stats: 'stats',
 		},
 	},

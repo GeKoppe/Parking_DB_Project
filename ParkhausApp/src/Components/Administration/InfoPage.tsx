@@ -7,7 +7,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import './Administration.css';
 
-export default function InfoPage(tempProps: { lotNr?: number; clickHandler?: () => void }) {
+export default function InfoPage(tempProps: { lotNr?: number; clickHandler?: () => void; toastHandler: (text: string) => void }) {
 	// For now, I just generate stuff randomly, later this will be replaced by an API call with the lotNr
 	const props = {
 		lotNr: -1,
@@ -83,14 +83,7 @@ export default function InfoPage(tempProps: { lotNr?: number; clickHandler?: () 
 					} else {
 						driveOutString = 'Vielen Dank für Ihren Besuch!';
 					}
-					toast.success(driveOutString, {
-						position: 'top-right',
-						autoClose: 5000,
-						hideProgressBar: false,
-						draggable: true,
-						progress: undefined,
-						theme: 'colored',
-					});
+					props.toastHandler(driveOutString);
 				}
 				setLotInfo({
 					inUse: false,

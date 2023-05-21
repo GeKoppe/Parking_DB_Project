@@ -1,9 +1,11 @@
 import LotCardView from './LotCardView/LotCardView';
 import InfoPage from './InfoPage';
-import Paging from './Paging/Paging';
+// import Paging from './Paging/Paging';
 import { useState } from 'react';
 import Floors from './Floors/Floors';
-import Floor from './Floors/Floor/Floor';
+// import Floor from './Floors/Floor/Floor';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 export default function Administration() {
 	const [lotSelected, setLotSelected] = useState(-1);
@@ -33,13 +35,25 @@ export default function Administration() {
 		setPage(floor);
 	};
 
+	const driveOutToast = (text: string): void => {
+		toast.success(text, {
+			position: 'top-right',
+			autoClose: 5000,
+			hideProgressBar: false,
+			draggable: true,
+			progress: undefined,
+			theme: 'colored',
+		});
+	};
+
 	return (
 		<div className='Administration'>
+			<ToastContainer />
 			<LotCardView lotClickHandler={lotClickHandler} lotSelected={lotSelected} page={page} />
 			{/* <Paging clickHandler={pageChangeClickListener} currentPage={page}/> */}
 			<Floors floorSelected={page} floorClickHandler={floorClickHandler} />
 			<div className='InfoPage'>
-				<InfoPage lotNr={lotSelected} />
+				<InfoPage lotNr={lotSelected} toastHandler={driveOutToast} />
 			</div>
 		</div>
 	);

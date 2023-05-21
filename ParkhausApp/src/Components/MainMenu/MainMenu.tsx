@@ -26,6 +26,7 @@ function MainMenu() {
 		fetch(`http://${conf.api.host}:${conf.api.port}/${conf.api.routes.newParker}?kennzeichen=${plate}`, {
 			method: 'POST',
 			headers: {
+				'Origin': 'http://localhost:8123',
 				'Content-Type': 'application/json',
 			},
 			// body: JSON.stringify({ plate: plate }),
