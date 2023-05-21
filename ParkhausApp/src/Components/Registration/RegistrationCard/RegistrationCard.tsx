@@ -5,10 +5,10 @@ import { useState } from 'react';
 import FormLabel from 'react-bootstrap/FormLabel';
 import { conf } from '../../../res/config';
 
-export default function RegistrationCard(tempProps: { licPlateClassName?: string; buttonClickHandler?: () => boolean; licChangeHandler: () => void }) {
+export default function RegistrationCard(tempProps: { licPlateClassName?: string; buttonClickHandler?: (name: string, surname: string) => void; licChangeHandler: () => void }) {
 	const props = {
 		licPlateClassName: 'regDefaultInput',
-		buttonClickHandler: () => console.log('Registriert!'),
+		buttonClickHandler: (name: string, surname: string) => console.log('Registriert!'),
 		...tempProps,
 	};
 
@@ -118,6 +118,7 @@ export default function RegistrationCard(tempProps: { licPlateClassName?: string
 			.catch(reason => {
 				postNewPermaErrorHandler(-1);
 			});
+		props.buttonClickHandler(name, surName);
 	};
 
 	const postNewPermaErrorHandler = (status: number): void => {

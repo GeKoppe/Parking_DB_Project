@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "2jzOunD2Y1A7RwYF1qqsljL5q94TB9lqOIYZfQ2Ot/5dW2jN/M3P4gXDfCWmwgXtgV25G0ih+V4+IHAoG4KObQ==",
+  "dgSpecHash": "RceBZQgm4EaSJ4d9DDQB1mj25mt7vUZqqcoPWZLz2jhNxUg17u+U0KJoLFzYMboZv92uBaWrOCU1PWMYEhuSiQ==",
   "success": true,
-  "projectFilePath": "C:\\Users\\gkoppe\\Desktop\\King of Ordners\\Git Repos\\Parking_DB_Project\\API\\API.csproj",
+  "projectFilePath": "C:\\Users\\gkoppe\\Desktop\\King of Ordners\\Git Repos\\Parking_DB_Project\\api\\API.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\gkoppe\\.nuget\\packages\\microsoft.aspnetcore.openapi\\7.0.2\\microsoft.aspnetcore.openapi.7.0.2.nupkg.sha512",
     "C:\\Users\\gkoppe\\.nuget\\packages\\microsoft.extensions.apidescription.server\\6.0.5\\microsoft.extensions.apidescription.server.6.0.5.nupkg.sha512",

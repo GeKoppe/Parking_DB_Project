@@ -8,7 +8,6 @@ import 'react-toastify/dist/ReactToastify.css';
 import './Administration.css';
 
 export default function InfoPage(tempProps: { lotNr?: number; clickHandler?: () => void; toastHandler: (text: string) => void }) {
-	// For now, I just generate stuff randomly, later this will be replaced by an API call with the lotNr
 	const props = {
 		lotNr: -1,
 		clickHandler: () => console.log('Driving out'),
@@ -35,16 +34,21 @@ export default function InfoPage(tempProps: { lotNr?: number; clickHandler?: () 
 				if (response.status == 400) {
 					return { id: -1, kennzeichen: '', einfahrDatum: '' };
 				} else {
-					return response.json() as Promise<{ id: number; kennzeichen?: string; einfahrDatum?: string }>;
+					return response.json() as Promise<{ id: number; kennzeichen?: string; einfahrDatum?: string; dauerparker?: boolean }>;
 				}
 			})
 			.then(data => {
 				if (data.id !== -1) {
+					let date: string = ``;
+					if (data.einfahrDatum) {
+						let dateObj: Date = new Date(data.einfahrDatum);
+						date = `${dateObj.getDate()}.${dateObj.getMonth() + 1}.${dateObj.getFullYear()}, ${dateObj.getHours()}:${dateObj.getMinutes()} Uhr`;
+					}
 					setLotInfo({
 						inUse: true,
 						plate: data.kennzeichen || '',
-						driveInTime: data.einfahrDatum || '',
-						permaParker: false,
+						driveInTime: date,
+						permaParker: data.dauerparker || false,
 					});
 				} else {
 					setLotInfo({
@@ -78,8 +82,11 @@ export default function InfoPage(tempProps: { lotNr?: number; clickHandler?: () 
 				if (data) {
 					let driveOutString: string;
 					if (!lotInfo.permaParker) {
-						let costString: string = `${data.cost}0`.replace('.', ',');
-						driveOutString = `Vielen Dank für Ihren Besuch. Bitte bezahlen sie bei der Ausfahrt ${costString}€.`;
+						let cost = `${data.cost}`.replace('.', ',');
+						if (cost.indexOf(',') == -1) cost += ',00';
+						else if (cost.substring(cost.indexOf(','), cost.length).length < 3) cost += '0';
+
+						driveOutString = `Vielen Dank für Ihren Besuch. Bitte bezahlen Sie bei der Ausfahrt ${cost}€.`;
 					} else {
 						driveOutString = 'Vielen Dank für Ihren Besuch!';
 					}
