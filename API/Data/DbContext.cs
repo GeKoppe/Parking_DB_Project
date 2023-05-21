@@ -123,7 +123,7 @@ public class DbContext
     public bool IsLongTermParker(string kennzeichen)
     {
         using SqlConnection connection = new SqlConnection(ConnectionString);
-        var command = new SqlCommand($"SELECT 1 FROM Parkhaus.dbo.Dauerpaker WHERE Kennzeichen = '{kennzeichen}';", connection);
+        var command = new SqlCommand($"SELECT 1 FROM Parkhaus.dbo.Dauerparker WHERE Kennzeichen = '{kennzeichen}';", connection);
         connection.Open();
         var reader = command.ExecuteReader();
         try
@@ -144,7 +144,7 @@ public class DbContext
     public LongTermParker? GetLongTermParkerInfo(string kennzeichen)
     {
         using SqlConnection connection = new SqlConnection(ConnectionString);
-        var command = new SqlCommand($"SELECT ID, Kennzeichen, Vorname, Nachname FROM Parkhaus.dbo.Dauerpaker WHERE Kennzeichen = '{kennzeichen}';", connection);
+        var command = new SqlCommand($"SELECT ID, Kennzeichen, Vorname, Nachname FROM Parkhaus.dbo.Dauerparker WHERE Kennzeichen = '{kennzeichen}';", connection);
         connection.Open();
         var reader = command.ExecuteReader();
         try
