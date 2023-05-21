@@ -137,7 +137,7 @@ public class ParkerController : ControllerBase
         using SqlConnection connection = new SqlConnection(_context.ConnectionString);
         connection.Open();
         
-        var command = new SqlCommand($"INSERT INTO Parkhaus.dbo.ParkersHistory (Kennzeichen, Einfahrtdatum, Ausfahrtdatum) VALUES('{parker.Kennzeichen}', '{parker.EinfahrDatum.ToString("yyyy-MM-dd HH:mm:ss.fff")}', '{ausfahrDatum.ToString("yyyy-MM-dd HH:mm:ss.fff")}');", connection);
+        var command = new SqlCommand($"INSERT INTO Parkhaus.dbo.ParkersHistory (Kennzeichen, Einfahrdatum, Ausfahrdatum) VALUES('{parker.Kennzeichen}', '{parker.EinfahrDatum.ToString("yyyyMMdd HH:mm:ss.fff")}', '{ausfahrDatum.ToString("yyyyMMdd HH:mm:ss.fff")}');", connection);
         var reader = command.ExecuteReader();
         try
         {
