@@ -40,7 +40,29 @@ public class DbContext
 
         return parker;
     }
-    
+
+    public List<ParkerHistory> GetParkerHistory()
+    {
+        List<ParkerHistory> parker = null;
+        using SqlConnection connection = new SqlConnection(ConnectionString);
+        var command = new SqlCommand($"SELECT ID, Kennzeichen, Einfahrtdatum, Ausfahrtdatum FROM Parkhaus.dbo.ParkersHistory;", connection);
+        connection.Open();
+        var reader = command.ExecuteReader();
+        try
+        {
+            while (reader.Read())
+            {
+                parker.Add(ParkerHistory.CreateFromReader(reader));
+            }
+        }
+        finally
+        {
+            reader.Close();
+        }
+
+        return parker;
+    }
+
     public int GetRandomAvailableLotId(bool dauerparker)
     {
         var freeLots = GetFreeLots();
