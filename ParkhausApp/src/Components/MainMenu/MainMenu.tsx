@@ -33,12 +33,14 @@ function MainMenu() {
 		})
 			.then(response => {
 				// TODO Error handling, anything other than 200 basically
-				return response.json() as Promise<{
-					id: number;
-					dauerparker: boolean;
-					vorname?: string;
-					nachname?: string;
-				}>;
+				if (response.status < 300)
+					return response.json() as Promise<{
+						id: number;
+						dauerparker: boolean;
+						vorname?: string;
+						nachname?: string;
+					}>;
+				else throw 'Parkhaus voll';
 			})
 			.then(data => {
 				let welcomeString = 'Herzlich Willkommen';
@@ -55,7 +57,8 @@ function MainMenu() {
 					progress: undefined,
 					theme: 'colored',
 				});
-			});
+			})
+			.catch(reason => console.log(reason));
 		setRenderInfo(!renderInfo);
 		setlicClass('defaultInput');
 		return true;
