@@ -8,16 +8,16 @@ export default function History() {
 	const [income, setIncome] = useState(0);
 	const [parkers, setParkers] = useState(0);
 	const fetchHandler = (items: Parker[]) => {
-		let parkers: number = 0;
-		let income: number = 0;
+		let parkersTemp: number = 0;
+		let incomeTemp: number = 0;
 
 		items.forEach(item => {
-			parkers++;
-			income += parseFloat((`${item.kosten}` || '').substring(0, (`${item.kosten}` || '').length - 1).replace(',', '.'));
+			parkersTemp++;
+			incomeTemp += item.kosten || 0;
 		});
 
-		setIncome(income);
-		setParkers(parkers);
+		setIncome(incomeTemp);
+		setParkers(parkersTemp);
 	};
 	return (
 		<div className='history'>

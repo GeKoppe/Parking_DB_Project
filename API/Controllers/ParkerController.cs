@@ -165,11 +165,11 @@ public class ParkerController : ControllerBase
             reader.Close();
         }
 
-        // TODO - Dauerparker monatlich abrechnen
-        if (_context.IsLongTermParker(parker.Kennzeichen))
-            return Ok(costDto);
+        // // TODO - Dauerparker monatlich abrechnen
+        // if (_context.IsLongTermParker(parker.Kennzeichen))
+        //     return Ok(costDto);
 
-        costDto.Cost = CalculateCost(parker, ausfahrDatum);
+        // costDto.Cost = CalculateCost(parker, ausfahrDatum);
 
         return Ok(costDto);
     }

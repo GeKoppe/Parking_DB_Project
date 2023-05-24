@@ -51,6 +51,9 @@ function UsageCard(tempProps: { renderInfo?: boolean }) {
 			<h5>Auslastung: {parseInt('' + usage * 100)}%</h5>
 			<br />
 			<h5>Dauerparker: {permaParkers}</h5>
+			<br />
+			<h5>Freie Plätze Kurzparker: {136 - usedSpaces}</h5>
+			<h5 className='usedUp'>{140 - usedSpaces - 4 === 0 ? 'Belegt für Kurzparker!' : ''}</h5>
 		</div>
 	);
 }
