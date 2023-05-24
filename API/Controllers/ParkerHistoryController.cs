@@ -17,19 +17,19 @@ public class ParkerHistoryController : ControllerBase
         _logger = logger;
         _context = context;
     }
-    
-    [HttpGet("{id:int}", Name = "GetParker")]
+
+    [HttpGet(Name = "GetParkerHistory")]
     [SwaggerResponse(StatusCodes.Status200OK, Type = typeof(List<ParkerDto>))]
     [SwaggerResponse(StatusCodes.Status400BadRequest)]
-    public IActionResult GetParker(int id)
+    public IActionResult GetParkerHistory()
     {
-        var parker = _context.GetParkerHistory(); 
-        
-        if (parker is null)
-            return BadRequest("Id not found");
+        var parker = _context.GetParkerHistory();
 
-        var parkerDtos = 
-            parker.Select(p => new ParkerDto(p, _context.IsLongTermParker(p.Kennzeichen))).ToList();
+        var parkerDtos =
+            parker
+                .Select(p => new ParkerDto(p, _context.IsLongTermParker(p.Kennzeichen),
+                    _context.CalculateCost(p.EinfahrDatum, p.AusfahrDatum)))
+                .ToList();
 
         var dto = new ParkerHistoryDto()
         {

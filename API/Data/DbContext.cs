@@ -43,7 +43,7 @@ public class DbContext
 
     public List<ParkerHistory> GetParkerHistory()
     {
-        List<ParkerHistory> parker = null;
+        List<ParkerHistory> parker = new List<ParkerHistory>();
         using SqlConnection connection = new SqlConnection(ConnectionString);
         var command = new SqlCommand($"SELECT ID, Kennzeichen, Einfahrtdatum, Ausfahrtdatum FROM Parkhaus.dbo.ParkersHistory;", connection);
         connection.Open();
@@ -182,5 +182,17 @@ public class DbContext
         }
 
         return null;   
+    }
+    
+    public double CalculateCost(DateTime einfahrDatum, DateTime ausfahrdatum)
+    {
+        double cost = 0.00;
+        
+        var totalMinutes= (ausfahrdatum - einfahrDatum).TotalMinutes;
+        totalMinutes = totalMinutes <= FreeMinutes ? 0.00 : totalMinutes;
+        
+        cost = Math.Ceiling(totalMinutes / 60) * RatePerHour;
+        
+        return cost;
     }
 }
