@@ -36,7 +36,7 @@ public class ParkerController : ControllerBase
         if (parker is null)
             return BadRequest("Id not found");
 
-        return Ok(new ParkerDto(parker));
+        return Ok(new ParkerDto(parker, _context.IsLongTermParker(parker.Kennzeichen)));
     }
     
     [HttpGet(Name = "GetAllParker")]
@@ -125,8 +125,18 @@ public class ParkerController : ControllerBase
         var parker = _context.GetParker(id);
         if (parker is null)
             return BadRequest("Id not found");
-            
+
         var ausfahrDatum = DateTime.Now;
+        
+        // TODO - Dauerparker monatlich abrechnen
+        if (_context.IsLongTermParker(parker.Kennzeichen))
+        {
+            costDto.Cost = 0;
+        }
+        else
+        {
+            costDto.Cost = CalculateCost(parker, ausfahrDatum);
+        }
         
         using SqlConnection connection = new SqlConnection(_context.ConnectionString);
         connection.Open();
