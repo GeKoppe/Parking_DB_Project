@@ -16,7 +16,7 @@ export default function TableLine(tempProps: { licPlate: string; entryDate: stri
 	let entryDateString: string = '';
 	if (props.entryDate !== '') {
 		const entryDate = new Date(props.entryDate);
-		entryDateString = `${entryDate.getDay() + 1}.${entryDate.getMonth() + 1}.${entryDate.getFullYear()}, ${entryDate.getHours()}:${entryDate.getMinutes() < 10 ? `0${entryDate.getMinutes()}` : `${entryDate.getMinutes()}`} Uhr`;
+		entryDateString = `${entryDate.getDate()}.${entryDate.getMonth() + 1}.${entryDate.getFullYear()}, ${entryDate.getHours()}:${entryDate.getMinutes() < 10 ? `0${entryDate.getMinutes()}` : `${entryDate.getMinutes()}`} Uhr`;
 	} else {
 		entryDateString = '/';
 	}
@@ -24,7 +24,7 @@ export default function TableLine(tempProps: { licPlate: string; entryDate: stri
 	let outroDateString: string = '';
 	if (props.outDate !== '') {
 		const outroDate = new Date(props.outDate);
-		outroDateString = `${outroDate.getDay() + 1}.${outroDate.getMonth() + 1}.${outroDate.getFullYear()}, ${outroDate.getHours()}:${outroDate.getMinutes() < 10 ? `0${outroDate.getMinutes()}` : `${outroDate.getMinutes()}`} Uhr`;
+		outroDateString = `${outroDate.getDate()}.${outroDate.getMonth() + 1}.${outroDate.getFullYear()}, ${outroDate.getHours()}:${outroDate.getMinutes() < 10 ? `0${outroDate.getMinutes()}` : `${outroDate.getMinutes()}`} Uhr`;
 	} else {
 		outroDateString = '/';
 	}

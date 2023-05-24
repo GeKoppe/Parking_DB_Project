@@ -9,23 +9,24 @@ export type Parker = {
 	kennzeichen: string;
 	einfahrDatum: string;
 	ausfahrDatum: string;
-	istDauerParker: boolean;
+	istDauerparker: boolean;
 	kosten?: number;
 };
 
-export default function HistoryTable(tempProps: {
-	fetchHandler?: (items: Parker[]) => void;
-	filter?: {
-		plate: string;
-		driveInDate: string;
-		driveOutDate: string;
-		costFrom: number;
-		costTo: number;
-		perma: boolean;
-	};
-}) {
+export type Filter = {
+	exists: boolean;
+	plate: string;
+	driveInDate: string;
+	driveOutDate: string;
+	costFrom: number;
+	costTo: number;
+	perma: boolean;
+};
+
+export default function HistoryTable(tempProps: { fetchHandler?: (items: Parker[]) => void; filter?: Filter }) {
 	const props = {
 		filter: {
+			exists: false,
 			plate: '',
 			driveInDate: '',
 			driveOutDate: '',
@@ -39,10 +40,11 @@ export default function HistoryTable(tempProps: {
 
 	const [historyItems, setHistoryItems] = useState<Parker[]>([]);
 	const [page, setPage] = useState(1);
+	const [filteredLength, setFilteredLength] = useState(0);
 	const [actualRows, setActualRows] = useState<JSX.Element[]>([]);
 
 	useEffect(() => {
-		fetch(`http://${conf.api.host}:${conf.api.port}/${conf.api.routes.history}/1`, {
+		fetch(`http://${conf.api.host}:${conf.api.port}/${conf.api.routes.history}`, {
 			method: 'GET',
 			headers: {
 				'Origin': 'http://localhost:8123',
@@ -59,8 +61,6 @@ export default function HistoryTable(tempProps: {
 			.then(data => {
 				let tempData: Parker[] = [];
 				data.forEach(parker => tempData.push(parker));
-				let remainder = 25 - (data.length % 25);
-				for (let i = 0; i < remainder; i++) data.push({ id: -1, kennzeichen: '', einfahrDatum: '', ausfahrDatum: '', istDauerParker: false, kosten: -1 });
 				setHistoryItems(data);
 				props.fetchHandler(tempData);
 				itemMapper();
@@ -70,14 +70,68 @@ export default function HistoryTable(tempProps: {
 			});
 	}, []);
 
+	const filterItems = () => {
+		let filtered = historyItems;
+		if (!props.filter.exists) {
+			return filtered;
+		}
+		if (props.filter.plate != '') {
+			filtered = filtered.filter(item => {
+				return item.kennzeichen.indexOf(props.filter.plate) != -1;
+			});
+		}
+		if (props.filter.costTo != -1) {
+			filtered = filtered.filter(item => {
+				return (item.kosten || 0) <= props.filter.costTo;
+			});
+		}
+
+		if (props.filter.costFrom != -1) {
+			filtered = filtered.filter(item => {
+				return (item.kosten || 0) >= props.filter.costFrom;
+			});
+		}
+
+		if (props.filter.driveInDate != '') {
+			filtered = filtered.filter(item => {
+				let diDate = new Date(props.filter.driveInDate);
+				let iDate = new Date(item.einfahrDatum);
+
+				return diDate.getTime() < iDate.getTime();
+			});
+		}
+
+		if (props.filter.driveOutDate != '') {
+			filtered = filtered.filter(item => {
+				let doDate = new Date(props.filter.driveOutDate);
+				let oDate = new Date(item.ausfahrDatum);
+
+				return doDate.getTime() > oDate.getTime();
+			});
+		}
+
+		if (props.filter.perma) {
+			filtered = filtered.filter(item => item.istDauerparker);
+		}
+
+		return filtered;
+	};
+
 	useEffect(() => {
 		itemMapper();
 	}, [historyItems, page]);
 
+	useEffect(() => {
+		itemMapper();
+		setPage(1);
+	}, [props.filter]);
+
 	const itemMapper = () => {
+		let items = filterItems();
+		setFilteredLength(items.length);
 		let rows = [];
-		for (let i = 25 * (page - 1); i < 25 * page && i < historyItems.length; i++) {
-			rows.push(<TableLine licPlate={historyItems[i].kennzeichen} entryDate={historyItems[i].einfahrDatum} outDate={historyItems[i].ausfahrDatum} perma={historyItems[i].istDauerParker} cost={`${historyItems[i].kosten}`} />);
+		for (let i = 25 * (page - 1); i < 25 * page && i < items.length; i++) {
+			rows.push(<TableLine licPlate={items[i].kennzeichen} entryDate={items[i].einfahrDatum} outDate={items[i].ausfahrDatum} perma={items[i].istDauerparker} cost={`${items[i].kosten}`} />);
 		}
 		setActualRows(rows);
 	};
@@ -112,7 +166,7 @@ export default function HistoryTable(tempProps: {
 				</thead>
 				<tbody>{actualRows}</tbody>
 			</table>
-			<TableNav clickHandler={navClickHandler}>{`${page} / ${parseInt('' + historyItems.length / 25)}`}</TableNav>
+			<TableNav clickHandler={navClickHandler}>{`${page} / ${Math.ceil(filteredLength / 25)}`}</TableNav>
 		</div>
 	);
 }
