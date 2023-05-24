@@ -15,6 +15,8 @@ public class DbContext
 
     public int MaxParkingLots => int.Parse(_configuration.GetSection("MaxParkingLots").Value, CultureInfo.InvariantCulture);
     public int ReservedLots => int.Parse(_configuration.GetSection("ReservedLots").Value, CultureInfo.InvariantCulture);
+    public int MinimumFreeLots => int.Parse(_configuration.GetSection("ReservedLots").Value, CultureInfo.InvariantCulture);
+
     public double FreeMinutes => double.Parse(_configuration.GetSection("FreeMinutes").Value, CultureInfo.InvariantCulture);
     public double RatePerHour => double.Parse(_configuration.GetSection("RatePerHour").Value, CultureInfo.InvariantCulture);
     public string ConnectionString => _configuration.GetSection("DbConnectionString").Value;
@@ -71,7 +73,10 @@ public class DbContext
 
         if (freeLots.Count() == 0)
             return 0;
-        
+
+        if (dauerparker is false && freeLots.Count() - ReservedLots >= MinimumFreeLots)
+            return 0;
+
         var rand = new Random();
 
         var lot = 0;
