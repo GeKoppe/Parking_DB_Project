@@ -135,7 +135,7 @@ public class ParkerController : ControllerBase
         }
         else
         {
-            costDto.Cost = CalculateCost(parker, ausfahrDatum);
+            costDto.Cost = _context.CalculateCost(parker.EinfahrDatum, ausfahrDatum);
         }
         
         using SqlConnection connection = new SqlConnection(_context.ConnectionString);
@@ -172,17 +172,5 @@ public class ParkerController : ControllerBase
         costDto.Cost = CalculateCost(parker, ausfahrDatum);
 
         return Ok(costDto);
-    }
-
-    private double CalculateCost(Parker parker, DateTime ausfahrdatum)
-    {
-        double cost = 0.00;
-        
-        var totalMinutes= (ausfahrdatum - parker.EinfahrDatum).TotalMinutes;
-        totalMinutes = totalMinutes <= _context.FreeMinutes ? 0.00 : totalMinutes;
-        
-        cost = Math.Ceiling(totalMinutes / 60) * _context.RatePerHour;
-        
-        return cost;
     }
 }

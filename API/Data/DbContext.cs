@@ -185,4 +185,16 @@ public class DbContext
 
         return null;   
     }
+    
+    public double CalculateCost(DateTime einfahrDatum, DateTime ausfahrdatum)
+    {
+        double cost = 0.00;
+        
+        var totalMinutes= (ausfahrdatum - einfahrDatum).TotalMinutes;
+        totalMinutes = totalMinutes <= FreeMinutes ? 0.00 : totalMinutes;
+        
+        cost = Math.Ceiling(totalMinutes / 60) * RatePerHour;
+        
+        return cost;
+    }
 }
