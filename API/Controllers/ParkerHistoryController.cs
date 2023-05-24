@@ -27,16 +27,14 @@ public class ParkerHistoryController : ControllerBase
 
         var parkerDtos =
             parker
-                .Select(p => new ParkerDto(p, _context.IsLongTermParker(p.Kennzeichen),
-                    _context.CalculateCost(p.EinfahrDatum, p.AusfahrDatum)))
+                .Select(p =>
+                {
+                    var isLongTermParker = _context.IsLongTermParker(p.Kennzeichen);
+                    var cost = _context.CalculateCost(p.EinfahrDatum, p.AusfahrDatum, isLongTermParker);
+                    return new ParkerHistoryDto(p, isLongTermParker, cost);
+                })
                 .ToList();
 
-        var dto = new ParkerHistoryDto()
-        {
-            Parkers = parkerDtos,
-            Count = parkerDtos.Count
-        };
-
-        return Ok(dto);
+        return Ok(parkerDtos);
     }
 }

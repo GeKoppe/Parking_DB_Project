@@ -25,27 +25,28 @@ public class ParkerController : ControllerBase
     // /parker/{parker_id}
     //     get: einzelnen Parker ()
     //     delete: Ausfahrt
-    
+
     [HttpGet("{id:int}", Name = "GetParker")]
     [SwaggerResponse(StatusCodes.Status200OK, Type = typeof(ParkerDto))]
     [SwaggerResponse(StatusCodes.Status400BadRequest)]
     public IActionResult GetParker(int id)
     {
-        var parker = _context.GetParker(id); 
-        
+        var parker = _context.GetParker(id);
+
         if (parker is null)
             return BadRequest("Id not found");
 
         return Ok(new ParkerDto(parker, _context.IsLongTermParker(parker.Kennzeichen)));
     }
-    
+
     [HttpGet(Name = "GetAllParker")]
-    [SwaggerResponse(StatusCodes.Status200OK, Type = typeof(IEnumerable<ParkerDto>), ContentTypes = new []{"application/json"})]
+    [SwaggerResponse(StatusCodes.Status200OK, Type = typeof(IEnumerable<ParkerDto>),
+        ContentTypes = new[] { "application/json" })]
     [SwaggerResponse(StatusCodes.Status400BadRequest)]
     public IActionResult GetAllParker()
     {
         var allParkers = new List<ParkerDto>();
-        
+
         using SqlConnection connection = new SqlConnection(_context.ConnectionString);
         var command = new SqlCommand("SELECT * FROM Parkers", connection);
         connection.Open();
@@ -70,26 +71,30 @@ public class ParkerController : ControllerBase
     }
 
     [HttpPost(Name = "Einfahrt")]
-    [SwaggerResponse(StatusCodes.Status200OK, Type = typeof(NewParkerOutputDto), ContentTypes = new []{"application/json"})]
+    [SwaggerResponse(StatusCodes.Status200OK, Type = typeof(NewParkerOutputDto),
+        ContentTypes = new[] { "application/json" })]
     [SwaggerResponse(StatusCodes.Status400BadRequest)]
     public IActionResult ParkerEntry(string kennzeichen)
     {
         if (_context.PlateAlreadyExists(kennzeichen))
             return BadRequest("Kennzeichen bereits im Parkhaus");
-        
+
         var einfahrtdatum = DateTime.Now;
         var dauerparker = _context.IsLongTermParker(kennzeichen);
         var lotId = _context.GetRandomAvailableLotId(dauerparker);
 
         var lTP = dauerparker ? _context.GetLongTermParkerInfo(kennzeichen) : null;
-        
+
         if (lotId == 0)
             return BadRequest("Parkaus voll");
-        
+
         using SqlConnection connection = new SqlConnection(_context.ConnectionString);
         string dateString = einfahrtdatum.ToString("yyyyMMdd HH:mm:ss.fff");
         Console.WriteLine(dateString);
-        var command = new SqlCommand($"INSERT INTO Parkhaus.dbo.Parkers (ID, Kennzeichen, Einfahrtdatum) OUTPUT Inserted.Id VALUES({lotId} ,'{kennzeichen}', '{dateString}');", connection);
+        var command =
+            new SqlCommand(
+                $"INSERT INTO Parkhaus.dbo.Parkers (ID, Kennzeichen, Einfahrtdatum) OUTPUT Inserted.Id VALUES({lotId} ,'{kennzeichen}', '{dateString}');",
+                connection);
         connection.Open();
         var reader = command.ExecuteReader();
         try
@@ -110,14 +115,13 @@ public class ParkerController : ControllerBase
         {
             reader.Close();
         }
-        
-        return BadRequest("Id not found");
 
+        return BadRequest("Id not found");
     }
-    
-    
-    [HttpDelete("{id:int}",Name = "Ausfahrt")]
-    [SwaggerResponse(StatusCodes.Status200OK, Type = typeof(CostDto), ContentTypes = new []{"application/json"})]
+
+
+    [HttpDelete("{id:int}", Name = "Ausfahrt")]
+    [SwaggerResponse(StatusCodes.Status200OK, Type = typeof(CostDto), ContentTypes = new[] { "application/json" })]
     [SwaggerResponse(StatusCodes.Status400BadRequest)]
     public IActionResult ParkerExit(int id)
     {
@@ -127,21 +131,16 @@ public class ParkerController : ControllerBase
             return BadRequest("Id not found");
 
         var ausfahrDatum = DateTime.Now;
-        
-        // TODO - Dauerparker monatlich abrechnen
-        if (_context.IsLongTermParker(parker.Kennzeichen))
-        {
-            costDto.Cost = 0;
-        }
-        else
-        {
-            costDto.Cost = _context.CalculateCost(parker.EinfahrDatum, ausfahrDatum);
-        }
-        
+
+        costDto.Cost = _context.CalculateCost(parker.EinfahrDatum, ausfahrDatum,
+            _context.IsLongTermParker(parker.Kennzeichen));
+
         using SqlConnection connection = new SqlConnection(_context.ConnectionString);
         connection.Open();
-        
-        var command = new SqlCommand($"INSERT INTO Parkhaus.dbo.ParkersHistory (Kennzeichen, Einfahrdatum, Ausfahrdatum) VALUES('{parker.Kennzeichen}', '{parker.EinfahrDatum.ToString("yyyyMMdd HH:mm:ss.fff")}', '{ausfahrDatum.ToString("yyyyMMdd HH:mm:ss.fff")}');", connection);
+
+        var command = new SqlCommand(
+            $"INSERT INTO Parkhaus.dbo.ParkersHistory (Kennzeichen, Einfahrdatum, Ausfahrdatum) VALUES('{parker.Kennzeichen}', '{parker.EinfahrDatum.ToString("yyyyMMdd HH:mm:ss.fff")}', '{ausfahrDatum.ToString("yyyyMMdd HH:mm:ss.fff")}');",
+            connection);
         var reader = command.ExecuteReader();
         try
         {
@@ -152,7 +151,7 @@ public class ParkerController : ControllerBase
         {
             reader.Close();
         }
-        
+
         command = new SqlCommand($"DELETE FROM Parkhaus.dbo.Parkers WHERE ID={id};", connection);
         reader = command.ExecuteReader();
         try
