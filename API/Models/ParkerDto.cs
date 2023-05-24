@@ -28,7 +28,7 @@ public class ParkerDto
             
             Id = (int)reader["Id"],
             Kennzeichen = (string)reader["Kennzeichen"],
-            EinfahrDatum = (DateTime)reader["Einfahrtdatum"],
+            EinfahrDatum = (DateTime)reader["Einfahrdatum"],
         };
     }
 }
