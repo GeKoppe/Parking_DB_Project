@@ -45,14 +45,16 @@ public class DbContext
     {
         List<ParkerHistory> parker = new List<ParkerHistory>();
         using SqlConnection connection = new SqlConnection(ConnectionString);
-        var command = new SqlCommand($"SELECT ID, Kennzeichen, Einfahrdatum, Ausfahrdatum FROM Parkhaus.dbo.ParkersHistory;", connection);
+        var command = new SqlCommand($"SELECT ID, Kennzeichen, Einfahrdatum, Ausfahrdatum FROM Parkhaus.dbo.ParkersHistory ORDER BY Einfahrdatum DESC;", connection);
         connection.Open();
         var reader = command.ExecuteReader();
         try
         {
             while (reader.Read())
             {
-                parker.Add(ParkerHistory.CreateFromReader(reader));
+                ParkerHistory hist = ParkerHistory.CreateFromReader(reader);
+                Console.WriteLine(hist.AusfahrDatum);
+                parker.Add(hist);
             }
         }
         finally

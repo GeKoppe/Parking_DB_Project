@@ -27,6 +27,7 @@ public class ParkerDto
         Id = parker.Id;
         Kennzeichen = parker.Kennzeichen;
         EinfahrDatum = parker.EinfahrDatum;
+        AusfahrDatum = parker.AusfahrDatum;
         IstDauerparker = istDauerparker;
     }
     

@@ -1,7 +1,7 @@
 export const conf = {
 	api: {
 		host: 'localhost',
-		port: 5147,
+		port: 18893,
 		routes: {
 			usage: 'Usage',
 			newParker: 'Parker',
@@ -9,6 +9,7 @@ export const conf = {
 			allLots: 'all-lots',
 			registerAsPerma: 'LongTermParker',
 			stats: 'stats',
+			history: 'ParkerHistory',
 		},
 	},
 };

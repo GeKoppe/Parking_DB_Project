@@ -4,8 +4,17 @@ import TableLine from './TableLine/TableLine';
 import '../History.css';
 import TableNav from './TableNav/TableNav';
 
+export type Parker = {
+	id: number;
+	kennzeichen: string;
+	einfahrDatum: string;
+	ausfahrDatum: string;
+	istDauerParker: boolean;
+	kosten?: number;
+};
+
 export default function HistoryTable(tempProps: {
-	fetchHandler?: (items: { kennzeichen: string; einfahrtdatum: string; ausfahrdatum: string; kosten: string; dauerparker: boolean }[]) => void;
+	fetchHandler?: (items: Parker[]) => void;
 	filter?: {
 		plate: string;
 		driveInDate: string;
@@ -24,17 +33,17 @@ export default function HistoryTable(tempProps: {
 			costTo: -1,
 			perma: false,
 		},
-		fetchHandler: (items: { kennzeichen: string; einfahrtdatum: string; ausfahrdatum: string; kosten: string; dauerparker: boolean }[]) => console.log('No handler'),
+		fetchHandler: (items: Parker[]) => console.log('No handler'),
 		...tempProps,
 	};
 
-	const [historyItems, setHistoryItems] = useState<{ kennzeichen: string; einfahrtdatum: string; ausfahrdatum: string; kosten: string; dauerparker: boolean }[]>([]);
+	const [historyItems, setHistoryItems] = useState<Parker[]>([]);
 	const [page, setPage] = useState(1);
-	const [filteredHistoryItems, setFilteredHistoryItems] = useState<{ kennzeichen: string; einfahrtdatum: string; ausfahrdatum: string; kosten: string; dauerparker: boolean }[]>([]);
+	const [filteredHistoryItems, setFilteredHistoryItems] = useState<Parker[]>([]);
 	const [actualRows, setActualRows] = useState<JSX.Element[]>([]);
 
 	useEffect(() => {
-		fetch(`http://${conf.api.host}:${conf.api.port}/history`, {
+		fetch(`http://${conf.api.host}:${conf.api.port}/${conf.api.routes.history}/1`, {
 			method: 'GET',
 			headers: {
 				'Origin': 'http://localhost:8123',
@@ -43,24 +52,19 @@ export default function HistoryTable(tempProps: {
 		})
 			.then(data => {
 				if (data.status < 300) {
-					return data.json() as Promise<
-						{
-							kennzeichen: string;
-							einfahrtdatum: string;
-							ausfahrdatum: string;
-							kosten: string;
-							dauerparker: boolean;
-						}[]
-					>;
+					return data.json() as Promise<{
+						parkers: Parker[];
+						count: number;
+					}>;
 				} else {
-					return [];
+					return { parkers: [], count: 0 };
 				}
 			})
 			.then(data => {
-				let remainder = 25 - (data.length % 25);
-				for (let i = 0; i < remainder; i++) data.push({ kennzeichen: '', einfahrtdatum: '', ausfahrdatum: '', kosten: '', dauerparker: false });
-				setHistoryItems(data);
-				props.fetchHandler(data);
+				let remainder = 25 - (data.count % 25);
+				for (let i = 0; i < remainder; i++) data.parkers.push({ id: -1, kennzeichen: '', einfahrDatum: '', ausfahrDatum: '', istDauerParker: false, kosten: -1 });
+				setHistoryItems(data.parkers);
+				props.fetchHandler(data.parkers);
 				itemMapper();
 			})
 			.catch(reason => {
@@ -154,10 +158,14 @@ export default function HistoryTable(tempProps: {
 	// 	}
 	// }, [props.filter]);
 
+	useEffect(() => {
+		itemMapper();
+	}, [historyItems]);
+
 	const itemMapper = () => {
 		let rows = [];
-		for (let i = 25 * (page - 1); i < historyItems.length; i++) {
-			rows.push(<TableLine licPlate={historyItems[i].kennzeichen} entryDate={historyItems[i].einfahrtdatum} outDate={historyItems[i].ausfahrdatum} perma={historyItems[i].dauerparker} cost={historyItems[i].kosten} />);
+		for (let i = 25 * (page - 1); i < 25 * page && i < historyItems.length; i++) {
+			rows.push(<TableLine licPlate={historyItems[i].kennzeichen} entryDate={historyItems[i].einfahrDatum} outDate={historyItems[i].ausfahrDatum} perma={historyItems[i].istDauerParker} cost={`${historyItems[i].kosten}`} />);
 		}
 		setActualRows(rows);
 	};
@@ -168,25 +176,33 @@ export default function HistoryTable(tempProps: {
 	 */
 	const navClickHandler = (up: boolean): void => {
 		if (up) {
-			if (historyItems.length > (page + 2) * 25) setPage(prev => prev + 1);
+			if (historyItems.length > page * 25) {
+				setPage(page + 1);
+				itemMapper();
+			}
 		} else {
-			if (page > 1) setPage(prev => prev - 1);
+			if (page > 1) {
+				setPage(page - 1);
+				itemMapper();
+			}
 		}
 	};
 
 	return (
 		<div className='historyTable'>
 			<table className='historyTableTable'>
-				<tr className='headerRow'>
-					<th className='headerForTable'>Kennzeichen</th>
-					<th className='headerForTable'>Einfahrtdatum</th>
-					<th className='headerForTable'>Ausfahrdatum</th>
-					<th className='headerForTable'>Bezahlt</th>
-					<th className='headerForTable'>Dauerparker</th>
-				</tr>
-				{actualRows}
+				<thead>
+					<tr className='headerRow'>
+						<th className='headerForTable'>Kennzeichen</th>
+						<th className='headerForTable'>Einfahrtdatum</th>
+						<th className='headerForTable'>Ausfahrdatum</th>
+						<th className='headerForTable'>Bezahlt</th>
+						<th className='headerForTable'>Dauerparker</th>
+					</tr>
+				</thead>
+				<tbody>{actualRows}</tbody>
 			</table>
-			<TableNav clickHandler={navClickHandler}>{`${page} / ${(historyItems.length % 25) + 1}`}</TableNav>
+			<TableNav clickHandler={navClickHandler}>{`${page} / ${parseInt('' + historyItems.length / 25)}`}</TableNav>
 		</div>
 	);
 }
