@@ -18,7 +18,7 @@ public class ParkerHistoryController : ControllerBase
         _context = context;
     }
     
-    [HttpGet("{id:int}", Name = "GetParkerHistory")]
+    [HttpGet(Name = "GetParkerHistory")]
     [SwaggerResponse(StatusCodes.Status200OK, Type = typeof(List<ParkerDto>))]
     [SwaggerResponse(StatusCodes.Status400BadRequest)]
     public IActionResult GetParkerHistory()
