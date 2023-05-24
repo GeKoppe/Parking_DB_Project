@@ -15,7 +15,7 @@ public class ParkerHistory
         {
             Id = (int)reader["Id"],
             Kennzeichen = (string)reader["Kennzeichen"],
-            EinfahrDatum = (DateTime)reader["Einfahrtdatum"],
+            EinfahrDatum = (DateTime)reader["Einfahrdatum"],
             AusfahrDatum = (DateTime)reader["Ausfahrdatum"],
         };
     }

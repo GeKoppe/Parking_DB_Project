@@ -43,9 +43,9 @@ public class DbContext
 
     public List<ParkerHistory> GetParkerHistory()
     {
-        List<ParkerHistory> parker = null;
+        List<ParkerHistory> parker = new List<ParkerHistory>();
         using SqlConnection connection = new SqlConnection(ConnectionString);
-        var command = new SqlCommand($"SELECT ID, Kennzeichen, Einfahrtdatum, Ausfahrtdatum FROM Parkhaus.dbo.ParkersHistory;", connection);
+        var command = new SqlCommand($"SELECT ID, Kennzeichen, Einfahrdatum, Ausfahrdatum FROM Parkhaus.dbo.ParkersHistory;", connection);
         connection.Open();
         var reader = command.ExecuteReader();
         try
