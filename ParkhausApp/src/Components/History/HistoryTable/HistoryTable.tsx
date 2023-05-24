@@ -39,7 +39,6 @@ export default function HistoryTable(tempProps: {
 
 	const [historyItems, setHistoryItems] = useState<Parker[]>([]);
 	const [page, setPage] = useState(1);
-	const [filteredHistoryItems, setFilteredHistoryItems] = useState<Parker[]>([]);
 	const [actualRows, setActualRows] = useState<JSX.Element[]>([]);
 
 	useEffect(() => {
@@ -52,111 +51,24 @@ export default function HistoryTable(tempProps: {
 		})
 			.then(data => {
 				if (data.status < 300) {
-					return data.json() as Promise<{
-						parkers: Parker[];
-						count: number;
-					}>;
+					return data.json() as Promise<Parker[]>;
 				} else {
-					return { parkers: [], count: 0 };
+					return [];
 				}
 			})
 			.then(data => {
-				let remainder = 25 - (data.count % 25);
-				for (let i = 0; i < remainder; i++) data.parkers.push({ id: -1, kennzeichen: '', einfahrDatum: '', ausfahrDatum: '', istDauerParker: false, kosten: -1 });
-				setHistoryItems(data.parkers);
-				props.fetchHandler(data.parkers);
+				let tempData: Parker[] = [];
+				data.forEach(parker => tempData.push(parker));
+				let remainder = 25 - (data.length % 25);
+				for (let i = 0; i < remainder; i++) data.push({ id: -1, kennzeichen: '', einfahrDatum: '', ausfahrDatum: '', istDauerParker: false, kosten: -1 });
+				setHistoryItems(data);
+				props.fetchHandler(tempData);
 				itemMapper();
 			})
 			.catch(reason => {
 				console.log(reason);
 			});
 	}, []);
-
-	// useEffect(() => {
-	// 	setFilteredHistoryItems(historyItems);
-	// 	if (!props.filter) return;
-	// 	if (props.filter.plate) {
-	// 		setFilteredHistoryItems(
-	// 			filteredHistoryItems.filter(item => {
-	// 				return item.kennzeichen.indexOf(props.filter.plate) != -1;
-	// 			})
-	// 		);
-	// 	}
-
-	// 	if (props.filter.driveInDate) {
-	// 		let date = new Date(props.filter.driveInDate).toISOString();
-	// 		while (date.indexOf('-') != -1) date.replace('-', '');
-	// 		while (date.indexOf(':') != -1) date.replace(':', '');
-	// 		while (date.indexOf('T') != -1) date.replace('T', '');
-	// 		while (date.indexOf('.') != -1) date.replace('.', '');
-	// 		while (date.indexOf(' ') != -1) date.replace(' ', '');
-
-	// 		let dateNum = parseInt(date);
-	// 		setFilteredHistoryItems(
-	// 			filteredHistoryItems.filter(item => {
-	// 				let driveInDateIso = new Date(item.einfahrtdatum).toISOString();
-	// 				while (driveInDateIso.indexOf('-') != -1) driveInDateIso.replace('-', '');
-	// 				while (driveInDateIso.indexOf(':') != -1) driveInDateIso.replace(':', '');
-	// 				while (driveInDateIso.indexOf('T') != -1) driveInDateIso.replace('T', '');
-	// 				while (driveInDateIso.indexOf('.') != -1) driveInDateIso.replace('.', '');
-	// 				while (driveInDateIso.indexOf(' ') != -1) driveInDateIso.replace(' ', '');
-
-	// 				let driveInDateNum = parseInt(driveInDateIso);
-
-	// 				return driveInDateNum > dateNum;
-	// 			})
-	// 		);
-	// 	}
-
-	// 	if (props.filter.driveOutDate) {
-	// 		let date = new Date(props.filter.driveOutDate).toISOString();
-	// 		while (date.indexOf('-') != -1) date.replace('-', '');
-	// 		while (date.indexOf(':') != -1) date.replace(':', '');
-	// 		while (date.indexOf('T') != -1) date.replace('T', '');
-	// 		while (date.indexOf('.') != -1) date.replace('.', '');
-	// 		while (date.indexOf(' ') != -1) date.replace(' ', '');
-
-	// 		let dateNum = parseInt(date);
-	// 		setFilteredHistoryItems(
-	// 			filteredHistoryItems.filter(item => {
-	// 				let driveOutDateIso = new Date(item.ausfahrdatum).toISOString();
-	// 				while (driveOutDateIso.indexOf('-') != -1) driveOutDateIso.replace('-', '');
-	// 				while (driveOutDateIso.indexOf(':') != -1) driveOutDateIso.replace(':', '');
-	// 				while (driveOutDateIso.indexOf('T') != -1) driveOutDateIso.replace('T', '');
-	// 				while (driveOutDateIso.indexOf('.') != -1) driveOutDateIso.replace('.', '');
-	// 				while (driveOutDateIso.indexOf(' ') != -1) driveOutDateIso.replace(' ', '');
-
-	// 				let driveOutDateNum = parseInt(driveOutDateIso);
-
-	// 				return driveOutDateNum < dateNum;
-	// 			})
-	// 		);
-	// 	}
-
-	// 	if (props.filter.costFrom) {
-	// 		setFilteredHistoryItems(
-	// 			filteredHistoryItems.filter(item => {
-	// 				return parseFloat(item.kosten.replace(',', '.')) > props.filter.costFrom;
-	// 			})
-	// 		);
-	// 	}
-
-	// 	if (props.filter.costTo) {
-	// 		setFilteredHistoryItems(
-	// 			filteredHistoryItems.filter(item => {
-	// 				return parseFloat(item.kosten.replace(',', '.')) < props.filter.costTo;
-	// 			})
-	// 		);
-	// 	}
-
-	// 	if (props.filter.perma) {
-	// 		setFilteredHistoryItems(
-	// 			filteredHistoryItems.filter(item => {
-	// 				return item.dauerparker;
-	// 			})
-	// 		);
-	// 	}
-	// }, [props.filter]);
 
 	useEffect(() => {
 		itemMapper();

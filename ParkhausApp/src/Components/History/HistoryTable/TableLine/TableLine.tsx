@@ -29,12 +29,16 @@ export default function TableLine(tempProps: { licPlate: string; entryDate: stri
 		outroDateString = '/';
 	}
 
+	let costString = '';
+	costString = cost.replace('.', ',');
+	costString += costString.indexOf(',') != -1 ? '0€' : ',00€';
+
 	return (
 		<tr className='tableLine'>
 			<td className='tableItem'>{props.licPlate || '/'}</td>
 			<td className='tableItem'>{entryDateString}</td>
 			<td className='tableItem'>{outroDateString}</td>
-			<td className='tableItem'>{cost}</td>
+			<td className='tableItem'>{costString}</td>
 			<td className='tableItem'>{props.licPlate ? (props.perma ? 'Ja' : 'Nein') : '/'}</td>
 		</tr>
 	);

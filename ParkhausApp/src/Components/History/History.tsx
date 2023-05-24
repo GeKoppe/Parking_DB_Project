@@ -10,6 +10,11 @@ export default function History() {
 	const fetchHandler = (items: Parker[]) => {
 		let parkersTemp: number = 0;
 		let incomeTemp: number = 0;
+		let newItems = items.filter(item => {
+			const itemDate = new Date(item.ausfahrDatum);
+			const nowDate = new Date();
+			return itemDate.getFullYear() === nowDate.getFullYear() && itemDate.getMonth() === nowDate.getMonth();
+		});
 
 		items.forEach(item => {
 			parkersTemp++;
