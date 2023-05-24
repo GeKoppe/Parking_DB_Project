@@ -1,14 +1,20 @@
 import UsageCard from './UsageCard/UsageCard';
 import DriveInCard from './DriveInCard/DriveInCard';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { conf } from '../../res/config';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { Usage } from './UsageCard/UsageCard';
 
 function MainMenu() {
 	const [licClass, setlicClass] = useState('defaultInput');
 	const [renderInfo, setRenderInfo] = useState(false);
-
+	const [usage, setUsage] = useState({
+		freeLots: 176,
+		usedParkingLots: 0,
+		freeLongTermParkingLots: 40,
+		usedLongTermParkingLots: 0,
+	});
 	const licChangeHandler = () => {
 		setlicClass('defaultInput');
 	};
@@ -57,12 +63,33 @@ function MainMenu() {
 					progress: undefined,
 					theme: 'colored',
 				});
+				getUsage();
 			})
 			.catch(reason => console.log(reason));
 		setRenderInfo(!renderInfo);
 		setlicClass('defaultInput');
 		return true;
 	};
+
+	const getUsage = () => {
+		fetch(`http://${conf.api.host}:${conf.api.port}/${conf.api.routes.usage}`, {
+			method: 'GET',
+			headers: {
+				'Content-Type': 'application/json',
+				'Access-Control-Allow-Origin': '*',
+			},
+		})
+			.then(data => {
+				return data.json() as Promise<Usage>;
+			})
+			.then(data => {
+				setUsage(data);
+			});
+	};
+
+	useEffect(() => {
+		getUsage();
+	}, []);
 
 	return (
 		<>
@@ -73,7 +100,7 @@ function MainMenu() {
 				</div>
 				<div className='vLine'></div>
 				<div className='infoSide'>
-					<UsageCard renderInfo={renderInfo} />
+					<UsageCard usage={usage} />
 				</div>
 			</div>
 		</>

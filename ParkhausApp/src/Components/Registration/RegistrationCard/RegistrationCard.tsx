@@ -15,9 +15,7 @@ export default function RegistrationCard(tempProps: { licPlateClassName?: string
 	const [plate, setPlate] = useState('');
 	const [name, setName] = useState('');
 	const [surName, setSurName] = useState('');
-	const [iban, setIban] = useState('');
 	const [licPlateClassName, setLicPlateClassName] = useState('regDefaultInput');
-	const [ibanClassName, setIbanClassName] = useState('regDefaultInput');
 	const [nameClassName, setNameClassName] = useState('regDefaultInput');
 	const [surNameClassName, setSurNameClassName] = useState('regDefaultInput');
 
@@ -33,9 +31,6 @@ export default function RegistrationCard(tempProps: { licPlateClassName?: string
 			case 'surName':
 				setSurNameClassName('regDefaultInput');
 				setSurName(value);
-				break;
-			case 'iban':
-				ibanChange(value);
 				break;
 			default:
 				break;
@@ -57,19 +52,19 @@ export default function RegistrationCard(tempProps: { licPlateClassName?: string
 		return true;
 	};
 
-	const ibanChecker = (): boolean => {
-		const ibanRegex = /^(DE\d{2}\s\d{4}\s\d{4}\s\d{4}\s\d{4}\s\d{2})$/;
-		if (!ibanRegex.test(iban)) {
-			return false;
-		}
-		return true;
-	};
+	// const ibanChecker = (): boolean => {
+	// 	const ibanRegex = /^(DE\d{2}\s\d{4}\s\d{4}\s\d{4}\s\d{4}\s\d{2})$/;
+	// 	if (!ibanRegex.test(iban)) {
+	// 		return false;
+	// 	}
+	// 	return true;
+	// };
 
-	const ibanChange = (iban: string): void => {
-		setIban(iban.toUpperCase());
-		setIbanClassName('regDefaultInput');
-		return;
-	};
+	// const ibanChange = (iban: string): void => {
+	// 	setIban(iban.toUpperCase());
+	// 	setIbanClassName('regDefaultInput');
+	// 	return;
+	// };
 
 	const btnClickHandler = () => {
 		let check = true;
@@ -78,10 +73,10 @@ export default function RegistrationCard(tempProps: { licPlateClassName?: string
 			check = false;
 		}
 
-		if (!ibanChecker()) {
-			setIbanClassName('errorInput');
-			check = false;
-		}
+		// if (!ibanChecker()) {
+		// 	setIbanClassName('errorInput');
+		// 	check = false;
+		// }
 
 		if (!name || name === '') {
 			setNameClassName('errorInput');
@@ -110,7 +105,7 @@ export default function RegistrationCard(tempProps: { licPlateClassName?: string
 					setPlate('');
 					setName('');
 					setSurName('');
-					setIban('');
+					// setIban('');
 				} else {
 					postNewPermaErrorHandler(response.status);
 				}
@@ -139,10 +134,10 @@ export default function RegistrationCard(tempProps: { licPlateClassName?: string
 				<FormLabel className='label'>
 					<b>Nachname: </b>
 				</FormLabel>
-				<br />
+				{/* <br />
 				<FormLabel className='label'>
 					<b>IBAN: </b>
-				</FormLabel>
+				</FormLabel> */}
 			</div>
 			<div className='inputs'>
 				<input size={23} value={plate} className={licPlateClassName} onChange={({ target }) => inputChanged(target.value, 'plate')} />
@@ -151,7 +146,7 @@ export default function RegistrationCard(tempProps: { licPlateClassName?: string
 				<br />
 				<input size={23} value={surName} className={surNameClassName} onChange={({ target }) => inputChanged(target.value, 'surName')} />
 				<br />
-				<input size={23} value={iban} className={ibanClassName} onChange={({ target }) => inputChanged(target.value, 'iban')} />
+				{/* <input size={23} value={iban} className={ibanClassName} onChange={({ target }) => inputChanged(target.value, 'iban')} /> */}
 				<br />
 				<br />
 				<RegButton clickHandler={btnClickHandler} />

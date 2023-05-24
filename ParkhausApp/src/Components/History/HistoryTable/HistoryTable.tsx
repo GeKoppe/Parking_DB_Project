@@ -72,7 +72,7 @@ export default function HistoryTable(tempProps: {
 
 	useEffect(() => {
 		itemMapper();
-	}, [historyItems]);
+	}, [historyItems, page]);
 
 	const itemMapper = () => {
 		let rows = [];
@@ -90,12 +90,10 @@ export default function HistoryTable(tempProps: {
 		if (up) {
 			if (historyItems.length > page * 25) {
 				setPage(page + 1);
-				itemMapper();
 			}
 		} else {
 			if (page > 1) {
 				setPage(page - 1);
-				itemMapper();
 			}
 		}
 	};

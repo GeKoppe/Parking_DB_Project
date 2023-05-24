@@ -35,6 +35,20 @@
     border: none;
 }
 
+.tableNavButton:active {
+    outline: none;
+    background: transparent;
+    color: white;
+    border: none;
+}
+
+.tableNavButton:focus {
+    outline: none;
+    background: transparent;
+    color: white;
+    border: none;
+}
+
 .historyTable {
     margin-right: 30px;
     color: white;
