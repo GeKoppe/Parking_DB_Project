@@ -74,7 +74,7 @@ public class DbContext
         if (freeLots.Count() == 0)
             return 0;
 
-        if (dauerparker is false && freeLots.Count() - ReservedLots >= MinimumFreeLots)
+        if (dauerparker is false && freeLots.Count() - ReservedLots <= MinimumFreeLots)
             return 0;
 
         var rand = new Random();
