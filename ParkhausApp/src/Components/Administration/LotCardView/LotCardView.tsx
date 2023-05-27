@@ -15,7 +15,7 @@ export default function LotCardView(props: { lotClickHandler: (nr: number) => vo
 				'Content-Type': 'application/json',
 			},
 		})
-			.then(response => response.json() as Promise<{ id: number; kennzeichen: string; einfahrDatum: string }[]>)
+			.then(response => response.json() as Promise<{ id: number; kennzeichen: string; einfahrDatum: string; istDauerParker: boolean }[]>)
 			.then(data => {
 				let lots: { nr: number; inUse: boolean }[] = [];
 				for (let i = 1; i <= 180; i++) {

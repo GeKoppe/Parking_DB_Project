@@ -34,7 +34,7 @@ export default function InfoPage(tempProps: { lotNr?: number; clickHandler?: () 
 				if (response.status == 400) {
 					return { id: -1, kennzeichen: '', einfahrDatum: '' };
 				} else {
-					return response.json() as Promise<{ id: number; kennzeichen?: string; einfahrDatum?: string; dauerparker?: boolean }>;
+					return response.json() as Promise<{ id: number; kennzeichen?: string; einfahrDatum?: string; istDauerparker?: boolean }>;
 				}
 			})
 			.then(data => {
@@ -48,7 +48,7 @@ export default function InfoPage(tempProps: { lotNr?: number; clickHandler?: () 
 						inUse: true,
 						plate: data.kennzeichen || '',
 						driveInTime: date,
-						permaParker: data.dauerparker || false,
+						permaParker: data.istDauerparker || false,
 					});
 				} else {
 					setLotInfo({

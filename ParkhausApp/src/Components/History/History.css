@@ -75,6 +75,10 @@
     border-bottom: 2px solid white;
 }
 
+.headerForTable:hover {
+    cursor: pointer;
+}
+
 .filterCard {
     color: white;
     height: 50%;
