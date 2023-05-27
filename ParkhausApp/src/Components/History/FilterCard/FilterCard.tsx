@@ -8,6 +8,7 @@ export default function FilterCard(props: { clickHandler: (filter: Filter) => vo
 	const [licClass, setLicClass] = useState('regDefaultInput');
 	const [costMin, setCostMin] = useState('');
 	const [costMax, setCostMax] = useState('');
+	const [perma, setPerma] = useState(false);
 
 	const licChangeListener = ({ target }: { target: { value: string } }) => {
 		setLicPlate(target.value.toUpperCase());
@@ -39,14 +40,27 @@ export default function FilterCard(props: { clickHandler: (filter: Filter) => vo
 			changed = true;
 		}
 
-		let costTo = parseFloat(costMin.replace(',', '.'));
-		if (!isNaN(costFrom)) {
-			filter.costFrom = costFrom;
+		let costTo = parseFloat(costMax.replace(',', '.'));
+		if (!isNaN(costTo)) {
+			filter.costTo = costTo;
 			changed = true;
+		}
+
+		if (perma) {
+			changed = true;
+			filter.perma = true;
 		}
 
 		filter.exists = changed;
 		return filter;
+	};
+
+	const costMaxChangeListener = ({ target }: { target: { value: string } }): void => {
+		setCostMax(target.value);
+	};
+
+	const handlePermaChange = (): void => {
+		setPerma(!perma);
 	};
 
 	return (
@@ -54,19 +68,27 @@ export default function FilterCard(props: { clickHandler: (filter: Filter) => vo
 			<h3>Filter</h3>
 			<div className='filterCard'>
 				<div className='labels'>
-					<h5>Nummernschild: </h5>
+					<h6>Nummernschild: </h6>
 					<br />
-					<h5>Kosten von:</h5>
+					<h6>Kosten von:</h6>
 					<br />
-					<h5>Kosten bis:</h5>
+					<h6>Kosten bis:</h6>
+					<br />
+					<h6>Nur Dauerparker: </h6>
 				</div>
 				<div className='inputs'>
 					<input value={licPlate} className={licClass} onChange={licChangeListener}></input>
 					<br />
 					<input value={costMin} className={licClass} onChange={costMinChangeListener}></input>
+					<br />
+					<input value={costMax} className={licClass} onChange={costMaxChangeListener}></input>
+					<br />
+					<input className='permaCheck' type='checkbox' checked={perma} onChange={handlePermaChange}></input>
 				</div>
 			</div>
-			<Button onClick={() => props.clickHandler(getFilter())}>Filter setzen</Button>
+			<Button variant='custom' className='filterButton' onClick={() => props.clickHandler(getFilter())}>
+				Filter setzen
+			</Button>
 		</div>
 	);
 }

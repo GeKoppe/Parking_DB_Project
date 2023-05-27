@@ -46,7 +46,7 @@ function MainMenu() {
 						vorname?: string;
 						nachname?: string;
 					}>;
-				else throw 'Parkhaus voll';
+				else throw response.text() as Promise<string>;
 			})
 			.then(data => {
 				let welcomeString = 'Herzlich Willkommen';
@@ -65,7 +65,18 @@ function MainMenu() {
 				});
 				getUsage();
 			})
-			.catch(reason => console.log(reason));
+			.catch((reason: Promise<string>) => {
+				reason.then(text => {
+					toast.error(text, {
+						position: 'top-right',
+						autoClose: 5000,
+						hideProgressBar: false,
+						draggable: true,
+						progress: undefined,
+						theme: 'colored',
+					});
+				});
+			});
 		setRenderInfo(!renderInfo);
 		setlicClass('defaultInput');
 		return true;

@@ -46,20 +46,22 @@ public class ParkerController : ControllerBase
     public IActionResult GetAllParker()
     {
         var allParkers = new List<ParkerDto>();
-
+        Console.WriteLine("Getting Parkers");
         using SqlConnection connection = new SqlConnection(_context.ConnectionString);
         var command = new SqlCommand("SELECT * FROM Parkers", connection);
         connection.Open();
         var reader = command.ExecuteReader();
         try
         {
+            Console.WriteLine("Reading Lines");
             while (reader.Read())
             {
                 allParkers.Add(ParkerDto.CreateFromReader(reader));
             }
         }
-        catch
+        catch (Exception e)
         {
+            Console.WriteLine("Error while reading lines: " + e.ToString());
             return BadRequest();
         }
         finally
@@ -67,6 +69,7 @@ public class ParkerController : ControllerBase
             reader.Close();
         }
 
+        Console.WriteLine("Returning Parkers");
         return Ok(allParkers);
     }
 
@@ -93,7 +96,7 @@ public class ParkerController : ControllerBase
         Console.WriteLine(dateString);
         var command =
             new SqlCommand(
-                $"INSERT INTO Parkhaus.dbo.Parkers (ID, Kennzeichen, Einfahrtdatum) OUTPUT Inserted.Id VALUES({lotId} ,'{kennzeichen}', '{dateString}');",
+                $"INSERT INTO Parkhaus.dbo.Parkers (ID, Kennzeichen, Einfahrdatum) OUTPUT Inserted.Id VALUES({lotId} ,'{kennzeichen}', '{dateString}');",
                 connection);
         connection.Open();
         var reader = command.ExecuteReader();

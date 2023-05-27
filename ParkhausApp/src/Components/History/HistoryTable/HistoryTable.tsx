@@ -42,6 +42,7 @@ export default function HistoryTable(tempProps: { fetchHandler?: (items: Parker[
 	const [page, setPage] = useState(1);
 	const [filteredLength, setFilteredLength] = useState(0);
 	const [actualRows, setActualRows] = useState<JSX.Element[]>([]);
+	const [sort, setSort] = useState<{ column: string; asc: boolean }>({ column: 'driveIn', asc: false });
 
 	useEffect(() => {
 		fetch(`http://${conf.api.host}:${conf.api.port}/${conf.api.routes.history}`, {
@@ -126,9 +127,11 @@ export default function HistoryTable(tempProps: { fetchHandler?: (items: Parker[
 		setPage(1);
 	}, [props.filter]);
 
+	const sortItems = (a: Parker, b: Parker): void => {};
 	const itemMapper = () => {
 		let items = filterItems();
 		setFilteredLength(items.length);
+		//items.sort();
 		let rows = [];
 		for (let i = 25 * (page - 1); i < 25 * page && i < items.length; i++) {
 			rows.push(<TableLine licPlate={items[i].kennzeichen} entryDate={items[i].einfahrDatum} outDate={items[i].ausfahrDatum} perma={items[i].istDauerparker} cost={`${items[i].kosten}`} />);
