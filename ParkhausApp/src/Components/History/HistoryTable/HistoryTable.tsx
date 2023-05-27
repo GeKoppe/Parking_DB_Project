@@ -125,13 +125,51 @@ export default function HistoryTable(tempProps: { fetchHandler?: (items: Parker[
 	useEffect(() => {
 		itemMapper();
 		setPage(1);
-	}, [props.filter]);
+	}, [props.filter, sort]);
 
-	const sortItems = (a: Parker, b: Parker): void => {};
+	const sortItems = (a: Parker, b: Parker): number => {
+		if (sort.column == 'driveIn') {
+			let aDate = new Date(a.einfahrDatum),
+				bDate = new Date(b.einfahrDatum);
+			if (sort.asc) {
+				if (aDate.getTime() < bDate.getTime()) return -1;
+				else if (aDate.getTime() > bDate.getTime()) return 1;
+				else return 0;
+			} else if (!sort.asc) {
+				if (aDate.getTime() < bDate.getTime()) return 1;
+				else if (aDate.getTime() > bDate.getTime()) return -1;
+				else return 0;
+			}
+		} else if (sort.column == 'driveOut') {
+			let aDate = new Date(a.ausfahrDatum),
+				bDate = new Date(b.ausfahrDatum);
+			if (sort.asc) {
+				if (aDate.getTime() < bDate.getTime()) return -1;
+				else if (aDate.getTime() > bDate.getTime()) return 1;
+				else return 0;
+			} else if (!sort.asc) {
+				if (aDate.getTime() < bDate.getTime()) return 1;
+				else if (aDate.getTime() > bDate.getTime()) return -1;
+				else return 0;
+			}
+		} else if (sort.column == 'cost') {
+			if (sort.asc) {
+				if ((a.kosten || 0) > (b.kosten || 0)) return 1;
+				else if ((a.kosten || 0) < (b.kosten || 0)) return -1;
+				else return 0;
+			} else if (!sort.asc) {
+				if ((a.kosten || 0) > (b.kosten || 0)) return -1;
+				else if ((a.kosten || 0) < (b.kosten || 0)) return 1;
+				else return 0;
+			}
+		}
+
+		return 0;
+	};
 	const itemMapper = () => {
 		let items = filterItems();
 		setFilteredLength(items.length);
-		//items.sort();
+		items.sort(sortItems);
 		let rows = [];
 		for (let i = 25 * (page - 1); i < 25 * page && i < items.length; i++) {
 			rows.push(<TableLine licPlate={items[i].kennzeichen} entryDate={items[i].einfahrDatum} outDate={items[i].ausfahrDatum} perma={items[i].istDauerparker} cost={`${items[i].kosten}`} />);
@@ -155,15 +193,31 @@ export default function HistoryTable(tempProps: { fetchHandler?: (items: Parker[
 		}
 	};
 
+	const sortClickHandler = (column: string): void => {
+		setSort({ column: column, asc: column === sort.column ? !sort.asc : false });
+	};
+
+	const setSortSymbol = (column: string): string => {
+		if (!(column === sort.column)) return '';
+		if (sort.asc) return '^';
+		else return 'v';
+	};
+
 	return (
 		<div className='historyTable'>
 			<table className='historyTableTable'>
 				<thead>
 					<tr className='headerRow'>
 						<th className='headerForTable'>Kennzeichen</th>
-						<th className='headerForTable'>Einfahrtdatum</th>
-						<th className='headerForTable'>Ausfahrdatum</th>
-						<th className='headerForTable'>Bezahlt</th>
+						<th className='headerForTable' onClick={() => sortClickHandler('driveIn')}>
+							Einfahrtdatum {setSortSymbol('driveIn')}
+						</th>
+						<th className='headerForTable' onClick={() => sortClickHandler('driveOut')}>
+							Ausfahrdatum {setSortSymbol('driveOut')}
+						</th>
+						<th className='headerForTable' onClick={() => sortClickHandler('cost')}>
+							Bezahlt {setSortSymbol('cost')}
+						</th>
 						<th className='headerForTable'>Dauerparker</th>
 					</tr>
 				</thead>
