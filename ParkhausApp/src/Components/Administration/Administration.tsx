@@ -10,6 +10,7 @@ import 'react-toastify/dist/ReactToastify.css';
 export default function Administration() {
 	const [lotSelected, setLotSelected] = useState(-1);
 	const [page, setPage] = useState(1);
+	const [exits, setExits] = useState(0);
 
 	const lotClickHandler = (nr: number) => {
 		setLotSelected(prev => {
@@ -44,12 +45,13 @@ export default function Administration() {
 			progress: undefined,
 			theme: 'colored',
 		});
+		setExits(prev => (prev + 1 > 10 ? 0 : prev + 1));
 	};
 
 	return (
 		<div className='Administration'>
 			<ToastContainer />
-			<LotCardView lotClickHandler={lotClickHandler} lotSelected={lotSelected} page={page} />
+			<LotCardView lotClickHandler={lotClickHandler} lotSelected={lotSelected} page={page} exits={exits} />
 			{/* <Paging clickHandler={pageChangeClickListener} currentPage={page}/> */}
 			<Floors floorSelected={page} floorClickHandler={floorClickHandler} />
 			<div className='InfoPage'>

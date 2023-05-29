@@ -3,7 +3,7 @@ import LotCard from './Lotcard/LotCard';
 import { conf } from '../../../res/config';
 import LotCardHeader from './LotCardHeader';
 
-export default function LotCardView(props: { lotClickHandler: (nr: number) => void; lotSelected: number; page: number }) {
+export default function LotCardView(props: { lotClickHandler: (nr: number) => void; lotSelected: number; page: number; exits: number }) {
 	const [allLots, setAllLots] = useState<{ nr: number; inUse: boolean }[]>([]);
 	const [rows, setRows] = useState<JSX.Element[]>([]);
 
@@ -33,7 +33,7 @@ export default function LotCardView(props: { lotClickHandler: (nr: number) => vo
 				}
 				setAllLots(lots);
 			});
-	}, [props.page]);
+	}, [props.page, props.exits]);
 
 	useEffect(() => {
 		buildLotCardView();
