@@ -4,10 +4,10 @@ import '../MainMenu.css';
 import { useState } from 'react';
 import FormLabel from 'react-bootstrap/FormLabel';
 
-export default function DriveInCard(tempProps: { licPlateClassName?: string; buttonClickHandler?: (plate: string, perma: boolean) => boolean; licChangeHandler: () => void }) {
+export default function DriveInCard(tempProps: { licPlateClassName?: string; buttonClickHandler?: (plate: string, perma: boolean, dsgvo: boolean) => boolean; licChangeHandler: () => void }) {
 	const props = {
 		licPlateClassName: 'defaultInput',
-		buttonClickHandler: (plate: string, perma: boolean) => {
+		buttonClickHandler: (plate: string, perma: boolean, dsgvo: boolean) => {
 			return true;
 		},
 		...tempProps,
@@ -15,6 +15,7 @@ export default function DriveInCard(tempProps: { licPlateClassName?: string; but
 
 	const [licPlate, setLicPlate] = useState('');
 	const [perma, setPerma] = useState(false);
+	const [dsgvo, setDsgvo] = useState(false);
 
 	const changeListener = ({ target }: { target: { value: string } }) => {
 		let newLicPlate = target.value.toUpperCase();
@@ -23,7 +24,7 @@ export default function DriveInCard(tempProps: { licPlateClassName?: string; but
 	};
 
 	const buttonClickHandler = () => {
-		if (props.buttonClickHandler(licPlate, perma)) {
+		if (props.buttonClickHandler(licPlate, perma, dsgvo)) {
 			setPerma(false);
 			setLicPlate('');
 		}
@@ -41,9 +42,13 @@ export default function DriveInCard(tempProps: { licPlateClassName?: string; but
             <br/> */}
 			<br />
 			<br />
+			<br />
 			<div>
 				<DriveInButton clickHandler={buttonClickHandler} />
 			</div>
+			<br />
+			<p>DSGVO bestätigen</p>
+			<input type='checkbox' checked={dsgvo} onChange={() => setDsgvo(!dsgvo)}></input>
 			<br />
 			{/* <div className="separator"/> */}
 			<br />

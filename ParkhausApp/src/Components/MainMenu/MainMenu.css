@@ -71,12 +71,12 @@
 }
 
 .mainSide {
-    width: 30%;
+    width: 50%;
     padding-top: 20px;
     padding-right: 50px;
     padding-left: 50px;
     height: 100%;
-    display: block;
+    display: flex;
 }
 
 .priceCard {
@@ -123,3 +123,14 @@
     color: rgb(130,247,139,177);
 }
 
+.dsgvo {
+    text-align: left;
+    display: block;
+    color: white;
+    outline: 2px solid white;
+    padding: 20px;
+    margin-right: 20px;
+    margin-top: 2px;
+    width: 100%;
+    margin-left: 20px;
+}

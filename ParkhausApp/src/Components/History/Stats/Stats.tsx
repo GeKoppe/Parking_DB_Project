@@ -41,11 +41,11 @@ export default function Stats(props: { parkers: number; income: number }) {
 
 	return (
 		<div className='stats'>
-			<h3>Statistiken Monat {parseMonthToString(new Date().getMonth())} (Kurzparker)</h3>
+			<h3>Statistiken Monat {parseMonthToString(new Date().getMonth())}</h3>
 			<br />
-			<h5>Einnahmen: {costString}</h5>
+			<h5>Einnahmen (Kurzparker): {costString}</h5>
 			<br />
-			<h5>Einfahrten: {props.parkers}</h5>
+			<h5>Einfahrten (gesamt): {props.parkers}</h5>
 		</div>
 	);
 }

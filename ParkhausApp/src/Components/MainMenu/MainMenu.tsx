@@ -5,6 +5,7 @@ import { conf } from '../../res/config';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { Usage } from './UsageCard/UsageCard';
+import DSGVO from './DSGVO/DSGVO';
 
 function MainMenu() {
 	const [licClass, setlicClass] = useState('defaultInput');
@@ -19,7 +20,18 @@ function MainMenu() {
 		setlicClass('defaultInput');
 	};
 
-	const driveInClickHandler = (plate: string, perma: boolean) => {
+	const driveInClickHandler = (plate: string, perma: boolean, dsgvo: boolean) => {
+		if (!dsgvo) {
+			toast.error('Bitte bestätigen sie die DSGVO, bevor sie einfahren', {
+				position: 'top-right',
+				autoClose: 5000,
+				hideProgressBar: false,
+				draggable: true,
+				progress: undefined,
+				theme: 'colored',
+			});
+			return false;
+		}
 		const licChecker = /[A-ZÖÜÄ]{1,3}-[A-ZÖÜÄ]{1,2}-[1-9]{1}[0-9]{1,3}[EH]{0,1}/;
 		if (!licChecker.test(plate) || plate.length > 12) {
 			setlicClass('error');
@@ -108,6 +120,7 @@ function MainMenu() {
 				<ToastContainer className='welcomeToast' />
 				<div className='mainSide'>
 					<DriveInCard buttonClickHandler={driveInClickHandler} licPlateClassName={licClass} licChangeHandler={licChangeHandler} />
+					<DSGVO />
 				</div>
 				<div className='vLine'></div>
 				<div className='infoSide'>
